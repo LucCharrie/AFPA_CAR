@@ -1,0 +1,70 @@
+extends /core/views/layout
+
+block content
+  h1 Trajets conducteur
+
+  .ui.secondary.menu
+    a.active.item Créer un nouveau trajet
+
+  .ui.cards
+    .ui.card.card-trip-driver
+      .content
+        .header Montpellier -> Brive-la-gaillarde
+        .meta Durée : 4h
+        .days
+          a.ui.green.circular.label L
+          a.ui.green.circular.label M
+          a.ui.green.circular.label M
+          a.ui.circular.label J
+          a.ui.green.circular.label V
+          a.ui.green.circular.label S
+          a.ui.green.circular.label D
+      .content-body
+        table.ui.celled.table.table-info
+          tbody
+            tr
+              td Heure de depart
+              td 12:00
+            tr
+              td Heure d'arrivé
+              td 16:00
+            tr
+              td Type
+              td aller-simple
+            tr
+              td Messages
+              td 3 non lu(s)          
+        .extra.content
+          .ui.basic.blue.button Editer
+          .ui.basic.red.button Supprimer
+
+    .ui.card.card-trip-driver
+      .content
+        .header Montpellier -> Brive-la-gaillarde
+        .meta Durée : 4h
+        .days
+          a.ui.green.circular.label L
+          a.ui.green.circular.label M
+          a.ui.green.circular.label M
+          a.ui.circular.label J
+          a.ui.green.circular.label V
+          a.ui.green.circular.label S
+          a.ui.green.circular.label D
+      .content-body
+        table.ui.celled.table.table-info
+          tbody
+            tr
+              td Heure de depart
+              td 12:00
+            tr
+              td Heure d'arrivé
+              td 16:00
+            tr
+              td Type
+              td aller-simple
+            tr
+              td Messages
+              td 3 non lu(s)          
+        .extra.content
+          .ui.basic.blue.button Editer
+          .ui.basic.red.button Supprimer

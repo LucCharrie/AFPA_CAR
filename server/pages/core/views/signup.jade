@@ -1,0 +1,46 @@
+html
+  head
+    title AFPA-CAR - #{title}
+
+    block styles
+      link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css')
+      link(rel='stylesheet', type='text/css', href='/public/css/style.css')
+
+    block scripts
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js')
+
+  body.login-page
+    .ui.container
+      .front-grid
+        .ui.two.column.grid
+          .column
+            a(href='/').front-logo-app
+            .front-desc
+              p Bienvenue sur votre application de co-voiturage dédié aux centres AFPA
+
+          .column
+            .front-frame
+              .front-frame-title Inscrivez-vous
+              form(method='post', action='/signup').ui.form
+                .field
+                  label Email
+                  input(name='email', placeholder='email@provider.com', type='text')
+                .field
+                  label Username
+                  input(name='username', placeholder='username', type='text')
+                .field
+                  label Prenom
+                  input(name='firstname', placeholder='Prenom', type='text')
+                .field
+                  label Nom
+                  input(name='lastname', placeholder='Nom', type='text')
+                .field
+                  label Mot de passe
+                  input(name='password', type='password')
+                .field
+                  label Confirmer mot de passe
+                  input(name='passwordConfirmation', type='password')
+                button.ui.button(type='submit') S'inscrire
+
+                include templates/errors-messages

@@ -1,0 +1,40 @@
+html
+  head
+    title AFPA-CAR - #{title}
+
+    block styles
+      link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css')
+      link(rel='stylesheet', type='text/css', href='/public/css/style.css')
+
+    block scripts
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js')
+
+  body.login-page
+    .ui.container
+      .front-grid
+        .ui.two.column.grid
+          .column
+            a(href='/').front-logo-app
+            .front-desc
+              p Bienvenue sur votre application de co-voiturage dédié aux centres AFPA
+
+          .column
+            .front-frame
+              .front-frame-title Connectez-vous
+              form(method='post', action='/signin').ui.form
+                .field
+                  label Email
+                  input(name='email', placeholder='email@provider.com', type='text')
+                .field
+                  label Mot de passe
+                  input(name='password', type='password')
+                button.ui.button(type='submit') Connexion
+
+                include templates/errors-messages
+
+            .front-frame.alert-register
+              .front-frame-title Inscrivez-vous
+              p Vous n'avez pas encore de compte chez nous ?
+              a(href='/signup')
+                button.ui.button S'inscrire maintenant

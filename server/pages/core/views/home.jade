@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  h1 Home
+
+  .ui.two.column.grid
+    .column
+      p test
+
+    .column
+      .ui.two.column.grid
+        .column
+          .ui.card
+            .content
+              .right.floated.meta ~5h
+              span Paris - Brive-la-gaillarde
+            .image
+              img(src='/public/img/leaflet-d3-03.png')
+            .content
+              span.right.floated
+                i.heart.outline.like.icon
+                | 17 j'aimes
+              i.comment.icon
+              | 3 messages
+            .extra.content
+              a.ui.green.circular.label L
+              a.ui.green.circular.label M
+              a.ui.green.circular.label M
+              a.ui.circular.label J
+              a.ui.green.circular.label V
+              a.ui.green.circular.label S
+              a.ui.green.circular.label D
+        .column
+          .ui.card
+            .content
+              .right.floated.meta ~4h
+              span Montpellier - Brive-la-gaillarde
+            .image
+              img(src='/public/img/leaflet-d3-03.png')
+            .content
+              span.right.floated
+                i.heart.outline.like.icon
+                | 12 j'aimes
+              i.comment.icon
+              | 3 messages
+            .extra.content
+              a.ui.green.circular.label L
+              a.ui.green.circular.label M
+              a.ui.green.circular.label M
+              a.ui.circular.label J
+              a.ui.green.circular.label V
+              a.ui.green.circular.label S
+              a.ui.green.circular.label D
+
+  if locals.user
+    p Welcome to #{user.firstname}
+
+    if user.role == 0
+      button(type="button") conducteur

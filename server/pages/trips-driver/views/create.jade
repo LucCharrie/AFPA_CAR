@@ -1,0 +1,43 @@
+extends /core/views/layout
+
+block content
+  h1 Créer trajet conducteur
+
+  .ui.grid
+    .two.column.row
+      .column
+        .ui.form
+          .two.fields
+            .field
+              label Nom
+              input(placeholder='Mon trajet', type='text')
+            .two.fields
+              .field
+                label Heure de depart
+                input(type='time' name='wakeup')
+              .field
+                label Heure d'arrivé
+                input(type='time' name='wakeup')
+          .field
+            label Adresse depart
+            input(autocomplete='off' id='address_departure' type='text' name='address_departure')
+          .field
+            label Adresse arrivé
+            input(autocomplete='off' id='address_arrival' type='text' name='address_arrival')
+          .field
+            label Voiture
+            .ui.selection.dropdown
+              .default.text Selectionner une voiture
+              i.dropdown.icon
+              input(type='hidden', name='gender')
+              .menu
+                .item(data-value='male') Male
+                .item(data-value='female') Female
+          .field
+            label Nombre de places disponibles
+            input(type='number')
+            
+      .column
+        #map
+
+  script(src='/public/js/leaflet.create-trip-driver.js')

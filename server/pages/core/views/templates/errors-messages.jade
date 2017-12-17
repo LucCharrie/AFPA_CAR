@@ -1,0 +1,17 @@
+if errorsFields
+    .ui.message.negative
+      i.close.icon
+      .header
+        | Erreurs formulaire
+        ul
+        for error in errorsFields
+          li!= error.msg
+
+if errors
+    .ui.message.negative
+      i.close.icon
+      .header
+        | Erreurs systeme
+        ul
+        for error in errors
+          li!= error.msg
