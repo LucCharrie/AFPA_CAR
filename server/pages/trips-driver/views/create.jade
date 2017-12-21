@@ -20,11 +20,11 @@ block content
                 input(type='time' name='wakeup')
           .field
             label Adresse depart
-            input(autocomplete='off' id='address_departure' type='text' name='address_departure')
+            input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="ex: 1 rue de la planche, Annesse-et-Beaulieu")
           .field
             label Adresse arrivée
-            input(autocomplete='off' id='address_arrival' type='text' name='address_arrival')
-          .button.ui.button Rechercher
+            input(class='address_auto' id='address_arrival' type='text' name='address_arrival')
+          .button.ui.button(onclick="sendCoords()") Rechercher
           br
           br
           .field
