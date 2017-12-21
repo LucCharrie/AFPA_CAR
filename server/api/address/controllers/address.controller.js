@@ -11,7 +11,7 @@ let AddressService = require('../services/address.service');
  * List of Address
  */
 module.exports.list = function(req, res) {
-  AddressService.list(req.query.filter, (err, addressList) => {
+  AddressService.list(req.query.term, (err, addressList) => {
     res.json(addressList);
   });
 }

@@ -8,8 +8,8 @@ let AddressDAO  = require('../dao/address.dao.mysql');
 
 class AddressService
 {
-    static list(filter, cb) {
-        return AddressDAO.list(filter, cb);
+    static list(term, cb) {
+        return AddressDAO.list(term, cb);
     }
 }
 

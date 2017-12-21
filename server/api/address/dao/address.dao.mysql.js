@@ -11,10 +11,10 @@ let AddressModel = require('../models/address.model');
 
 class AddressDAO
 {
-    static list(filter, cb) {
-        db.query(`SELECT num, name, postcode, city
+    static list(term, cb) {
+        db.query(`SELECT num, name, postcode, city, latitude, longitude
                     FROM address
-                    WHERE CONCAT(\`num\`, ' ', \`name\`, ' ', \`postcode\`, ' ', \`city\`) LIKE '%` + filter + `%' ;`, (err, rows) => {
+                    WHERE CONCAT(\`num\`, ' ', \`name\`, ' ', \`postcode\`, ' ', \`city\`) LIKE '%` + term + `%' LIMIT 10;`, (err, rows) => {
             rows = rows || [];
 
             rows = rows.map((row) => {
