@@ -13,10 +13,10 @@ block content
               input(placeholder='Mon trajet', type='text')
             .two.fields
               .field
-                label Heure de depart
+                label Départ
                 input(type='time' name='wakeup')
               .field
-                label Heure d'arrivé
+                label Arrivé
                 input(type='time' name='wakeup')
           .field
             label Adresse depart
@@ -24,6 +24,9 @@ block content
           .field
             label Adresse arrivé
             input(autocomplete='off' id='address_arrival' type='text' name='address_arrival')
+          .button.ui.button Rechercher
+          br
+          br
           .field
             label Voiture
             .ui.selection.dropdown
