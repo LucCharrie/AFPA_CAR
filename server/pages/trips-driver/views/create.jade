@@ -13,17 +13,20 @@ block content
               input(placeholder='Mon trajet', type='text')
             .two.fields
               .field
-                label Heure de depart
+                label Départ
                 input(type='time' name='wakeup')
               .field
-                label Heure d'arrivé
+                label Arrivée
                 input(type='time' name='wakeup')
           .field
             label Adresse depart
-            input(autocomplete='off' id='address_departure' type='text' name='address_departure')
+            input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="ex: 1 rue de la planche, Annesse-et-Beaulieu")
           .field
-            label Adresse arrivé
-            input(autocomplete='off' id='address_arrival' type='text' name='address_arrival')
+            label Adresse arrivée
+            input(class='address_auto' id='address_arrival' type='text' name='address_arrival')
+          .button.ui.button(onclick="sendCoords()") Rechercher
+          br
+          br
           .field
             label Voiture
             .ui.selection.dropdown
@@ -40,4 +43,5 @@ block content
       .column
         #map
 
+  script(src='/public/js/jquery/jquery-ui.js')
   script(src='/public/js/leaflet.create-trip-driver.js')

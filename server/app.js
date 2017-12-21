@@ -35,6 +35,7 @@ app.use(session({
 
 // api routes
 app.use('/api/users', require('./api/users/routes/users.route'));
+app.use('/api/address', require('./api/address/routes/address.route'));
 
 
 // pages routes

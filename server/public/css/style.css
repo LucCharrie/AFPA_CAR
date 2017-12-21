@@ -70,9 +70,9 @@ body.login-page {
 /*
  * CARD TRIP DRIVER
  */
-.card-trip-driver {
+/* .card-trip-driver {
 
-}
+} */
 .card-trip-driver .title {
     font-size:20px;
 }
@@ -105,3 +105,11 @@ body.login-page {
     height: 100%;
     max-height: 400px;
  }
+ /* @media (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+} */
+ /* #map {
+      display: block; 
+ } */
