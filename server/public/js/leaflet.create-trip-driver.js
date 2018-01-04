@@ -21,6 +21,10 @@ var router = new L.Routing.osrmv1({
     serviceUrl: 'http://10.111.61.232:5000/route/v1'
 });
 
+document.getElementById('viaTitle').style.display = "none";
+document.getElementById('via').style.display = "none";
+
+
 
 //
 // Ajax
@@ -66,8 +70,11 @@ function sendCoords() {
     if (group !== null) {
         map.removeLayer(group);
     } else {
-        document.getElementById('viaMore').style.visibility = "visible";
+        //document.getElementById('viaMore').style.visibility = "visible";
     }
+
+    document.getElementById('viaMore').style.visibility = "visible";
+
 
     var routeWaypoints = [];
 
@@ -87,7 +94,9 @@ function sendCoords() {
         group = L.layerGroup([routeline]).addTo(map);
     }, null, {});
 
-    
+
+    coords = [];
+
 }
 
 
@@ -99,24 +108,28 @@ function viaMore() {
 
     var via = "via" + inc;
 
-    if (!document.getElementById("viaTitle")) {
-        insertVia.innerHTML += "<label id=\"viaTitle\"> Ajouter destination </label>"
-    } else {}
+    document.getElementById('viaTitle').style.display = "block";
+    var itm = document.getElementById('via').style.display = "block";
 
-    var pushElement = "<div class=\"field\" id=\"" + via + "\">";
-    pushElement += "<div class=\"ui action input\" >";
-    pushElement += "<input type=\"text\" name=\"" + via + "\" class=\"address_auto\">";
-    pushElement += "<button class=\"ui button\" onClick=\"viaLess(" + via + ")\">X</button>";
-    pushElement += "</div>";
-    pushElement += "</div>";
+    var itmClone = itm.cloneNode(true);
 
-    var elementdemerde = document.createElement(pushElement);
+    document.getElementById("viaMaster").appendChild(itmClone);
 
-    document.body.appendChild(elementdemerde);
+    // if (!document.getElementById("viaTitle")) {
+    //     insertVia.innerHTML += "<label id=\"viaTitle\"> Ajouter destination </label>"
+    // } else {}
 
+    // var pushElement = "<div class=\"field\" id=\"" + via + "\">";
+    // pushElement += "<div class=\"ui action input\" >";
+    // pushElement += "<input type=\"text\" name=\"" + via + "\" class=\"address_auto\">";
+    // pushElement += "<button class=\"ui button\" onClick=\"viaLess(" + via + ")\">X</button>";
+    // pushElement += "</div>";
+    // pushElement += "</div>";
+    // document.getElementById("insertVia").innerHTML = pushElement;
 
     inc++;
 
+    ajaxREQ();
 }
 
 //
@@ -129,7 +142,7 @@ function viaLess(val) {
     var elem = document.getElementById(val.id);
     elem.parentNode.removeChild(elem);
 
-    if(inc === 0) {
+    if (inc === 0) {
         var elemTitle = document.getElementById("viaTitle");
         elemTitle.parentNode.removeChild(elemTitle);
     }
