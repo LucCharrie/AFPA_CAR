@@ -2,12 +2,13 @@
   .ui.container
     .item.brand
       img(src='/public/img/logo-app.png')
-    a.item Accueil
-    a.item Trajets conducteur
-    a.item Trajets passager
-    a.item Administrateur
+    a.item(href='/home') Accueil
+    a.item(href='/trips-driver') Trajets conducteur
+    a.item(href='/trips-passager') Trajets passager
+    //- faire un onglet "administrateur" si le sus-dit administrateur est connecté
+    //- a.item(href='') Administrateur
 
     .ui.menu.right
-      a.item Notifications
-      a.item Mon profil
-      a.item Deconnexion
+      a.item(href='/notifications') Notifications
+      a.item(href='/profil') Mon profil
+      a.item(href='') Deconnexion

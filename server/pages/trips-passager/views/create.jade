@@ -1,7 +1,7 @@
 extends /core/views/layout
 
 block content
-  h1 Créer trajet conducteur
+  h1 Créer trajet passager
 
   .ui.grid
     .two.column.row
@@ -19,6 +19,15 @@ block content
                 label Arrivée
                 input(type='time' name='wakeup')
           .field
+            label Adresse depart
+            input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="ex: 1 rue de la planche, Annesse-et-Beaulieu")
+          .field
+            label Adresse arrivée
+            input(class='address_auto' id='address_arrival' type='text' name='address_arrival')
+          .button.ui.button(onclick="sendCoords()") Rechercher
+          br
+          br
+          .field
             label Voiture
             .ui.selection.dropdown
               .default.text Selectionner une voiture
@@ -30,17 +39,6 @@ block content
           .field
             label Nombre de places disponibles
             input(type='number')
-          .field
-            label Adresse depart
-            input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="ex: 1 rue de la planche, Annesse-et-Beaulieu")
-          #insertVia.field
-          .field
-            label Adresse arrivée
-            input(class='address_auto' id='address_arrival' type='text' name='address_arrival')
-          .button.ui.button(onclick="sendCoords()") Rechercher
-          .button.ui.button#viaMore(style='visibility:hidden;' onclick="viaMore()") +
-          br
-          
             
       .column
         #map

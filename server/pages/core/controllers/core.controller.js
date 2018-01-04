@@ -99,3 +99,16 @@ module.exports.home = function(req, res) {
 };
 
 
+/**
+ * Profil Page
+ */
+module.exports.profil = function(req, res) {
+  res.render('core/views/profil');
+};
+
+/**
+ * Notifications Page
+ */
+module.exports.notifications = function(req, res) {
+  res.render('core/views/notifications');
+};

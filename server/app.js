@@ -41,6 +41,10 @@ app.use('/api/address', require('./api/address/routes/address.route'));
 // pages routes
 app.use('/', require('./pages/core/routes/core.route'));
 app.use('/trips-driver', require('./pages/trips-driver/routes/trips-driver.route'));
+app.use('/trips-passager', require('./pages/trips-passager/routes/trips-passager.route'));
+//app.use('/user', require('./pages/user/routes/user.route'));
+
+
 
 
 // catch 404 and forward to error handler

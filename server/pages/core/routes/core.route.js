@@ -23,4 +23,10 @@ router.route('/signup')
 router.route('/home')
   .get(coreCtrl.home);
 
+router.route('/profil')
+  .get(coreCtrl.profil);
+
+router.route('/notifications')
+  .get(coreCtrl.notifications);
+
 module.exports = router;
