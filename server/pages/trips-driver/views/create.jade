@@ -6,7 +6,7 @@ block content
   .ui.grid
     .two.column.row
       .column
-        .ui.form
+        form(action="", method="post").ui.form
           .two.fields
             .field
               label Nom
@@ -32,18 +32,17 @@ block content
             input(type='number')
           .field
             label Adresse départ
-            input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="ex: 1 rue de la planche, Annesse-et-Beaulieu")
+            input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="Départ")
           #viaMaster.field
-            label#viaTitle Ajouter destination 
-            #via.field
+            #via0.field
               .ui.action.input
-                input.address_auto(type='text')
-                button.ui.button(onclick='viaLess()') X
+                input(class='address_auto' type='text' placeholder="Ajouter une destination")
+                button.ui.button(onclick='viaLess(this)') X
           .field
             label Adresse arrivée
-            input(class='address_auto' id='address_arrival' type='text' name='address_arrival')
+            input(class='address_auto' id='address_arrival' type='text' name='address_arrival' placeholder="Arrivée")
           .button.ui.button(onclick="sendCoords()") Rechercher
-          .button.ui.button#viaMore(style='visibility:hidden;' onclick="viaMore()") +
+          .button.ui.button#viaMore(style='visibility:display;' onclick="viaMore()") Via +
           br
           
             

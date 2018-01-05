@@ -7,8 +7,10 @@ var zoomLevel = 10;
 
 // var js
 var coords = [];
+var markers = null;
 var group = null;
 var inc = 0;
+var via = new Map();
 
 //
 // Init
@@ -21,9 +23,7 @@ var router = new L.Routing.osrmv1({
     serviceUrl: 'http://10.111.61.232:5000/route/v1'
 });
 
-document.getElementById('viaTitle').style.display = "none";
-document.getElementById('via').style.display = "none";
-
+document.getElementById('via0').style.display = "none";
 
 
 //
@@ -53,8 +53,17 @@ function ajaxREQ() {
 
         // Push les coordonnées gps dans un tableau
         select: function (event, ui) {
-            //coords[this.name] = [ui.item.lat, ui.item.lng];
-            coords.push([ui.item.lat, ui.item.lng]);
+            coords[this.id] = [ui.item.lat, ui.item.lng];
+            // console.log(event);
+            // console.log(ui);
+            // coords.push([ui.item.lat, ui.item.lng]);
+            // this.coords = [ui.item.lat, ui.item.lng];
+            // console.log(ui)
+            // via.set(ui, [ui.item.lat, ui.item.lng])
+            // console.log(via)
+            // var  blop = L.Routing.waypoint(L.latLng([ui.item.lat, ui.item.lng]));
+            // return blop;
+
         }
     });
 
@@ -67,38 +76,81 @@ function ajaxREQ() {
 //
 function sendCoords() {
 
-    if (group !== null) {
-        map.removeLayer(group);
-    } else {
-        //document.getElementById('viaMore').style.visibility = "visible";
-    }
-
-    document.getElementById('viaMore').style.visibility = "visible";
-
-
     var routeWaypoints = [];
 
-    for (var i = 0; i < coords.length; ++i) {
-        routeWaypoints.push(L.Routing.waypoint(L.latLng(coords[i][0], coords[i][1])));
+
+
+    function sortWayPoints() {
+        var addressList = document.getElementsByClassName('address_auto');
+
+        for (var i = 0; i < addressList.length; ++i) {
+
+            console.log(addressList[i].name)
+
+            if (addressList[i].name) {
+
+                if (addressList[i].name === "address_departure") {
+                    routeWaypoints.push(L.Routing.waypoint(L.latLng(coords["address_departure"][0], coords["address_departure"][1])));
+                }
+                if (addressList[i].name === "address_arrival") {
+                    routeWaypoints.push(L.Routing.waypoint(L.latLng(coords["address_arrival"][0], coords["address_arrival"][1])));
+                }
+            } else if (addressList[i].id === 'via0') {
+                //do nothing
+            } else {
+                for (var j = 0; j < coords.length; ++j) {
+                    if (addressList[i].id === j) {
+                        routeWaypoints.push(L.Routing.waypoint(L.latLng(coords[i][0], coords[i][1])));
+                    }
+                }
+            }
+        }
+
+       // console.log(routeWaypoints)
     }
 
 
+
+    // delete old path
+    if (group !== null) {
+        map.removeLayer(group);
+        map.removeLayer(markers);
+    } else { }
+
+
+    // path from --> to --> to
+
+    sortWayPoints();
+
+    // for (var i = 0; i < coords.length; ++i) {
+    //     routeWaypoints.push(L.Routing.waypoint(L.latLng(coords[i][0], coords[i][1])));
+    // }
+
+    // zoom to
     var averageOfRoute = {
         lat: (routeWaypoints[0].latLng.lat + routeWaypoints[routeWaypoints.length - 1].latLng.lat) / 2,
         lng: (routeWaypoints[0].latLng.lng + routeWaypoints[routeWaypoints.length - 1].latLng.lng) / 2
     }
+    map.flyTo([averageOfRoute.lat, averageOfRoute.lng], 10);
 
+
+    // calcul path and add markers
     router.route(routeWaypoints, (err, routes) => {
+
         var routeline = L.Routing.line(routes[0]);
-        map.flyTo([averageOfRoute.lat, averageOfRoute.lng], 9);
         group = L.layerGroup([routeline]).addTo(map);
+
+        for (markerCoord of routes[0].inputWaypoints) {
+            markers = L.marker([markerCoord.latLng.lat, markerCoord.latLng.lng]).addTo(map);
+        }
+
     }, null, {});
 
 
     coords = [];
+    markers = {};
 
 }
-
 
 
 //
@@ -106,47 +158,22 @@ function sendCoords() {
 //
 function viaMore() {
 
-    var via = "via" + inc;
-
-    document.getElementById('viaTitle').style.display = "block";
-    var itm = document.getElementById('via').style.display = "block";
-
+    var itm = document.getElementById('via0');
     var itmClone = itm.cloneNode(true);
+    itmClone.childNodes[0].childNodes[0].id = inc++;
+    itmClone.style.display = "block";
 
     document.getElementById("viaMaster").appendChild(itmClone);
-
-    // if (!document.getElementById("viaTitle")) {
-    //     insertVia.innerHTML += "<label id=\"viaTitle\"> Ajouter destination </label>"
-    // } else {}
-
-    // var pushElement = "<div class=\"field\" id=\"" + via + "\">";
-    // pushElement += "<div class=\"ui action input\" >";
-    // pushElement += "<input type=\"text\" name=\"" + via + "\" class=\"address_auto\">";
-    // pushElement += "<button class=\"ui button\" onClick=\"viaLess(" + via + ")\">X</button>";
-    // pushElement += "</div>";
-    // pushElement += "</div>";
-    // document.getElementById("insertVia").innerHTML = pushElement;
-
-    inc++;
-
     ajaxREQ();
 }
+
+
 
 //
 // Boutons supprimer via
 //
-function viaLess(val) {
-
-    inc--;
-
-    var elem = document.getElementById(val.id);
-    elem.parentNode.removeChild(elem);
-
-    if (inc === 0) {
-        var elemTitle = document.getElementById("viaTitle");
-        elemTitle.parentNode.removeChild(elemTitle);
-    }
-
+function viaLess(e) {
+    e.parentNode.parentNode.remove();
 }
 
 window.onload = ajaxREQ();
