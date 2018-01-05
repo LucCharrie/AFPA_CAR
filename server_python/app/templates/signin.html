@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>AFPA-CAR - </title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+	{% import "bootstrap/wtf.html" as wtf %}
+	{% import "bootstrap/utils.html" as utils %}
+  </head>
+  <body class="login-page">
+    <div class="ui container">
+      <div class="front-grid">
+        <div class="ui two column grid">
+          <div class="column"><a class="front-logo-app" href="/"></a>
+            <div class="front-desc">
+              <p>Bienvenue sur votre application de co-voiturage dédié aux centres AFPA</p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="front-frame">
+              <div class="front-frame-title">Connectez-vous</div>
+				{{ utils.flashed_messages() }}
+              <form class="ui form" method="post" action="/signin">
+						{{wtf.quick_form(form)}}
+              </form>
+            </div>
+            <div class="front-frame alert-register">
+              <div class="front-frame-title">Inscrivez-vous</div>
+              <p>Vous n'avez pas encore de compte chez nous ?</p><a href="/signup">
+                <button class="ui button">S'inscrire maintenant</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

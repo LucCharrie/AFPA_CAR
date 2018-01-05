@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<h1>Home</h1>
+<div class="ui two column grid">
+  <div class="column">
+    <p>test</p>
+  </div>
+  <div class="column">
+    <div class="ui two column grid">
+      <div class="column">
+        <div class="ui card">
+          <div class="content">
+            <div class="right floated meta">~5h</div><span>Paris - Brive-la-gaillarde</span>
+          </div>
+          <div class="image"><img src="/static/img/leaflet-d3-03.png"/></div>
+          <div class="content"><span class="right floated"><i class="heart outline like icon"></i>17 j'aimes</span><i class="comment icon"></i>3 messages</div>
+          <div class="extra content"><a class="ui green circular label">L</a><a class="ui green circular label">M</a><a class="ui green circular label">M</a><a class="ui circular label">J</a><a class="ui green circular label">V</a><a class="ui green circular label">S</a><a class="ui green circular label">D</a></div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui card">
+          <div class="content">
+            <div class="right floated meta">~4h</div><span>Montpellier - Brive-la-gaillarde</span>
+          </div>
+          <div class="image"><img src="/static/img/leaflet-d3-03.png"/></div>
+          <div class="content"><span class="right floated"><i class="heart outline like icon"></i>12 j'aimes</span><i class="comment icon"></i>3 messages</div>
+          <div class="extra content"><a class="ui green circular label">L</a><a class="ui green circular label">M</a><a class="ui green circular label">M</a><a class="ui circular label">J</a><a class="ui green circular label">V</a><a class="ui green circular label">S</a><a class="ui green circular label">D</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

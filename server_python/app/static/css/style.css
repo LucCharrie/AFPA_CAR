@@ -1,0 +1,107 @@
+/*
+ * Rules for front pages
+ */
+.front-desc {
+    margin-top:48px;
+    font-size:45px;
+    color: white;
+}
+
+.front-desc p {
+    text-shadow: 3px 3px #0000006b;
+}
+
+.front-grid {
+    margin-top:24px;
+}
+
+.front-logo-app {
+    display:block;
+    background-image:url(/static/img/logo-app.png);
+    width:260px;
+    height:105px;
+    margin-bottom: 24px;
+}
+
+.front-frame {
+    float:right;
+    margin-bottom:24px;
+    width:400px;
+    padding:20px;
+    background-color: rgba(216, 216, 216, 0.9);
+    border-radius: 6px;
+    box-shadow: 2px 2px 5px #0000006b;
+}
+
+.front-frame.alert-register {
+    background-color: #86b1d7eb;
+}
+
+.front-frame-title {
+    text-align: center;
+    font-size: 17px;
+    margin-bottom:12px;
+}
+
+
+/*
+ * Login Page
+ */
+body.login-page {
+    background-color: #2ad72a;
+    background-image:url(/static/img/login-background.png);
+}
+
+
+/*
+ * Layout Page
+ */
+.ui.menu.layout-menu {
+    margin-bottom: 24px;
+}
+.ui.menu.layout-menu .brand img {
+    width: 6em;
+}
+.ui.menu.layout-menu .ui.menu {
+    border: 0;
+    box-shadow: none;
+}
+
+/*
+ * CARD TRIP DRIVER
+ */
+.card-trip-driver {
+
+}
+.card-trip-driver .title {
+    font-size:20px;
+}
+
+.card-trip-driver .days {
+    margin-top: 10px;
+}
+
+.ui.card.card-trip-driver .content-body {
+    padding:0;
+}
+.card-trip-driver .table-info {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.card-trip-driver .extra.content {
+    padding: 5px 10px;
+}
+
+
+/*
+ * LEAFLET
+ */
+ .leaflet-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+ }

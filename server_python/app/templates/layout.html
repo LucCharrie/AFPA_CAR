@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>AFPA-CAR - </title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/theme.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+  </head>
+  <body>
+    <div class="ui attached stackable menu borderless layout-menu">
+      <div class="ui container">
+        <div class="item brand"><img src="/static/img/logo-app.png"/></div><a class="item active"><i class="home icon"></i> Tableau de bord</a><a class="item"><i class="mail icon"></i> Messages</a>
+        <div class="ui dropdown item"><i class="user icon"></i><span>{{ current_user.username }}</span><i class="dropdown icon"></i>
+          <div class="menu"><a class="item"><i class="edit icon"></i> Edit Profile</a><a class="item"><i class="globe icon"></i> Choose Language</a><a class="item"><i class="settings icon"></i> Account Settings</a></div>
+        </div>
+        <div class="right item">
+          <div class="ui primary button">Proposer un co-voiturage</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui container">
+	{% block body %} {% endblock %}
+    </div>
+  </body>
+</html>
