@@ -5,13 +5,13 @@ from . import tripsdriver
 
 
 
-@tripsdriver.route('/create')
+@tripsdriver.route('/tripdriver/create')
 @login_required #On doit etre connecte pour arriver a cette page
 def create():
     return render_template('create.html')
 
 
-@tripsdriver.route('/index')
+@tripsdriver.route('/tripdriver/index')
 @login_required
 def index():
     return render_template('index.html')

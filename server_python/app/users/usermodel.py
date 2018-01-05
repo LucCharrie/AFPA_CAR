@@ -27,8 +27,8 @@ class UserModel(UserMixin, db.Model):
 
     #Constructeur de la classe               
     def __init__(self, dictionary):
-        for k, v in dictionary.items():
-            setattr(self, k, v)    
+        for key, value in dictionary.items():
+            setattr(self, key, value)    
         
     @property
     def password(self):

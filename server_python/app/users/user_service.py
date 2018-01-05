@@ -20,3 +20,12 @@ class UserService():
     def checkpassword(user, password):
         if user.check_password(password):
             return True    
+        
+    @staticmethod
+    def list():
+        return UserDao.list()
+
+    @staticmethod
+    def delete(id):
+        UserDao.delete(id)
+    

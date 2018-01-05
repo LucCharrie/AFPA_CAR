@@ -20,7 +20,7 @@ class UserDao():
     def delete(id):
         db=MySQLdb.connect("localhost", "root", "afpa", "afpacar") #adresse IP, nom utilisateur, mot de passe, nom de la db
         cursor = db.cursor(MySQLdb.cursors.DictCursor)        
-        sql = "DELETE FROM users WHERE id = " + id        
+        sql = "DELETE FROM users WHERE id = " + id + "'"       
         try:
             cursor.execute(sql)
             db.commit()
@@ -32,7 +32,7 @@ class UserDao():
         db=MySQLdb.connect("localhost", "root", "afpa", "afpacar") #adresse IP, nom utilisateur, mot de passe, nom de la db
         cursor = db.cursor(MySQLdb.cursors.DictCursor)        
  
-        sql = "SELECT * FROM users"
+        sql = "SELECT * FROM users" 
         liste = cursor.fetchall()
         return liste
     
@@ -48,21 +48,29 @@ class UserDao():
     
     @staticmethod
     def findByEmail(email):
-        db=MySQLdb.connect("localhost", "root", "afpa", "afpacar") #adresse IP, nom utilisateur, mot de passe, nom de la db
+        db = MySQLdb.connect("localhost", "root", "afpa", "afpacar") #adresse IP, nom utilisateur, mot de passe, nom de la db
         cursor = db.cursor(MySQLdb.cursors.DictCursor)        
-        sql= "SELECT * FROM users WHERE email='" + email + "'"
-        cursor.execute(sql)
-        user = UserModel(cursor.fetchone())
-        return user        
+        sql = "SELECT * FROM users WHERE email='" + email + "'"
+        
+        try:
+            cursor.execute(sql)
+            user = UserModel(cursor.fetchone())
+            return user
+        except:
+            return None
+            
+   
    
     @staticmethod
-    def update(id, firstname, lastname, age):
-        db=MySQLdb.connect("localhost", "root", "afpa", "afpacar") #adresse IP, nom utilisateur, mot de passe, nom de la db
+    def update(user):
+        db = MySQLdb.connect("localhost", "root", "afpa", "afpacar") #adresse IP, nom utilisateur, mot de passe, nom de la db
         cursor = db.cursor(MySQLdb.cursors.DictCursor)        
-        sql="UPDATE users SET firstname = %s, lastname = %s, age= %s WHERE id ='"% (firstname, lastname, age) + id + "'"        
+        sql = "UPDATE users SET firstname = '%s', lastname = '%s', age= '%s' WHERE id ='%s'"% (user.firstname, user.lastname, user.age, user.id)
+        
         try:
             cursor.execute(sql)
             db.commit()
+            
         except:
             db.rollback()
             
