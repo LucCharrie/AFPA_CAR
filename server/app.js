@@ -34,14 +34,18 @@ app.use(session({
 
 
 // api routes
-app.use('/api/users', require('./api/users/routes/users.route'));
+
 app.use('/api/address', require('./api/address/routes/address.route'));
+app.use('/api/cars', require('./api/cars/routes/cars.route'));
+app.use('/api/users', require('./api/users/routes/users.route'));
 
 
 // pages routes
 app.use('/', require('./pages/core/routes/core.route'));
+app.use('/cars-user', require('./pages/cars-user/routes/cars-user.route'));
 app.use('/trips-driver', require('./pages/trips-driver/routes/trips-driver.route'));
 app.use('/trips-passager', require('./pages/trips-passager/routes/trips-passager.route'));
+
 //app.use('/user', require('./pages/user/routes/user.route'));
 
 

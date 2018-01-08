@@ -57,7 +57,7 @@ module.exports.signup = function(req, res) {
  */
 module.exports.registration = function(req, res) {
   req.checkBody('email', 'Adresse email invalide').isEmail();
-  req.checkBody('username', 'Nom utilisateur vide').notEmpty();
+  req.checkBody('login', 'Nom utilisateur vide').notEmpty();
   req.checkBody('firstname', 'Prenom vide').notEmpty();
   req.checkBody('lastname', 'Nom vide').notEmpty();
   req.checkBody('password', 'Mot de passe vide').notEmpty();
@@ -73,7 +73,7 @@ module.exports.registration = function(req, res) {
 
   let userModel = new UserModel({
     email: req.body.email,
-    username: req.body.username,
+    login: req.body.login,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     password: req.body.password
