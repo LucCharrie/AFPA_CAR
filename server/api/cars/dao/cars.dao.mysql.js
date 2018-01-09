@@ -8,7 +8,7 @@
 let db = require(__base + 'config/db')
 
 let CarModel = require('../models/car.model');
-let CarBrandModel = require('../models/car-brand.model');
+let CarBrandModel = require(__base + 'api/cars-brands/models/car-brand.model');
 
 
 class CarsDAO

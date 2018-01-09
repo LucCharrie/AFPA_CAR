@@ -5,7 +5,7 @@ let CarsService = require(__base + 'api/cars/services/cars.service');
  */
 module.exports.index = function(req, res) {
     CarsService.list((err, cars) => {
-        res.render('cars/views/index', { cars: cars });
+        res.render('cars-user/views/index', { cars: cars });
     });
 }
 
@@ -15,6 +15,6 @@ module.exports.index = function(req, res) {
  */
 module.exports.show = function(req, res) {
     CarsService.find(req.params.idCar, (err, car) => {
-        res.render('cars/views/show', { car: car });
+        res.render('cars-user/views/show', { car: car });
     });
 }

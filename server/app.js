@@ -34,10 +34,10 @@ app.use(session({
 
 
 // api routes
-
 app.use('/api/address', require('./api/address/routes/address.route'));
 app.use('/api/cars', require('./api/cars/routes/cars.route'));
 app.use('/api/users', require('./api/users/routes/users.route'));
+app.use('/api/cars-brands', require('./api/cars-brands/routes/cars-brands.route'));
 
 
 // pages routes

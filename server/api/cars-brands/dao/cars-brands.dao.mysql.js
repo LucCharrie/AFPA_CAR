@@ -7,11 +7,12 @@
 
 let db = require(__base + 'config/db')
 
-let CarModel = require('../models/car.model');
-let UserModel = require(__base + 'api/users/models/user.model');
+
+let CarBrandModel = require('../models/car-brand.model');
 
 
-class CarsBrandDAO
+
+class CarsBrandsDAO
 {
 
 
@@ -22,7 +23,7 @@ class CarsBrandDAO
             rows = rows || [];
 
             cb(err, rows.map((row) => {
-                return new CarModel({
+                return new CarBrandModel({
                     id: row.id_car_brand,
                     brand_name: row.brand_name
                 });
@@ -47,4 +48,4 @@ class CarsBrandDAO
     }
 }
 
-module.exports = CarsBrandDAO;
+module.exports = CarsBrandsDAO;
