@@ -6,11 +6,11 @@ var centerlon = 3.8767159999999876;
 var zoomLevel = 10;
 
 // var js
-var coords = [];
-var markers = null;
+var coords = new Map();
+var markers = [];
 var group = null;
 var inc = 0;
-var via = new Map();
+//var via = new Map();
 
 //
 // Init
@@ -20,10 +20,9 @@ var map = L.map('map').setView([centerlat, centerlon], zoomLevel);
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
 
 var router = new L.Routing.osrmv1({
-    serviceUrl: 'http://10.111.61.232:5000/route/v1'
+    serviceUrl: 'http://10.111.62.34:5000/route/v1'
 });
 
-document.getElementById('via0').style.display = "none";
 
 
 //
@@ -53,17 +52,7 @@ function ajaxREQ() {
 
         // Push les coordonnées gps dans un tableau
         select: function (event, ui) {
-            coords[this.id] = [ui.item.lat, ui.item.lng];
-            // console.log(event);
-            // console.log(ui);
-            // coords.push([ui.item.lat, ui.item.lng]);
-            // this.coords = [ui.item.lat, ui.item.lng];
-            // console.log(ui)
-            // via.set(ui, [ui.item.lat, ui.item.lng])
-            // console.log(via)
-            // var  blop = L.Routing.waypoint(L.latLng([ui.item.lat, ui.item.lng]));
-            // return blop;
-
+            coords.set(this.id, [ui.item.lat, ui.item.lng])
         }
     });
 
@@ -81,52 +70,40 @@ function sendCoords() {
 
 
     function sortWayPoints() {
-        var addressList = document.getElementsByClassName('address_auto');
 
-        for (var i = 0; i < addressList.length; ++i) {
+        var addressList = document.getElementById('parentVia');
 
-            console.log(addressList[i].name)
+        var addressListChild = addressList.getElementsByTagName('input');
 
-            if (addressList[i].name) {
+        for (var i = 0; i < addressList.children.length; ++i) {
 
-                if (addressList[i].name === "address_departure") {
-                    routeWaypoints.push(L.Routing.waypoint(L.latLng(coords["address_departure"][0], coords["address_departure"][1])));
-                }
-                if (addressList[i].name === "address_arrival") {
-                    routeWaypoints.push(L.Routing.waypoint(L.latLng(coords["address_arrival"][0], coords["address_arrival"][1])));
-                }
-            } else if (addressList[i].id === 'via0') {
-                //do nothing
-            } else {
-                for (var j = 0; j < coords.length; ++j) {
-                    if (addressList[i].id === j) {
-                        routeWaypoints.push(L.Routing.waypoint(L.latLng(coords[i][0], coords[i][1])));
-                    }
+            for (var values of coords) {
+                if (addressListChild[i].id === values[0]) {
+                    routeWaypoints.push(L.Routing.waypoint(L.latLng(values[1][0], values[1][1])));
                 }
             }
         }
-
-       // console.log(routeWaypoints)
     }
 
 
 
-    // delete old path
+    // delete old path & markers
     if (group !== null) {
         map.removeLayer(group);
-        map.removeLayer(markers);
+
+        for (var mark of markers) {
+            console.log(mark);
+            map.removeLayer(mark);
+        }
+        markers = [];
+
     } else { }
 
 
     // path from --> to --> to
-
     sortWayPoints();
 
-    // for (var i = 0; i < coords.length; ++i) {
-    //     routeWaypoints.push(L.Routing.waypoint(L.latLng(coords[i][0], coords[i][1])));
-    // }
-
-    // zoom to
+    //zoom to
     var averageOfRoute = {
         lat: (routeWaypoints[0].latLng.lat + routeWaypoints[routeWaypoints.length - 1].latLng.lat) / 2,
         lng: (routeWaypoints[0].latLng.lng + routeWaypoints[routeWaypoints.length - 1].latLng.lng) / 2
@@ -140,15 +117,13 @@ function sendCoords() {
         var routeline = L.Routing.line(routes[0]);
         group = L.layerGroup([routeline]).addTo(map);
 
-        for (markerCoord of routes[0].inputWaypoints) {
-            markers = L.marker([markerCoord.latLng.lat, markerCoord.latLng.lng]).addTo(map);
+        //add markers
+        for (var markerCoord of routes[0].inputWaypoints) {
+            markers.push( L.marker([markerCoord.latLng.lat, markerCoord.latLng.lng]).addTo(map) );
         }
-
     }, null, {});
 
 
-    coords = [];
-    markers = {};
 
 }
 
@@ -158,12 +133,33 @@ function sendCoords() {
 //
 function viaMore() {
 
-    var itm = document.getElementById('via0');
-    var itmClone = itm.cloneNode(true);
-    itmClone.childNodes[0].childNodes[0].id = inc++;
-    itmClone.style.display = "block";
+    var id = 'via_' + inc++;
 
-    document.getElementById("viaMaster").appendChild(itmClone);
+    var viaList = document.createElement("li");
+    viaList.setAttribute('class', 'field');
+
+    var viaDiv = document.createElement("div");
+    viaDiv.setAttribute('class', 'ui action input');
+
+    var viaInput = document.createElement("input");
+    viaInput.setAttribute("id", id);
+    viaInput.setAttribute('class', 'address_auto');
+    viaInput.setAttribute('type', 'text');
+    viaInput.setAttribute('placeholder', 'Ajouter une destination');
+
+    var viaButton = document.createElement("button");
+    viaButton.setAttribute('class', 'ui button');
+    viaButton.setAttribute('onclick', 'viaLess(this)');
+    viaButton.textContent = 'X';
+
+    viaDiv.appendChild(viaInput);
+    viaDiv.appendChild(viaButton);
+    viaList.appendChild(viaDiv)
+
+
+    var viaEnd = document.getElementById("viaEnd");
+    document.getElementById("parentVia").insertBefore(viaList, viaEnd);
+
     ajaxREQ();
 }
 
