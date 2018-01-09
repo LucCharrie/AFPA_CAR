@@ -1,0 +1,66 @@
+extends /core/views/layout
+
+block content
+  h1 Mon Profil
+
+  body.login-page
+    .ui.container
+      .front-grid
+        .ui.two.column.grid
+          .column
+            .front-frame
+              .front-frame-title Modifications
+              form(method='post', action='/updateProfile').ui.form
+                .field
+                  label Nom
+                  input(name='name', value='#{user.lastname}', placeholder='Nom', type='text')
+
+                .field
+                  label Prénom
+                  input(name='firstname', value='#{user.firstname}', placeholder='Prénom', type='text')
+
+                .grouped.fields
+                  label Sexe
+                  .field
+                    .ui.radio.checkbox
+                      input(type='radio', name='example2')
+                      label Masculin
+                  .field
+                    .ui.radio.checkbox
+                      input(type='radio', name='example2')
+                      label Féminin
+
+                .field
+                  label Date de Naissance
+                  input(name='birthday', value='#{user.birthday}', placeholder='01/01/2000', type='date')
+
+                .field
+                  label Téléphone Mobile
+                  input(name='mobile_phone', value='#{user.mobile_phone}', placeholder='0600000000', type='text')
+
+                .field
+                  label Email
+                  input(name='email', value='#{user.email}', placeholder='email@provider.com', type='text')
+
+                .field
+                  label Formation
+                  input(name='formation', value='#{user.formation_id}', placeholder='intitulé formation', type='text')
+
+                .field
+                  label Login
+                  input(name='login', value='#{user.login}', placeholder='Login', type='text')
+
+                .field
+                  label Mot de Passe
+                  input(name='password', type='password')
+
+                .field
+                  label Confirmer mot de passe
+                  input(name='passwordConfirmation', type='password')
+                br
+                br
+                button.ui.button(type='submit') Mettre à jour les informations
+
+
+  script(src="/src/ajax.js")
+  script(src="/src/loadMessages.js")

@@ -45,8 +45,7 @@ app.use('/', require('./pages/core/routes/core.route'));
 app.use('/cars-user', require('./pages/cars-user/routes/cars-user.route'));
 app.use('/trips-driver', require('./pages/trips-driver/routes/trips-driver.route'));
 app.use('/trips-passager', require('./pages/trips-passager/routes/trips-passager.route'));
-
-//app.use('/user', require('./pages/user/routes/user.route'));
+app.use('/users', require('./pages/users/routes/users.route'));
 
 
 
