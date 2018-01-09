@@ -1,0 +1,27 @@
+extends /core/views/layout
+
+block content
+  h1 Messages
+
+  .field
+    label Auteur :
+    select#auteur(name='auteur')
+      for user in users
+        option(value= user.id) #{user.firstname}
+
+  .field
+    label Titre :
+    input#titre(type='text', name='titre')
+
+  .field
+    label Message :
+    input#message(type='text', name='message')
+
+  button#btnAdd(onclick='addMessage()') AJOUTER
+  button#btnEdit(onclick='updateMessage()') MODIFIER
+  button#btnDelete(onclick='delMessage()') SUPPRIMER
+
+  table#idTableau(style='width:100%')
+
+  script(src="/src/ajax.js")
+  script(src="/src/loadMessages.js")

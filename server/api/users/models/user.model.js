@@ -5,32 +5,34 @@ class UserModel
 {
     constructor (row) {
         this.row = row || {
-            id: null,
-            username: '',
+            id_user: null,
+            login: '',
             email: '',
             password: '',
             idafpa: '',
             firstname: '',
             lastname: '',
-            sex: '',
+            gender: '',
             birthday: '',
             created_at: '',
-            roles: []
+            roles: [],
+            formation_id: '',
+            mobile_phone: ''
         };
     }
 
     get id() {
-        return this.row.id;
+        return this.row.id_user;
     }
     set id(val) {
-        this.row.id = val;
+        this.row.id_user = val;
     }
 
-    get username() {
-        return this.row.username;
+    get login() {
+        return this.row.login;
     }
-    set username(val) {
-        this.row.username = val;
+    set login(val) {
+        this.row.login = val;
     }
 
     get email() {
@@ -68,11 +70,11 @@ class UserModel
         this.row.lastname = val;
     }
 
-    get sex() {
-        return this.row.sex;
+    get gender() {
+        return this.row.gender;
     }
-    set sex(val) {
-        this.row.sex = val;
+    set gender(val) {
+        this.row.gender = val;
     }
 
     get birthday() {
@@ -95,24 +97,40 @@ class UserModel
     set roles(val) {
         this.row.roles = val;
     }
-    
+
+    get formation() {
+        return this.row.formation_id;
+    }
+    set formation(val) {
+        this.row.formation_id = val;
+    }
+
+    get mobile_phone() {
+        return this.row.mobile_phone;
+    }
+    set mobile_phone(val) {
+        this.row.mobile_phone = val;
+    }
+
     toJSON() {
         return {
             id: this.id,
-            username: this.username,
+            login: this.login,
             email: this.email,
             idafpa: this.idafpa,
             firstname: this.firstname,
             lastname: this.lastname,
-            sex: this.sex,
+            gender: this.gender,
             birthday: this.birthday,
             created_at: this.create_at,
-            roles: this.roles
+            roles: this.roles,
+            formation: this.formation,
+            mobile_phone: this.mobile_phone
         };
     }
 
     isValid() {
-        return !(isNaN(this.age) ||
+        return !(isNaN(this.birthday) ||
             this.firstname === '' ||
             this.firstname === undefined ||
             this.lastname === '' ||

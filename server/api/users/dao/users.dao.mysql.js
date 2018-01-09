@@ -12,20 +12,20 @@ let UserModel = require('../models/user.model');
 class UsersDAO
 {
     static create(user, cb) {
-        db.query('INSERT INTO user SET username = ?, email = ?, password = ?, firstname = ?, lastname = ?, created_at = ?', [user.username, user.email, user.password, user.firstname, user.lastname, new Date()], (err, result) => {
+        db.query('INSERT INTO user SET login = ?, email = ?, password = ?, firstname = ?, lastname = ?, created_at = ?', [user.login, user.email, user.password, user.firstname, user.lastname, new Date()], (err, result) => {
             if (err) console.log(err);
             UsersDAO.findById(result.insertId, cb);
         });
     }
 
     static update(user, cb) {
-        db.query('UPDATE user SET firstname = ?, lastname = ?, age = ? WHERE id = ?', [user.firstname, user.lastname, user.age, user.id], (err) => {
+        db.query('UPDATE user SET firstname = ?, lastname = ?, birthday = ? WHERE id_user = ?', [user.firstname, user.lastname, user.birthday, user.id], (err) => {
             cb(err, user);
         });
     }
 
     static delete(id, cb) {
-        db.query('DELETE FROM user WHERE id = ?', [id], (err) => {
+        db.query('DELETE FROM user WHERE id_user = ?', [id], (err) => {
             cb(err);
         });
     }
@@ -43,7 +43,7 @@ class UsersDAO
     }
 
     static findById(id, cb) {
-        db.query('SELECT * FROM user WHERE id = ? LIMIT 1', [id], (err, rows) => {
+        db.query('SELECT * FROM user WHERE id_user = ? LIMIT 1', [id], (err, rows) => {
             return (rows[0]) ? cb(err, new UserModel(rows[0])) : cb(err, null);
         });
     }
