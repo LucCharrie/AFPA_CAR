@@ -14,17 +14,12 @@ router.route('/')
 
 router.route('/signin')
   .get(coreCtrl.signin)
-  .post(coreCtrl.authentication);
 
 router.route('/signup')
   .get(coreCtrl.signup)
-  .post(coreCtrl.registration);
 
 router.route('/home')
   .get(coreCtrl.home);
-
-router.route('/profil')
-  .get(coreCtrl.profil);
 
 router.route('/notifications')
   .get(coreCtrl.notifications);

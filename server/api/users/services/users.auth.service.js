@@ -7,9 +7,7 @@ class UsersAuthService
 {
   static checkAccount(email, password, cb) {
     UsersService.findByEmail(email, (err, user) => {
-      let encodedPassword = passwordHash.generate(password);
-
-      if (user && passwordHash.verify(password, encodedPassword)) {
+      if (user && passwordHash.verify(password, user.password)) {
         cb(null, user);
       }
       else {

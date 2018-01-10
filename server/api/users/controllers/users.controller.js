@@ -5,22 +5,70 @@
 //=========================================================================
 
 let UsersService = require('../services/users.service');
+let UsersAuthService = require('../services/users.auth.service');
+let UsersRegisterService = require('../services/users.register.service');
 let UserModel = require('../models/user.model');
+
+
+/**
+ * Authentication a user
+ */
+module.exports.auth = function(req, res) {
+  req.checkBody('email', 'Adresse email invalide').isEmail();
+  req.checkBody('password', 'Mot de passe vide').notEmpty();
+
+  let errorsFields = req.validationErrors();
+
+  if (errorsFields) {
+    return res.json({'errorsFields': errorsFields});
+  }
+
+  UsersAuthService.checkAccount(req.body.email, req.body.password, (err, user) => {
+    if (err) {
+      res.json({'errors': {msg: 'Connection failed !'}});
+    }
+    else {
+      req.session.user = user;
+      res.json({ 'success': 'User connected !', 'user': user });
+    }
+  });
+}
 
 
 /**
  * Create a user
  */
 module.exports.create = function(req, res) {
-  let userModel = new UserModel(req.body);
+  req.checkBody('lastname', 'Nom vide').notEmpty();
+  req.checkBody('firstname', 'Prenom vide').notEmpty();
+  req.checkBody('login', 'Nom utilisateur vide').notEmpty();
+  req.checkBody('email', 'Adresse email invalide').isEmail();
+  req.checkBody('password', 'Mot de passe vide').notEmpty();
+  req.checkBody('passwordConfirmation', 'Le mot de passe de confirmation doit etre identique au mot de passe')
+    .notEmpty()
+    .matches(req.body.password);
+
+  let errorsFields = req.validationErrors();
+
+  if (errorsFields) {
+    return res.status(500).json({'errors': errorsFields});
+  }
+
+  let userModel = new UserModel({
+    lastname: req.body.lastname,
+    firstname: req.body.firstname,
+    login: req.body.login,
+    email: req.body.email,
+    password: req.body.password
+  });
 
   if (!userModel.isValid()) {
     return res.status(500).json({ 'error': 'Failed to create user, missing fields !' });
   }
 
-  UsersService.create(userModel, (err, user) => {
+  UsersRegisterService.register(userModel, (err, user) => {
     if (err) {
-      res.status(500).json({ 'error': 'Failed to create user !' });
+      res.status(500).json({'errors': [{msg: 'Registration failed !'}]});
     } else {
       res.json({ 'success': 'User created !', 'user': user });
     }
@@ -40,8 +88,6 @@ module.exports.read = function(req, res) {
  * Update a user
  */
 module.exports.update = function(req, res) {
-console.log('test');
-
   req.checkBody('lastname', 'Nom vide').notEmpty();
   req.checkBody('firstname', 'Prenom vide').notEmpty();
   req.checkBody('gender', 'Sexe vide').notEmpty();
@@ -54,7 +100,7 @@ console.log('test');
   let errorsFields = req.validationErrors();
 
   if (errorsFields) {
-    return res.json({'errorsFields': errorsFields});
+    return res.status(500).json({'errorsFields': errorsFields});
   }
 
   let userModel = new UserModel({
@@ -68,8 +114,6 @@ console.log('test');
     formation_id: req.body.formation
   });
 
-  console.log(userModel);
-
   if (!userModel.isValid()) {
     return res.status(500).json({ 'error': 'Failed to update user, missing fields !' });
   }
@@ -80,6 +124,7 @@ console.log('test');
     if (err) {
       res.status(500).json({ 'error': 'Failed to update user !' });
     } else {
+      req.session.user = user;
       res.json({ 'success': 'User updated !', 'user': user });
     }
   });

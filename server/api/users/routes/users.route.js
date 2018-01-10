@@ -6,6 +6,9 @@ router.route('/')
     .get(usersCtrl.list)
     .post(usersCtrl.create);
 
+router.route('/auth')
+    .post(usersCtrl.auth);
+
 router.route('/:idUser')
     .get(usersCtrl.read)
     .put(usersCtrl.update)
