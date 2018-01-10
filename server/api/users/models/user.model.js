@@ -9,7 +9,7 @@ class UserModel
             login: '',
             email: '',
             password: '',
-            idafpa: '',
+            num_afpa: '',
             firstname: '',
             lastname: '',
             gender: '',
@@ -49,11 +49,11 @@ class UserModel
         this.row.password = val;
     }
 
-    get idafpa() {
-        return this.row.idafpa;
+    get numafpa() {
+        return this.row.num_afpa;
     }
-    set idafpa(val) {
-        this.row.idafpa = val;
+    set numafpa(val) {
+        this.row.num_afpa = val;
     }
 
     get firstname() {
@@ -117,7 +117,7 @@ class UserModel
             id: this.id,
             login: this.login,
             email: this.email,
-            idafpa: this.idafpa,
+            numafpa: this.numafpa,
             firstname: this.firstname,
             lastname: this.lastname,
             gender: this.gender,
@@ -130,7 +130,7 @@ class UserModel
     }
 
     isValid() {
-        return !(isNaN(this.birthday) ||
+        return !(
             this.firstname === '' ||
             this.firstname === undefined ||
             this.lastname === '' ||

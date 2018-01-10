@@ -10,10 +10,10 @@ block content
           .column
             .front-frame
               .front-frame-title Modifications
-              form(method='post', action='/updateProfile').ui.form
+              .ui.form
                 .field
                   label Nom
-                  input(name='name', value='#{user.lastname}', placeholder='Nom', type='text')
+                  input(name='lastname', value='#{user.lastname}', placeholder='Nom', type='text')
 
                 .field
                   label Prénom
@@ -23,11 +23,11 @@ block content
                   label Sexe
                   .field
                     .ui.radio.checkbox
-                      input(type='radio', name='example2')
+                      input(type='radio', name='gender', value='m')
                       label Masculin
                   .field
                     .ui.radio.checkbox
-                      input(type='radio', name='example2')
+                      input(type='radio', name='gender', value='f')
                       label Féminin
 
                 .field
@@ -44,7 +44,7 @@ block content
 
                 .field
                   label Formation
-                  input(name='formation', value='#{user.formation_id}', placeholder='intitulé formation', type='text')
+                  input(name='formation', value='#{user.formation}', placeholder='intitulé formation', type='text')
 
                 .field
                   label Login
@@ -59,8 +59,7 @@ block content
                   input(name='passwordConfirmation', type='password')
                 br
                 br
-                button.ui.button(type='submit') Mettre à jour les informations
+                button.ui.button(id="updateUserBtn", type='submit') Mettre à jour les informations
 
 
-  script(src="/src/ajax.js")
-  script(src="/src/loadMessages.js")
+  script(src="/public/js/updateUser.js")

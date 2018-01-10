@@ -31,17 +31,6 @@ class UsersService
     static list(cb) {
         return UsersDAO.list(cb);
     }
-
-    static auth(email, password, cb) {
-        UsersDAO.findByEmail(email, (err, user) => {
-            if (!err && user.verifyPassword(password)) {
-                cb(err, user);
-            }
-            else {
-                cb(new Error('Authentication failed !'));
-            }
-        });
-    }
 }
 
 module.exports = UsersService;

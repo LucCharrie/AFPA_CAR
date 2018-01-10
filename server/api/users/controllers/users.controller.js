@@ -40,7 +40,35 @@ module.exports.read = function(req, res) {
  * Update a user
  */
 module.exports.update = function(req, res) {
-  let userModel = new UserModel(req.body);
+console.log('test');
+
+  req.checkBody('lastname', 'Nom vide').notEmpty();
+  req.checkBody('firstname', 'Prenom vide').notEmpty();
+  req.checkBody('gender', 'Sexe vide').notEmpty();
+  req.checkBody('birthday', 'Date de naissance vide').notEmpty();
+  req.checkBody('mobile', 'Mobile vide').notEmpty();
+  req.checkBody('login', 'Nom utilisateur vide').notEmpty();
+  req.checkBody('email', 'Email vide').isEmail();
+  req.checkBody('formation', 'Formation vide').notEmpty();
+
+  let errorsFields = req.validationErrors();
+
+  if (errorsFields) {
+    return res.json({'errorsFields': errorsFields});
+  }
+
+  let userModel = new UserModel({
+    lastname: req.body.lastname,
+    firstname: req.body.firstname,
+    gender: req.body.gender,
+    birthday: req.body.birthday,
+    mobile_phone: req.body.mobile,
+    login: req.body.login,
+    email: req.body.email,
+    formation_id: req.body.formation
+  });
+
+  console.log(userModel);
 
   if (!userModel.isValid()) {
     return res.status(500).json({ 'error': 'Failed to update user, missing fields !' });
