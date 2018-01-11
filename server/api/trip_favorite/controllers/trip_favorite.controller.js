@@ -4,6 +4,7 @@ let TripFavoriteModel = require('../models/trip_favorite.model')
 module.exports.list = function (req, res) {
     TripFavoriteService.list((err, tripFavorite) => {
         res.json(tripFavorite);
+        //console.log(tripFavorite[0].row.name)
     });
 }
 
@@ -23,6 +24,10 @@ module.exports.delete = function (req, res) {
     });
 }
 
+module.exports.read = function(req, res) {
+    res.json(req.trip);
+}
+
 exports.tripByID = function (req, res, next, id) {
     if (isNaN(id)) {
       return res.status(400).send({
@@ -30,14 +35,14 @@ exports.tripByID = function (req, res, next, id) {
       });
     }
   
-    TripFavoriteService.findById(id, (err, trip) => {
+    TripFavoriteService.findByID(id, (err, trip) => {
       if (!trip) {
         return next(new Error('Failed to load trip favorite ' + id));
       }
   
-      req.tripFavorite = tripFavorite;
+      req.trip = trip;
+
       next();
     });
-  };
-    
 }
+    

@@ -45,17 +45,22 @@ class TripFavoriteDAO {
     }
 
     static delete(trip, cb) {
-        db.query('DELETE FROM trip_favorite, WHERE id_trip_favorite = ?', [trip.id_trip_favorite],
+        db.query('DELETE FROM trip_favorite WHERE id_trip_favorite = ?', [trip.id_trip_favorite],
             (err) => {
                 cb(err);
             });
 
     }
 
-    static tripByID(id, cb) {
+    static findByID(id, cb) {
 
-        db.query('SELECT * FROM trip_favorite WHERE id = ? LIMIT 1', [id], (err, rows) => {
-            return (rows[0]) ? cb(err, new TripFavoriteModel(rows[0])) : cb(err, null);
+        db.query('SELECT * FROM trip_favorite WHERE id_trip_favorite = ? LIMIT 1', [id], (err, rows) => {
+            if (rows[0]) {
+                cb(err, new TripFavoriteModel(rows[0]))
+            }
+            else {
+                cb(err, null);
+            }
         });
     }
 

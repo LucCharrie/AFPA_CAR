@@ -14,8 +14,8 @@ class TripFavoriteService {
         return TripFavoriteDAO.delete(args, cb);
     }
 
-    static tirpByID(id, cb) {
-        return TripFavoriteDAO.tripByID(id, cb);
+    static findByID(id, cb) {
+        return TripFavoriteDAO.findByID(id, cb);
     }
 }
 
