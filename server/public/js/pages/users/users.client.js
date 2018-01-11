@@ -15,13 +15,23 @@ var usersController = {
       $.ajax({
         method: 'PUT',
         url: '/api/users/1',
-        data: form
-      })
-      .done(function(msg) {
-        alert('Data Saved: ' + msg );
-      });
+        data: form,
+        success : function(data) {
+          // var data = xhr.responseJSON;
+          console.log(data);
+          // window.location.replace('/home');
+          Kovoit.pushNotification('success', data.success)},
+
+        error : function(xhr) {
+          var data = xhr.responseJSON;
+          console.log(data);
+          Kovoit.pushNotification('error', data.errors)}
+        }
+      );
+
+
     });
   }
 };
 
-window.onload(usersController.init());
+window.onload = usersController.init;

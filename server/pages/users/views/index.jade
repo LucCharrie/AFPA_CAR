@@ -23,11 +23,19 @@ block content
                   label Sexe
                   .field
                     .ui.radio.checkbox
-                      input(type='radio', name='gender', value='m')
+                      if user.gender == 'm'
+                        console.log(user.gender.value)
+                        input(type='radio', name='gender', value='m', checked)
+                      else 
+                        input(type='radio', name='gender', value='m')
                       label Masculin
                   .field
                     .ui.radio.checkbox
-                      input(type='radio', name='gender', value='f')
+                      if user.gender == 'f'
+                        console.log(user.gender.value)
+                        input(type='radio', name='gender', value='f', checked)
+                      else
+                        input(type='radio', name='gender', value='f')
                       label Féminin
 
                 .field
@@ -49,17 +57,10 @@ block content
                 .field
                   label Login
                   input(name='login', value='#{user.login}', placeholder='Login', type='text')
-
-                .field
-                  label Mot de Passe
-                  input(name='password', type='password')
-
-                .field
-                  label Confirmer mot de passe
-                  input(name='passwordConfirmation', type='password')
                 br
                 br
                 button.ui.button(id="updateUserBtn", type='submit') Mettre à jour les informations
 
 
-  script(src="/public/js/updateUser.js")
+  script(src="/public/js/common/afpa-car-bundle.js")
+  script(src="/public/js/pages/users/users.client.js")
