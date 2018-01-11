@@ -115,14 +115,14 @@ module.exports.update = function(req, res) {
   });
 
   if (!userModel.isValid()) {
-    return res.status(500).json({ 'error': 'Failed to update user, missing fields !' });
+    return res.status(500).json({ 'errors': [{msg: 'Failed to ussspdate user !'}] });
   }
 
   userModel.id = req.params.idUser;
 
   UsersService.update(userModel, (err, user) => {
     if (err) {
-      res.status(500).json({ 'error': 'Failed to update user !' });
+      res.status(500).json({ 'errors': [{msg: 'Failed to update user !'}] });
     } else {
       req.session.user = user;
       res.json({ 'success': [{msg: 'User Updated !'}], 'user': user });
