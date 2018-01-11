@@ -11,8 +11,7 @@ let CarModel = require('../models/car.model');
 let UserModel = require(__base + 'api/users/models/user.model');
 
 
-class CarsDAO
-{
+class CarsDAO {
     static create(car, cb) {
         db.query('INSERT INTO car SET title = ?, text = ?, author_id = ?, created_at = ?', [car.title, car.text, car.author.id, new Date()], (err, result) => {
             CarsDAO.find(result.insertId, cb);

@@ -1,9 +1,9 @@
-let mysql      = require('mysql');
+let mysql = require('mysql');
 let connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'afpa',
-  database : 'afpa_car_v02'
+    host: 'localhost',
+    user: 'root',
+    password: 'afpa',
+    database: 'afpa_car_test'
 });
 
 connection.connect();
