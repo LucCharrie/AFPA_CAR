@@ -23,7 +23,21 @@ module.exports.delete = function (req, res) {
     });
 }
 
-module.exports.tripByID = function (req, res) {
-
+exports.tripByID = function (req, res, next, id) {
+    if (isNaN(id)) {
+      return res.status(400).send({
+        message: 'Trip favorite is invalid'
+      });
+    }
+  
+    TripFavoriteService.findById(id, (err, trip) => {
+      if (!trip) {
+        return next(new Error('Failed to load trip favorite ' + id));
+      }
+  
+      req.tripFavorite = tripFavorite;
+      next();
+    });
+  };
     
 }

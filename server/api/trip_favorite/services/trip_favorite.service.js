@@ -14,6 +14,9 @@ class TripFavoriteService {
         return TripFavoriteDAO.delete(args, cb);
     }
 
+    static tirpByID(id, cb) {
+        return TripFavoriteDAO.tripByID(id, cb);
+    }
 }
 
 module.exports = TripFavoriteService;
