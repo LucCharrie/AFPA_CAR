@@ -12,9 +12,9 @@ let AddressModel = require('../models/address.model');
 class AddressDAO
 {
     static list(term, cb) {
-        db.query(`SELECT num, name, postcode, city, latitude, longitude
+        db.query(`SELECT numero, street, zip_code, city, latitude, longitude
                     FROM address
-                    WHERE CONCAT(\`num\`, ' ', \`name\`, ' ', \`postcode\`, ' ', \`city\`) LIKE '%` + term + `%' LIMIT 10;`, (err, rows) => {
+                    WHERE CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + term + `%' LIMIT 10;`, (err, rows) => {
             rows = rows || [];
 
             rows = rows.map((row) => {

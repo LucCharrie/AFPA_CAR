@@ -6,12 +6,13 @@ class UserModel
     constructor (row) {
         this.row = row || {
             id: null,
-            name: '',
-            num: '',
+            street: '',
             city: '',
             latitude: '',
             longitude: '',
-            postcode: ''
+            numero: '',
+            zip_code: '',
+            rep: ''
         };
     }
 
@@ -22,18 +23,11 @@ class UserModel
         this.row.id = val;
     }
 
-    get name() {
-        return this.row.name;
+    get street() {
+        return this.row.street;
     }
-    set name(val) {
-        this.row.name = val;
-    }
-
-    get num() {
-        return this.row.num;
-    }
-    set num(val) {
-        this.row.num = val;
+    set street(val) {
+        this.row.street = val;
     }
 
     get city() {
@@ -57,22 +51,37 @@ class UserModel
         this.row.longitude = val;
     }
 
-    get postcode() {
-        return this.row.postcode;
+    get zip_code() {
+        return this.row.zip_code;
     }
-    set postcode(val) {
-        this.row.postcode = val;
+    set zip_code(val) {
+        this.row.zip_code = val;
     }
     
+    get numero() {
+        return this.row.numero;
+    }
+    set numero(val) {
+        this.row.numero = val;
+    }
+
+    get rep() {
+        return this.row.rep;
+    }
+    set rep(val) {
+        this.row.rep = val;
+    }
+
     toJSON() {
         return {
             id: this.id,
-            name: this.name,
-            num: this.num,
+            street: this.street,
             city: this.city,
             latitude: this.latitude,
             longitude: this.longitude,
-            postcode: this.postcode
+            zip_code: this.zip_code,
+            numero: this.numero,
+            rep: this.rep
         };
     }
 

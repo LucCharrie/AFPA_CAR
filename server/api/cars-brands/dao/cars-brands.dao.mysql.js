@@ -7,15 +7,10 @@
 
 let db = require(__base + 'config/db')
 
-
 let CarBrandModel = require('../models/car-brand.model');
-
-
 
 class CarsBrandsDAO
 {
-
-
     static list(cb) {
         db.query(`SELECT cb.id_car_brand,
                         cb.brand_name

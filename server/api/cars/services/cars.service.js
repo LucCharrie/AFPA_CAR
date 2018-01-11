@@ -7,8 +7,8 @@ let CarsDAO  = require('../dao/cars.dao.mysql');
 
 class CarsService
 {
-    static list(cb) {
-        return CarsDAO.list(cb);
+    static search(term, cb) {
+        return CarsDAO.search(term, cb);
     }
 }
 
