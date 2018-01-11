@@ -5,8 +5,8 @@ let cars = require('../controllers/cars.controller');
 router.route('/')
     .get(cars.list);
 
-router.route('/:idCar')
-    .get(cars.read);
+// router.route('/:idCar')
+//     .get(cars.read);
 
 //router.param(':idUser', carByID);
 
