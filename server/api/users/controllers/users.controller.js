@@ -125,7 +125,7 @@ module.exports.update = function(req, res) {
       res.status(500).json({ 'error': 'Failed to update user !' });
     } else {
       req.session.user = user;
-      res.json({ 'success': 'User updated !', 'user': user });
+      res.json({ 'success': [{msg: 'User Updated !'}], 'user': user });
     }
   });
 }
