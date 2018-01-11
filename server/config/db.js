@@ -3,7 +3,7 @@ let connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'afpa',
-  database : 'afpa_car_test'
+  database : 'afpa_car_v02'
 });
 
 connection.connect();
