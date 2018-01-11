@@ -21,8 +21,8 @@ let CarsService = require('../services/cars.service');
 /**
  * List of Cars
  */
-module.exports.list = function(req, res) {
-    CarsService.list(req.query.term, (err, cars) => {
+module.exports.search = function(req, res) {
+    CarsService.search(req.query.term, (err, cars) => {
       res.json(cars);
     });
 }

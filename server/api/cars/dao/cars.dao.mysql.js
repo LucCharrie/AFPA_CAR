@@ -10,13 +10,14 @@ let CarModel = require('../models/car.model');
 
 class CarsDAO
 {
-    static list(term, cb) {
+    static search(term, cb) {
         db.query(`SELECT c.id_car, c.model_name, cb.brand_name
                     FROM car AS c
                     LEFT JOIN car_brand AS cb on c.car_brand_id = cb.id_car_brand
-                    WHERE CONCAT(\`c.id_car\`, ' ', \`c.model_name\`, ' ', \`cb.brand_name\`) LIKE '%` + term + `%' LIMIT 10;`, (err, rows) => {
+                    WHERE CONCAT(cb.brand_name, ' ', c.model_name) LIKE '%` + term + `%' LIMIT 10;`, (err, rows) => {
             rows = rows || [];
-             rows = rows.map((row) => {
+
+            rows = rows.map((row) => {
                 return new CarModel({
                     id_car: row.id_car,
                     model_name: row.model_name,

@@ -40,7 +40,7 @@ function ajaxREQ() {
                 success: function (data) {
                     response($.map(data, function (item) {
                         return {
-                            "value": item.num + ', ' + item.name + ', ' + item.city,
+                            "value": item.numero + ', ' + item.street + ', ' + item.city,
                             "lat": item.latitude,
                             "lng": item.longitude
                         };

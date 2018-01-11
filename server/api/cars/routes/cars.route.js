@@ -3,7 +3,7 @@ let router = express.Router();
 let cars = require('../controllers/cars.controller');
 
 router.route('/')
-    .get(cars.list);
+    .get(cars.search);
 
 // router.route('/:idCar')
 //     .get(cars.read);

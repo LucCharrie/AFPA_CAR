@@ -1,4 +1,4 @@
-let CarBrandModel = (__base + 'api/cars-brands/models/car-brand.model');
+let CarBrandModel = require(__base + 'api/cars-brands/models/car-brand.model');
 
 class CarModel
 {
