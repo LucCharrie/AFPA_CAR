@@ -106,7 +106,17 @@ body.login-page {
    max-height: 400px;
 }
 
-.notification {
+/*
+ * NOTIFICATION
+ */
+.notifications-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    list-style-type:none;
+}
+
+.ui.message.notification {
     display:none;
     background-color:white;
     width:300px;

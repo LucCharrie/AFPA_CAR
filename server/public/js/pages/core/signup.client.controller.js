@@ -17,9 +17,12 @@ var signUpController = {
         url: '/api/users',
         data: form
       })
+      .done(function() {
+        window.location.replace('/signin');
+      })
       .catch(function(xhr) {
         var data = xhr.responseJSON;
-        Kovoit.pushNotifications('error', data.errors);
+        Kovoit.pushNotification('error', data.errors);
       });
     });
   }

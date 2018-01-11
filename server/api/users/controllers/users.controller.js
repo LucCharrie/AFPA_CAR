@@ -20,16 +20,16 @@ module.exports.auth = function(req, res) {
   let errorsFields = req.validationErrors();
 
   if (errorsFields) {
-    return res.json({'errorsFields': errorsFields});
+    return res.json({'errors': errorsFields});
   }
 
   UsersAuthService.checkAccount(req.body.email, req.body.password, (err, user) => {
     if (err) {
-      res.json({'errors': {msg: 'Connection failed !'}});
+      res.status(500).json({'errors': [{msg: 'Connection failed !'}]});
     }
     else {
       req.session.user = user;
-      res.json({ 'success': 'User connected !', 'user': user });
+      res.json({ 'success': [{msg: 'User connected !'}], 'user': user });
     }
   });
 }
@@ -70,7 +70,7 @@ module.exports.create = function(req, res) {
     if (err) {
       res.status(500).json({'errors': [{msg: 'Registration failed !'}]});
     } else {
-      res.json({ 'success': 'User created !', 'user': user });
+      res.json({ 'success': [{msg: 'User created !'}], 'user': user });
     }
   });
 }
@@ -100,7 +100,7 @@ module.exports.update = function(req, res) {
   let errorsFields = req.validationErrors();
 
   if (errorsFields) {
-    return res.status(500).json({'errorsFields': errorsFields});
+    return res.status(500).json({'errors': errorsFields});
   }
 
   let userModel = new UserModel({

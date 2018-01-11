@@ -11,8 +11,12 @@ var signInController = {
         url: '/api/users/auth',
         data: form
       })
-      .done(function(msg) {
-        console.log(msg);
+      .done(function() {
+        window.location.replace('/home');
+      })
+      .catch(function(xhr) {
+        var data = xhr.responseJSON;
+        Kovoit.pushNotification('error', data.errors);
       });
     });
   }

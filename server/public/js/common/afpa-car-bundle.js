@@ -13,9 +13,6 @@ var Kovoit = {};
   //
   // PRIVATE FUNCS
   //
-  cleanParams = function() {
-
-  };
 
   //
   // PUBLIC VARS
@@ -24,30 +21,39 @@ var Kovoit = {};
   //
   // PUBLIC FUNCS
   //
-  Kovoit.pushNotifications = function(type, notifs) {
-    var listMessages = '';
+  Kovoit.pushNotification = function(type, notif) {
+    var notes = '';
+    var className = '';
+    var titleName = '';
 
-    if (type != 'info' && type != 'error' && type != 'success') {
-      return;
+    switch (type)
+    {
+      case 'error':   className = 'negative'; titleName = 'Erreur'; break;
+      case 'info':    className = 'info';     titleName = 'Information'; break;
+      case 'success': className = 'positive'; titleName = 'Succès'; break;
+      default: return;
     }
 
-    for (var notif of notifs) {
-      listMessages += '<li>' + notif.msg + '</li>';
+    for (var note of notif) {
+      notes += '<li>' + note.msg + '</li>';
     }
 
-    var notification = '<li class="notification ' + type + '">';
-        notification +=   '<ul class="message">';
-        notification +=     listMessages;
+    var notification = '<li class="ui message notification ' + type + '">';
+        notification +=   '<i class="close icon"></i>';
+        notification +=   '<div class="header">' + titleName + '</div>';
+        notification +=   '<ul class="list notes">';
+        notification +=     notes;
         notification +=   '</ul>';
         notification += '</li>';
 
-    var e = $('.notifications-container').prepend(notification);
-    console.log(e);
-    $('.notification').fadeIn('slow');
+    var element = $(notification);
+
+    $('.notifications-container').prepend(element);
+    element.show();
 
     setTimeout(function() {
-      e.fadeOut('slow', function() {
-        e.remove();
+      element.fadeOut('slow', function() {
+        element.remove();
       });
     }, 3000);
 	}
