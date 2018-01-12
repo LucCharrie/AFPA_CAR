@@ -20,6 +20,7 @@ class UsersDAO
 
     static update(user, cb) {
         db.query('UPDATE user SET firstname = ?, lastname = ?, gender = ?, birthday = ?, mobile_phone = ?, login = ?, email = ?, formation_id = ?  WHERE id_user = ?', [user.firstname, user.lastname, user.gender, user.birthday, user.mobile_phone, user.login, user.email, user.formation, user.id], (err) => {
+            console.log(err);
             cb(err, user);
         });
     }
