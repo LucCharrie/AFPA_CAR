@@ -19,7 +19,7 @@ class TripDAO {
                         trip.hours_departure,
                         trip.hours_arrival,
                         trip.pathOSRM,
-                        trip.favorite_id
+                        trip.trip_favorite_id
                         FROM trip`, (err, rows) => {
             rows = rows || [];
 
@@ -31,6 +31,13 @@ class TripDAO {
         });
     }
 
+    static create(trip, cb) {
+        db.query('INSERT INTO trip SET canceled = ?, nb_seats = ?, hours_departure = ?, hours_arrival = ?, pathOSRM = ?, trip_favorite_id = ?', [trip.canceled, trip.nb_seats, trip.hours_departure, trip.hours_arrival, trip.pathOSRM, trip.trip_favorite_id],
+            (err) => {
+                cb(err);
+            });
+    }
+
     static delete(id, cb) {
         db.query('DELETE FROM trip WHERE id = ?', [id], (err) => {
             cb(err);
@@ -40,7 +47,7 @@ class TripDAO {
     static findByID(id, cb) {
         db.query('SELECT * FROM trip WHERE id_trip = ? LIMIT 1', [id], (err, rows) => {
             if (rows[0]) {
-                cb(err, new TripFavoriteModel(rows[0]))
+                cb(err, new TripModel(rows[0]))
             } else {
                 cb(err, null);
             }

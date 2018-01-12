@@ -7,8 +7,20 @@ let TripDAO = require('../dao/trip.dao.mysql');
 
 
 class TripService {
-    static list(term, cb) {
-        return TripDAO.list(term, cb);
+    static list(cb) {
+        return TripDAO.list(cb);
+    }
+
+    static create(args, cb) {
+        return TripDAO.create(args, cb);
+    }
+
+    static delete(args, cb) {
+        return TripDAO.delete(args, cb);
+    }
+
+    static findByID(id, cb) {
+        return TripDAO.findByID(id, cb);
     }
 }
 
