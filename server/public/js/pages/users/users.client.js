@@ -14,17 +14,14 @@ var usersController = {
 
       $.ajax({
         method: 'PUT',
-        url: '/api/users/1',
+        url: '/api/users/me',
         data: form,
         success : function(data) {
-          // var data = xhr.responseJSON;
-          console.log(data);
           // window.location.replace('/home');
           Kovoit.pushNotification('success', data.success)},
 
         error : function(xhr) {
           var data = xhr.responseJSON;
-          console.log(data);
           Kovoit.pushNotification('error', data.errors)}
         }
       );

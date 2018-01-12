@@ -24,7 +24,6 @@ block content
                   .field
                     .ui.radio.checkbox
                       if user.gender == 'm'
-                        console.log(user.gender.value)
                         input(type='radio', name='gender', value='m', checked)
                       else 
                         input(type='radio', name='gender', value='m')
@@ -32,7 +31,6 @@ block content
                   .field
                     .ui.radio.checkbox
                       if user.gender == 'f'
-                        console.log(user.gender.value)
                         input(type='radio', name='gender', value='f', checked)
                       else
                         input(type='radio', name='gender', value='f')
