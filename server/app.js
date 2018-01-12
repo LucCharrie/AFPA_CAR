@@ -26,10 +26,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
 }));
 
 
@@ -39,6 +39,7 @@ app.use('/api/cars', require('./api/cars/routes/cars.route'));
 app.use('/api/users', require('./api/users/routes/users.route'));
 app.use('/api/cars-brands', require('./api/cars-brands/routes/cars-brands.route'));
 app.use('/api/trip_favorite', require('./api/trip_favorite/routes/trip_favorite.route'));
+app.use('/api/trip', require('./api/trip/routes/trip.route'));
 
 
 // pages routes
@@ -51,20 +52,21 @@ app.use('/users', require('./pages/users/routes/users.route'));
 
 
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next();
+    var err = new Error('Not Found');
+    err.status = 404;
+    next();
 });
 
 
 // error handler
 app.use(function(err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  console.log(err);
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    console.log(err);
 });
 
 
