@@ -3,13 +3,17 @@
 // et les rendre au controller.
 //=========================================================================
 
-let CarsDAO  = require('../dao/cars.dao.mysql');
+let CarsUserDAO  = require('../dao/cars-user.dao.mysql');
 
-class CarsService
+class CarsUserService
 {
-    static list(cb) {
-        return CarsDAO.list(cb);
+    static listByUserID(id, cb) {
+        return CarsUserDAO.listByUserID(id, cb);
+    }
+
+    static create(CarUserModel, cb) {
+        return CarsUserDAO.create(CarUserModel, cb);
     }
 }
 
-module.exports = CarsService;
+module.exports = CarsUserService;

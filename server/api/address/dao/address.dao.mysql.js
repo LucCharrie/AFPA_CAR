@@ -11,10 +11,23 @@ let AddressModel = require('../models/address.model');
 
 class AddressDAO
 {
-    static list(term, cb) {
+    static search(term, cb) {
+        let splitted = term.split(' ');
+        let where_clause = '';
+
+        for (let i = 0; i < splitted.length; i++)
+        {
+            where_clause += `CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + splitted[i] + `%'`;
+
+            if (i < splitted.length - 1)
+            {
+                where_clause += ' AND ';
+            }
+        }
+
         db.query(`SELECT numero, street, zip_code, city, latitude, longitude
                     FROM address
-                    WHERE CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + term + `%' LIMIT 10;`, (err, rows) => {
+                    WHERE ` + where_clause + ` LIMIT 10;`, (err, rows) => {
             rows = rows || [];
 
             rows = rows.map((row) => {

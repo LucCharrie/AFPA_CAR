@@ -11,7 +11,9 @@ let CarModel = require('../models/car.model');
 class CarsDAO
 {
     static search(term, cb) {
-        db.query(`SELECT c.id_car, c.model_name, cb.brand_name
+        db.query(`SELECT c.id_car,
+                         c.model_name,
+                         cb.brand_name
                     FROM car AS c
                     LEFT JOIN car_brand AS cb on c.car_brand_id = cb.id_car_brand
                     WHERE CONCAT(cb.brand_name, ' ', c.model_name) LIKE '%` + term + `%' LIMIT 10;`, (err, rows) => {
@@ -21,7 +23,7 @@ class CarsDAO
                 return new CarModel({
                     id_car: row.id_car,
                     model_name: row.model_name,
-                    brand: {
+                    brandRef: {
                         brand_name: row.brand_name
                     }
                 });

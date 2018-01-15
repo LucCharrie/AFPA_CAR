@@ -3,6 +3,6 @@ var router = express.Router();
 var addressCtrl = require('../controllers/address.controller');
 
 router.route('/')
-    .get(addressCtrl.list);
+    .get(addressCtrl.search);
 
 module.exports = router;

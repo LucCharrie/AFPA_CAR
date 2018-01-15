@@ -1,12 +1,14 @@
 let express = require('express');
 let router = express.Router();
-let cars = require('../controllers/cars.controller');
+let carsUserCtrl = require('../controllers/cars-user.controller');
+let carsUserMeCtrl = require('../controllers/cars-user-me.controller');
 
-router.route('/')
-    .get(cars.list);
+router.route('/me')
+    .get(carsUserMeCtrl.list)
+    .post(carsUserMeCtrl.create);
 
-router.route('/:idCar')
-    .get(cars.read);
+// router.route('/:idCar')
+//     .get(cars.read);
 
 //router.param(':idUser', carByID);
 

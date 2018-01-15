@@ -1,10 +1,10 @@
-let CarsService = require(__base + 'api/cars/services/cars.service');
+let CarsUserService = require(__base + 'api/cars-user/services/cars-user.service');
 
 /**
- * Cars index page
+ * Cars create page
  */
-module.exports.index = function(req, res) {
-    res.render('cars-user/views/index');
+module.exports.create = function(req, res) {
+    res.render('cars-user/views/create');
 }
 
 
