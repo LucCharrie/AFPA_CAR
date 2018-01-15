@@ -1,5 +1,9 @@
 extends /core/views/layout
 
+block added_scripts
+  script(async, defer, src="/public/js/pages/trips-driver/trip-favorite.js")
+
+
 block content
   h1 Trajets conducteur
 
@@ -64,7 +68,11 @@ block content
               td aller-simple
             tr
               td Messages
-              td 3 non lu(s)          
+              td 3 non lu(s)
+            tr
+              td Test (name='test')  
+              //- value='#{test.trip}')         
         .extra.content
           .ui.basic.blue.button Editer
           .ui.basic.red.button Supprimer
+
