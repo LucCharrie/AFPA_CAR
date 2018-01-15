@@ -21,6 +21,10 @@ var Kovoit = {};
   //
   // PUBLIC FUNCS
   //
+
+  // type : [info, errors, success]
+  // notif : Array[{msg: ''}]
+  //
   Kovoit.pushNotification = function(type, notif) {
     var notes = '';
     var className = '';
