@@ -4,7 +4,7 @@
 
 var Kovoit = {};
 
-(function() {
+(function (self) {
   //
   // PRIVATE VARS
   //
@@ -21,14 +21,18 @@ var Kovoit = {};
   //
   // PUBLIC FUNCS
   //
+  self.closeNotification = function(elem) {
+    $(elem).closest('.message').transition('fade');
+  }
 
-  // type : [info, errors, success]
-  // notif : Array[{msg: ''}]
-  //
-  Kovoit.pushNotification = function(type, notif) {
+  self.pushNotification = function(type, notif, parent) { // type : [info, errors, success], notif : Array[{msg: ''}]
     var notes = '';
     var className = '';
     var titleName = '';
+
+    if (parent === undefined) {
+      parent = $('.notifications-container');
+    }
 
     switch (type)
     {
@@ -43,7 +47,7 @@ var Kovoit = {};
     }
 
     var notification = '<li class="ui message notification ' + type + '">';
-        notification +=   '<i class="close icon"></i>';
+        notification +=   '<i class="close icon" onclick="Kovoit.closeNotification(this)"></i>';
         notification +=   '<div class="header">' + titleName + '</div>';
         notification +=   '<ul class="list notes">';
         notification +=     notes;
@@ -52,15 +56,8 @@ var Kovoit = {};
 
     var element = $(notification);
 
-    $('.notifications-container').prepend(element);
+    $(parent).html(element);
     element.show();
+  }
 
-    setTimeout(function() {
-      element.fadeOut('slow', function() {
-        element.remove();
-      });
-    }, 3000);
-	}
-
-})();
-
+})(Kovoit);

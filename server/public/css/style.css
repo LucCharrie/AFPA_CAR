@@ -107,6 +107,18 @@ body.login-page {
 }
 
 /*
+ * FORM SIGN & SIGNUP
+ */
+.form .notifications-container {
+    position: relative;
+    padding-left: 0;
+}
+
+.form .notifications-container .ui.message.notification {
+    width:auto;
+}
+
+/*
  * NOTIFICATION
  */
 .notifications-container {
