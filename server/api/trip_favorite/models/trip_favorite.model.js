@@ -5,6 +5,7 @@ class TripFavoriteModel {
             name: '',
             nb_seats: '',
             driver: '',
+            user_id: '',
             car_user_id: '',
             address_departure_id: '',
             address_arrival_id: ''  
@@ -42,6 +43,13 @@ class TripFavoriteModel {
     set driver(val) {
         this.row.driver = val;
     }
+    get user_id() {
+        return this.row.user_id;
+    } 
+
+    set user_id(val) {
+        this.row.user_id = val;
+    }
 
     get car_user_id() {
         return this.row.car_user_id;
@@ -73,6 +81,7 @@ class TripFavoriteModel {
             name: this.name,
             nb_seats: this.nb_seats,
             driver: this.driver,
+            user_id: this.user_id,
             car_user_id: this.car_user_id,
             address_departure_id: this.address_departure_id,
             address_arrival_id: this.address_arrival_id  

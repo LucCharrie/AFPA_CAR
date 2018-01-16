@@ -2,7 +2,9 @@
  * Index
  */
 module.exports.index = function(req, res) {
-  res.render('trips-driver/views/index');
+  //console.log(req)
+  res.render('trips-driver/views/index', {trips : req});
+
 };
 
 

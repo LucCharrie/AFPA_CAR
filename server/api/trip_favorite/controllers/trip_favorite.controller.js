@@ -4,12 +4,19 @@ let TripFavoriteModel = require('../models/trip_favorite.model')
 module.exports.list = function (req, res) {
     TripFavoriteService.list((err, tripFavorite) => {
         res.json(tripFavorite);
-        //console.log(tripFavorite[0].row.name)
     });
 }
 
 module.exports.create = function (req, res) {
-    TripFavoriteService.create((err, tripFavorite) => {
+
+    let tripFavoriteModel = new TripFavoriteModel({
+        user_id: req.session.user.id,
+        car_user_id: req.session.user.car_user_id,
+        address_departure_id: '',
+        address_arrival_id: ''  
+    });
+
+    TripFavoriteService.create(tripFavoriteModel, (err, tripFavorite) => {
         res.json(tripFavorite);
     });
 }
