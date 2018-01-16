@@ -11,6 +11,14 @@ class CarsUserService
         return CarsUserDAO.listByUserID(id, cb);
     }
 
+    static delete(id, cb) {
+        return CarsUserDAO.delete(id, cb);
+    }
+
+    static deleteByUserID(id, idUser, cb) {
+        return CarsUserDAO.deleteByUserID(id, idUser, cb);
+    }
+
     static create(CarUserModel, cb) {
         return CarsUserDAO.create(CarUserModel, cb);
     }

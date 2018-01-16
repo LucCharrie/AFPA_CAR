@@ -7,6 +7,9 @@ router.route('/me')
     .get(carsUserMeCtrl.list)
     .post(carsUserMeCtrl.create);
 
+router.route('/me/:idCarUser')
+    .delete(carsUserMeCtrl.delete);
+
 // router.route('/:idCar')
 //     .get(cars.read);
 

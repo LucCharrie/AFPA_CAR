@@ -50,11 +50,11 @@ var createCarsUserController = {};
                     numimmat: form.numimmat
                 },
                 success : function(data) {
-                    Kovoit.pushNotification('success', data.success)
+                    window.location.replace('/cars-user');
                 },
                 error : function(xhr) {
                     var data = xhr.responseJSON;
-                    Kovoit.pushNotification('error', data.errors)
+                    Kovoit.pushNotification('error', data.errors);
                 }
             });
         });

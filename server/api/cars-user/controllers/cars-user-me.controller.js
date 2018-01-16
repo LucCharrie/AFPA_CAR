@@ -43,3 +43,12 @@ module.exports.list = function(req, res) {
     res.json(carsUser);
   });
 }
+
+/**
+ * Delete a car of current user
+ */
+module.exports.delete = function(req, res) {
+  CarsUserService.deleteByUserID(req.params.idCarUser, req.session.user.id, (err) => {
+    res.json({ 'success': [{msg: 'carUser Deleted !'}]});
+  });
+}

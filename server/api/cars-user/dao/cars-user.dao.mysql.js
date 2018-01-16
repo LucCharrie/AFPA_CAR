@@ -23,11 +23,17 @@ class CarsUserDAO {
     //     });
     // }
 
-    // static delete(id, cb) {
-    //     db.query('DELETE FROM car_user WHERE id = ?', [id], (err) => {
-    //         cb(err);
-    //     });
-    // }
+    static delete(id, cb) {
+        db.query('DELETE FROM car_user WHERE id = ?', [id], (err) => {
+            cb(err);
+        });
+    }
+
+    static deleteByUserID(id, idUser, cb) {
+        db.query('DELETE FROM car_user WHERE id_car_user = ? AND user_id = ?', [id, idUser], (err) => {
+            cb(err);
+        });
+    }
 
     static listByUserID(id, cb) {
         db.query(`SELECT cu.id_car_user,

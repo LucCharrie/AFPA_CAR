@@ -1,0 +1,10 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, src='/public/js/pages/cars-user/list-cars-user.client.js')
+
+block content
+    .ui.secondary.menu
+        a.active.item(href='/cars-user/create') Ajouter une voiture
+
+    .ui.cards
