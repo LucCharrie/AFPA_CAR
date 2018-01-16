@@ -11,7 +11,9 @@ module.exports.create = function (req, res) {
 
     let tripFavoriteModel = new TripFavoriteModel({
         user_id: req.session.user.id,
-        car_user_id: req.session.user.car_user_id
+        car_user_id: req.session.user.car_user_id,
+        address_departure_id: '',
+        address_arrival_id: ''  
     });
 
     TripFavoriteService.create(tripFavoriteModel, (err, tripFavorite) => {

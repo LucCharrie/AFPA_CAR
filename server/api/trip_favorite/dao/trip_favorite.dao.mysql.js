@@ -26,12 +26,13 @@ class TripFavoriteDAO {
 
 
     static create(trip, cb) {
-        console.log("toto");
+        console.log(trip);
         
 
-        db.query('INSERT INTO trip_favorite SET name = ?, nb_seats = ?, driver = ?, car_user_id = ?, address_departure_id = ?, address_arrival_id = ?',
-            [trip.name, trip.nb_seats, trip.driver, trip.car_user_id, trip.address_departure_id, trip.address_arrival_id],
+        db.query('INSERT INTO trip_favorite SET name = ?, nb_seats = ?, driver = ?, user_id = ?, car_user_id = ?, address_departure_id = ?, address_arrival_id = ?',
+            [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id, trip.address_departure_id, trip.address_arrival_id],
             (err) => {
+                //console.log( err )
                 cb(err);
             });
 
