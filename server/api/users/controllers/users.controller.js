@@ -115,7 +115,7 @@ module.exports.update = function(req, res) {
   });
 
   if (!userModel.isValid()) {
-    return res.status(500).json({ 'errors': [{msg: 'Failed to ussspdate user !'}] });
+    return res.status(500).json({ 'errors': [{msg: 'Failed to update user !'}] });
   }
 
   userModel.id = req.params.idUser;

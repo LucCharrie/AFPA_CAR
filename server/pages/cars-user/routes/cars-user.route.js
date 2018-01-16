@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var cars = require('../controllers/cars-user.controller');
 
-router.route('/')
-    .get(cars.index);
+router.route('/create')
+    .get(cars.create);
 
 router.route('/:idCar')
     .get(cars.show);

@@ -1,13 +1,19 @@
+let UserModel = require(__base + 'api/users/models/user.model');
+let CarModel = require(__base + 'api/cars/models/car.model');
+
 class CarUserModel
 {
     constructor (row) {
         this.row = row || {
             id_car_user: null,
-            car_id: '',
-            user_id: '',
+            carRef: '',
+            userRef: '',
             color: '',
             numimmat: ''
         };
+
+        this.row.carRef = new CarModel(this.row.carRef);
+        this.row.userRef = new UserModel(this.row.userRef);
     }
 
     get id() {
@@ -17,18 +23,18 @@ class CarUserModel
         this.row.id_car_user = val;
     }
 
-    get car_id() {
-        return this.row.car_id;
+    get car() {
+        return this.row.carRef;
     }
-    set car_id(val) {
-        this.row.car_id = val;
+    set car(val) {
+        this.row.carRef = val;
     }
 
     get user() {
-        return this.row.user_id;
+        return this.row.userRef;
     }
     set user(val) {
-        this.row.user_id = val;
+        this.row.userRef = val;
     }
 
     get color() {
@@ -48,7 +54,7 @@ class CarUserModel
     toJSON() {
         return {
             id: this.id,
-            car_id: this.car_id,
+            car: this.car,
             user: this.user,
             color: this.color,
             numimmat: this.numimmat

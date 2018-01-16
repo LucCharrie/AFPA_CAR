@@ -6,10 +6,10 @@ class CarModel
         this.row = row || {
             id_car: null,
             model_name: '',
-            brand: ''
+            brandRef: ''
         };
 
-        this.row.brand = new CarBrandModel(this.row.brand);
+        this.row.brandRef = new CarBrandModel(this.row.brandRef);
     }
 
     get id() {
@@ -27,10 +27,10 @@ class CarModel
     }
 
     get brand() {
-        return this.row.brand;
+        return this.row.brandRef;
     }
     set brand(val) {
-        this.row.brand = val;
+        this.row.brandRef = val;
     }
 
     toJSON() {
