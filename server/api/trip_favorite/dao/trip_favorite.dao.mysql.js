@@ -5,17 +5,6 @@ class TripFavoriteDAO {
 
 
     static list(cb) {
-        // db.query('SELECT * FROM trip_favorite',
-        //     (err, rows) => {
-        //         rows = rows || [];
-
-        //         rows = rows.map((row) => {
-        //             return new TripFavoriteModel(row);
-        //         });
-
-        //         cb(err, rows);
-        //     });
-
         db.query(`SELECT tf.id_trip_favorite, 
 		                tf.name, 
                         tf.nb_seats,
@@ -37,11 +26,18 @@ class TripFavoriteDAO {
 
 
     static create(trip, cb) {
+        console.log("toto");
+        
+
         db.query('INSERT INTO trip_favorite SET name = ?, nb_seats = ?, driver = ?, car_user_id = ?, address_departure_id = ?, address_arrival_id = ?',
             [trip.name, trip.nb_seats, trip.driver, trip.car_user_id, trip.address_departure_id, trip.address_arrival_id],
             (err) => {
                 cb(err);
             });
+
+        //db.query('CALL _PS_tripFromFavorite (?, ?)', [trip.id_trip_favorite, 3], (err)=>{
+        //    cb(err);
+        //});   
     }
 
     static delete(trip, cb) {

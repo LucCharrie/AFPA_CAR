@@ -12,24 +12,16 @@ block content
   .ui.grid
     .two.column.row
       .column
-        form(action="", method="post").ui.form
-          .two.fields
-            .field
-              label Nom
-              input(placeholder='Mon trajet', type='text')
-            .two.fields
-              .field
-                label Départ
-                input(type='time' name='wakeup')
-              .field
-                label Arrivée
-                input(type='time' name='wakeup')
+        form(id='tripForm' action="", method="post").ui.form 
+          .field
+            label Nom
+            input#name_trip(type='text', placeholder='Mon trajet')
           .field
             label Voiture
-              input(class='car_auto' type='text', name='gender')
+              input#car_user(class='car_auto' type='text', name='gender' placeholder='Ma voiture')
           .field
             label Nombre de places disponibles
-            input(type='number')
+            input#nb_seats(type='number')
           ul#parentVia(style="list-style:none; padding-left:0")
             li.field
               label Adresse départ
@@ -40,7 +32,9 @@ block content
           .button.ui.button(onclick="createTripDriver.sendCoords()") Rechercher
           .button.ui.button#viaMore(onclick="createTripDriver.viaMore()") Via +
           br
-          
+          br
+          #createButton.button.fluid.ui.button(onclick="createTripDriver.createTrip()") Créer 
+
             
       .column
         #map

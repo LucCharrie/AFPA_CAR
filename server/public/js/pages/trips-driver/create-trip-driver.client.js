@@ -2,6 +2,10 @@ var createTripDriver = {};
 
 (function (self) {
 
+    ////////////////////////////////////////////////////////////
+    //////// TRIP DRIVER ///////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+
     // set center coordinates
     self.centerlat = 43.610769;
     self.centerlon = 3.8767159999999876;
@@ -208,14 +212,81 @@ var createTripDriver = {};
     }
 
     ////////////////////////////////////////////////////////////
-    //////// ON LOAD ///////////////////////////////////////////
+    //////// CREATE TRIP ///////////////////////////////////////
     ////////////////////////////////////////////////////////////
 
-    window.onload = function() {
-        createTripDriver.init();
-        createTripDriver.ajaxREQ();
-        createTripDriver.initCars();
+    self.createTrip = function () {
+
+        ////
+        //// XMLHttpRequest in natif JS
+        ////
+        // const req = new XMLHttpRequest();
+
+        // req.onreadystatechange = function (event) {
+        //   XMLHttpRequest.DONE === 4;
+
+        //   if (this.readyState === XMLHttpRequest.DONE) {
+        //     if (this.status === 200) {
+        //       var toJson = JSON.parse(this.responseText);
+        //       //document.getElementById('displayTrips').innerHTML = this.responseText;
+        //       console.log( toJson );
+        //     } else {
+        //       console.log("Status de la réponse: %d (%s)", this.status, this.statusText);
+        //     }
+        //   }
+        // };
+
+        // req.open('POST', '/api/trip_favorite', true);
+        // req.send('blop');
+
+        
+        ////
+        //// XMLHttpRequest in Jquery
+        ////
+        $('#createButton').click(function(){
+           
+            //    var name_trip=$("#name_trip").val();
+            //    var car_user=$("#car_user").val();
+            //    var nb_seats=$("#nb_seats").val();
+            //    var address_departure=$("#address_departure").val();
+            //    var address_arrival=$("#address_arrival").val();
+ 
+           
+                $.ajax({
+           
+                   url: '/api/trip_favorite',
+                   type: 'POST',
+                   data: $('#tripForm').serialize(),
+           
+                //    data: 'name =' + name_trip 
+                //    + '&car_user_id=' + car_user 
+                //    + '&nb_seats=' + nb_seats
+                //    + '&address_departure_id=' + address_departure 
+                //    + '&address_arrival_id=' + address_arrival,
+           
+                   success: function(result){
+                        
+                                
+                   }
+           
+                });         
+           
+               return false;
+           
+           });
+
     }
 
 
-})(createTripDriver);
+    ////////////////////////////////////////////////////////////
+    //////// INIT FUNCTION ON LOAD /////////////////////////////
+    ////////////////////////////////////////////////////////////
+
+    window.onload = function () {
+        self.init();
+        self.ajaxREQ();
+        self.initCars();
+    }
+
+
+})(createTripDriver); 
