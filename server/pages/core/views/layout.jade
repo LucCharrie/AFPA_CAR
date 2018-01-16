@@ -4,29 +4,28 @@ html
 
     block styles
       link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css')
-      link(rel='stylesheet' href='/public/css/jquery/jquery-ui.css')
+      link(rel='stylesheet'  type='text/css', href='https://unpkg.com/leaflet@1.2.0/dist/leaflet.css' integrity='sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==' crossorigin='')
+      link(rel='stylesheet'  type='text/css', href='https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css')
+      link(rel='stylesheet'  type='text/css', href='/public/css/jquery/jquery-ui.css')
       link(rel='stylesheet', type='text/css', href='/public/css/theme.css')
       link(rel='stylesheet', type='text/css', href='/public/css/style.css')
 
-      link(rel='stylesheet' href='https://unpkg.com/leaflet@1.2.0/dist/leaflet.css' integrity='sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==' crossorigin='')
-      link(rel='stylesheet' href='https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css')
-
     block added_styles
 
-    block scripts
-      script(async, src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-      script(async, src='/public/js/assets/jquery/jquery-ui.js')
-      script(async, src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js')
-      script(async, src='https://unpkg.com/leaflet@1.2.0/dist/leaflet.js' integrity='sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==' crossorigin='')
-      script(async, src='https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js')
-      script(async, src='/public/js/common/afpa-car-bundle.js')
-
-    block added_scripts
   body
-
     include templates/header-bar
 
     .ui.container
       block content
       block footer
       ul.notifications-container
+
+block scripts
+  script(async, src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  script(async, src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js')
+  script(async, src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js')
+  script(async, src='https://unpkg.com/leaflet@1.2.0/dist/leaflet.js' integrity='sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==' crossorigin='')
+  script(async, src='https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js')
+  script(async, src='/public/js/common/afpa-car-bundle.js')
+
+block added_scripts
