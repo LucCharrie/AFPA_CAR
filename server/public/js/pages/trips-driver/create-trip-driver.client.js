@@ -33,7 +33,6 @@ var createTripDriver = {};
         self.router = new L.Routing.osrmv1({
             serviceUrl: 'http://10.111.62.65:5000/route/v1'
         });
-
     };
 
     //
@@ -43,17 +42,22 @@ var createTripDriver = {};
         $('.address_auto').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/api/address",
+                    url: "http://photon.komoot.de/api/",
                     dataType: "json",
                     data: {
-                        term: request.term
+                        q: request.term
                     },
                     success: function (data) {
-                        response($.map(data, function (item) {
+                        response($.map(data.features, function (item) {
+                            var street = item.properties.name || '';
+                            var postcode = item.properties.postcode || '';
+                            var city = item.properties.city || '';
+                            var country = item.properties.country || '';
+
                             return {
-                                "value": item.numero + ', ' + item.street + ', ' + item.city,
-                                "lat": item.latitude,
-                                "lng": item.longitude
+                                "value": street + ' ' + postcode + ' ' + city + ' ' + country,
+                                "lat": item.geometry.coordinates[0],
+                                "lng": item.geometry.coordinates[1]
                             };
                         }));
                     }
@@ -68,8 +72,6 @@ var createTripDriver = {};
         });
 
     };
-
-
 
 
     //
