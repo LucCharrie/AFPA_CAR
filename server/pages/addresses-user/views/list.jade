@@ -1,0 +1,10 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, src='/public/js/pages/addresses-user/list-addresses-user.client.js')
+
+block content
+    .ui.secondary.menu
+        a.active.item(href='/addresses-user/create') Ajouter une adresse
+
+    //- .ui.cards

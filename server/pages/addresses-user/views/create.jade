@@ -1,0 +1,21 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, src='/public/js/pages/addresses-user/create-addresses-user.client.js')
+
+block content
+  h1 Ajouter une Adresse
+  
+  .ui.form(id="form-create-address")
+    .field
+      label Intitulé
+      input(name='address_name' type='text' placeholder="Maison")
+      br
+      br
+      label Adresse
+      input(class='addresses_auto' name='address' type='text' placeholder="10 rue du levant 34000 Montpellier")
+      br
+      a(href='./createGPS') Votre adresse est introuvable ? Renseignez ici vos coordonnées GPS.
+
+    br
+    button.ui.button(type='submit') Ajouter l'adresse
