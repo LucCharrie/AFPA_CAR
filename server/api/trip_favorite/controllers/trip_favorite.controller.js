@@ -9,6 +9,7 @@ module.exports.list = function (req, res) {
 
 module.exports.create = function (req, res) {
 
+    console.log(req.body)
     let tripFavoriteModel = new TripFavoriteModel({
         user_id: req.session.user.id,
         car_user_id: req.session.user.car_user_id,
@@ -35,6 +36,15 @@ module.exports.read = function(req, res) {
     res.json(req.trip);
 }
 
+module.exports.tripByUserId = function (req, res) {
+
+    var id = 1; // req.session.user.id;
+    TripFavoriteService.findByUserID(id, (err, tripFavorite) => {
+        res.json(tripFavorite);
+    });
+}
+
+
 exports.tripByID = function (req, res, next, id) {
     if (isNaN(id)) {
       return res.status(400).send({
@@ -52,4 +62,4 @@ exports.tripByID = function (req, res, next, id) {
       next();
     });
 }
-    
+

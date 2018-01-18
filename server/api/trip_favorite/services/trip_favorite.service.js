@@ -17,6 +17,10 @@ class TripFavoriteService {
     static findByID(id, cb) {
         return TripFavoriteDAO.findByID(id, cb);
     }
+
+    static findByUserID(id, cb) {
+        return TripFavoriteDAO.findByUserID(id, cb);
+    }
 }
 
 module.exports = TripFavoriteService;
