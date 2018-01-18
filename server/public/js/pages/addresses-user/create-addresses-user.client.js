@@ -58,7 +58,7 @@ var createAddressUserController = {};
                 method: 'POST',
                 url: '/api/addresses-user/',
                 data: {
-                    // addressId: form.addressId,
+                    addressId: my_id,
                     address_name: form.name,
                     address: form.address
                 },
