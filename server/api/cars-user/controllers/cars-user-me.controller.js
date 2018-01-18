@@ -20,11 +20,11 @@ module.exports.carUserByID = function (req, res, next, id) {
 
   CarsUserService.find(id, (err, carUser) => {
     if (!carUser) {
-      return res.status(500).json({ 'errors': [{msg: 'Failed to load carUser ' + idCarUser}] });
+      return res.status(500).json({ 'errors': [{msg: 'Failed to load carUser ' + id }] });
     }
 
     if (req.session.user.id !== carUser.user.id) {
-      return res.status(403).json({ 'errors': [{msg: 'Acces denied to carUser ' + idCarUser}] });
+      return res.status(403).json({ 'errors': [{msg: 'Acces denied to carUser ' + id }] });
     }
 
     req.carUser = carUser;
