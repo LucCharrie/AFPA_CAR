@@ -15,19 +15,19 @@ module.exports.list = function(req, res) {
  */
 module.exports.carUserByID = function (req, res, next, id) {
   if (isNaN(id)) {
-    return res.status(400).send({
-      car: 'carUser is invalid'
-    });
+    return res.status(400).send({car: 'carUser is invalid'});
   }
 
   CarsUserService.find(id, (err, carUser) => {
     if (!carUser) {
-      return next(new Error('Failed to load carUser ' + id));
+      return res.status(500).json({ 'errors': [{msg: 'Failed to load carUser ' + idCarUser}] });
     }
-  
-    if (req.session.user.id == carUser.user.id) {
-      req.carUser = carUser;
+
+    if (req.session.user.id !== carUser.user.id) {
+      return res.status(403).json({ 'errors': [{msg: 'Acces denied to carUser ' + idCarUser}] });
     }
+
+    req.carUser = carUser;
 
     next();
   });

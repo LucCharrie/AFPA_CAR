@@ -27,7 +27,7 @@ var createCarsUserController = {};
             minLength: 2,
 
             select: function (event, ui) {
-                $('#form-edit-car input[name="car"]').data('id', ui.item.id);
+                $('#form-create-car input[name="car"]').data('id', ui.item.id);
             }
         });
 
@@ -37,7 +37,7 @@ var createCarsUserController = {};
                 numimmat : $('#form-create-car input[name="numimmat"]').val(),
                 carId    : $('#form-create-car input[name="car"]').data("id")
             };
-    
+        
             $.ajax({
                 method: 'POST',
                 url: '/api/cars-user/',

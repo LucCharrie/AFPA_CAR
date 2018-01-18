@@ -5,28 +5,27 @@
 // au reste du code de l'application.
 //=========================================================================
 
-let db = require(__base + 'config/db')
-
+let db = require(__base + 'config/db');
 let CarUserModel = require('../models/car-user.model');
 
 class CarsUserDAO {
     static create(carUser, cb) {
         db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
         [carUser.color, carUser.numimmat, carUser.car.id, carUser.user.id], (err, result) => {
-            CarsUserDAO.find(result.insertId, cb);
+            return (err) ? cb(err) : CarsUserDAO.find(result.insertId, cb);
         });
     }
 
     static update(carUser, cb) {
         db.query('UPDATE car_user SET color = ?, numimmat = ?, car_id = ? WHERE id_car_user = ?',
         [carUser.color, carUser.numimmat, carUser.car.id, carUser.id], (err) => {
-            CarsUserDAO.find(carUser.id, cb);
+            return (err) ? cb(err) : CarsUserDAO.find(carUser.id, cb);
         });
     }
 
     static delete(id, cb) {
         db.query('DELETE FROM car_user WHERE id_car_user = ?', [id], (err) => {
-            cb(err);
+            return cb(err);
         });
     }
 

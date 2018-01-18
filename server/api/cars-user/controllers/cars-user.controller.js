@@ -45,48 +45,39 @@ module.exports.create = function(req, res) {
  * Update a CarUser
  */
 module.exports.update = function(req, res) {
-  if (req.carUser) {
-    req.carUser.car.id = req.body.carId;
-    req.carUser.color = req.body.color;
-    req.carUser.numimmat = req.body.numimmat;
+  req.carUser.car.id = req.body.carId;
+  req.carUser.color = req.body.color;
+  req.carUser.numimmat = req.body.numimmat;
 
-    CarsUserService.update(req.carUser, (err, carUser) => {
-      if (err) {
-        res.status(500).json({ 'errors': [{msg: 'Failed to update carUser !'}] });
-      }
-      else {
-        res.json({ 'success': [{msg: 'carUser Updated !'}], 'carUser': carUser });
-      }
-    });
-  }
+  CarsUserService.update(req.carUser, (err, carUser) => {
+    if (err) {
+      res.status(500).json({ 'errors': [{msg: 'Failed to update carUser !'}] });
+    }
+    else {
+      res.json({ 'success': [{msg: 'carUser Updated !'}], 'carUser': carUser });
+    }
+  });
 }
 
 /**
  * Delete a CarUser
  */
 module.exports.delete = function(req, res) {
-  if (req.carUser) {
-    CarsUserService.delete(req.carUser.id, (err) => {
-      if (err) {
-        res.status(500).json({ 'errors': [{msg: 'Failed to delete carUser !'}] });
-      }
-      else {
-        res.json({ 'success': [{msg: 'carUser Deleted !'}]});
-      }
-    });
-  }
+  CarsUserService.delete(req.carUser.id, (err) => {
+    if (err) {
+      res.status(500).json({ 'errors': [{msg: 'Failed to delete carUser !'}] });
+    }
+    else {
+      res.json({ 'success': [{msg: 'carUser Deleted !'}]});
+    }
+  });
 }
 
 /**
  * Read a CarUser
  */
 module.exports.read = function(req, res) {
-  if (req.carUser) {
-    res.json(req.carUser);
-  }
-  else {
-    res.status(404).json({});
-  }
+  res.json(req.carUser);
 }
 
 /**
@@ -103,17 +94,16 @@ module.exports.list = function(req, res) {
  */
 exports.carUserByID = function (req, res, next, idCarUser) {
   if (isNaN(idCarUser)) {
-    return res.status(400).send({
-      carUser: 'carUser is invalid'
-    });
+    return res.status(400).send({carUser: 'carUser is invalid'});
   }
 
   CarsUserService.find(idCarUser, (err, carUser) => {
     if (!carUser) {
-      return next(new Error('Failed to load carUser ' + idCarUser));
+      return res.status(500).json({ 'errors': [{msg: 'Failed to load carUser ' + idCarUser}] });
     }
 
     req.carUser = carUser;
+  
     next();
   });
 }
