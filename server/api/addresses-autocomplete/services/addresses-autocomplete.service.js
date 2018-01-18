@@ -3,14 +3,14 @@
 // et les rendre au controller.
 //=========================================================================
 
-let AddressDAO  = require('../dao/address.dao.mysql');
+let AddressAutoDAO  = require('../dao/addresses-autocomplete.dao.mysql');
 
 
-class AddressService
+class AddressAutoService
 {
-    static create(term, cb) {
-        return AddressDAO.create(term, cb);
+    static search(term, cb) {
+        return AddressAutoDAO.search(term, cb);
     }
 }
 
-module.exports = AddressService;
+module.exports = AddressAutoService;

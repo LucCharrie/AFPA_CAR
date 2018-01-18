@@ -1,0 +1,24 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, src='/public/js/pages/addresses-user/create-addresses-user.client.js')
+
+block content
+  h1 Ajouter une adresse avec des coordonnées GPS
+  
+  .ui.form(id="form-create-address")
+    .field
+      label Intitulé
+      input(name='address_name' type='text' placeholder="Maison")
+      br
+      br
+      label Longitude
+      input(name='longitude' type='text' placeholder="2.287592000000018")
+      br
+      label Latitude
+      input(name='latitude' type='text' placeholder="48.862725")
+      br
+      a(href='https://www.coordonnees-gps.fr/') Trouver vos coordonnées GPS.
+
+    br
+    button.ui.button(type='submit') Ajouter l'adresse

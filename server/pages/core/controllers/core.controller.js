@@ -49,3 +49,10 @@ module.exports.profil = function(req, res) {
 module.exports.notifications = function(req, res) {
   res.render('core/views/notifications');
 };
+
+/**
+ * Addresses Page
+ */
+module.exports.addresses = function(req, res) {
+  res.render('core/views/addresses-user');
+};

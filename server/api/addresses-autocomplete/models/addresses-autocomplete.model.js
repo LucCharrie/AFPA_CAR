@@ -1,11 +1,11 @@
 let moment = require(__base + 'config/moment')
 
 
-class AddressModel
+class AddressAutoModel
 {
     constructor (row) {
         this.row = row || {
-            id: null,
+            id_address_autocomplete: null,
             street: '',
             city: '',
             latitude: '',
@@ -17,10 +17,10 @@ class AddressModel
     }
 
     get id() {
-        return this.row.id;
+        return this.row.id_address_autocomplete;
     }
     set id(val) {
-        this.row.id = val;
+        this.row.id_address_autocomplete = val;
     }
 
     get street() {
@@ -90,4 +90,4 @@ class AddressModel
     }
 }
 
-module.exports = AddressModel
+module.exports = AddressAutoModel
