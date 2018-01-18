@@ -5,14 +5,51 @@
 //=========================================================================
 
 let AddressesUsersService = require('../services/addresses-user.service');
-let AddressesUserModel = require('../models/addresses-user.model');
+let AddressUserModel = require('../models/addresses-user.model');
 
+/**
+ * Create an address for current user
+ */
+module.exports.create = function(req, res) {
+  req.checkBody('address_name', 'Intitulé vide').notEmpty();
+  req.checkBody('address', 'Adresse vide').notEmpty();
+
+  let errorsFields = req.validationErrors();
+
+  if (errorsFields) {
+    return res.status(500).json({'errors': errorsFields});
+  }
+
+  let addressUserModel = new AddressUserModel({
+    id: null,
+    street: '',
+    city: '',
+    latitude: '',
+    longitude: '',
+    numero: '',
+    zip_code: '',
+    rep: '',
+    userRef: {
+      id_user: req.session.user.id
+    }
+  });
+
+  AddressesUserService.create(addressUserModel, (err, addressUser) => {
+    if (err) {
+
+      console.log(err);
+      res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
+    } else {
+      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
+    }
+  });
+}
 
 /**
  * Read an address
  */
 module.exports.read = function(req, res) {
-  AddressesUsersService.find(req.params.idAddresses-user, (err, car) => { // à voir pour utiliser le middleware carByID
+  AddressesUsersService.find(req.params.idAddresses-user, (err, address) => { // à voir pour utiliser le middleware addressByID
     res.json(address);
   });
 }
@@ -28,9 +65,9 @@ exports.addressesByID = function (req, res, next, idUser) {
     });
   }
 
-  AddressesUsersService.find(idUser, (err, car) => {
-    if (!car) {
-      return next(new Error('Failed to load car ' + idUser));
+  AddressesUsersService.find(idUser, (err, address) => {
+    if (!address) {
+      return next(new Error('Failed to load address ' + idUser));
     }
 
     req.address = address;

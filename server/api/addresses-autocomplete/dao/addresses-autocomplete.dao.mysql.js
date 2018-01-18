@@ -25,13 +25,22 @@ class AddressAutoDAO
             }
         }
     
-        db.query(`SELECT numero, rep, street, zip_code, city, latitude, longitude
+        db.query(`SELECT id_address_autocomplete, numero, rep, street, zip_code, city, latitude, longitude
                     FROM address_autocomplete
                     WHERE ` + where_clause + ` LIMIT 10;`, (err, rows) => {
             rows = rows || [];
 
             rows = rows.map((row) => {
-                return new AddressAutoModel(row)
+                return new AddressAutoModel({
+                    id_address_autocomplete: row.id_address_autocomplete,
+                    numero: row.numero,
+                    rep: row.rep,
+                    street: row.street,
+                    zip_code: row.zip_code,
+                    city: row.city,
+                    latitude: row.latitude,
+                    longitude: row.longitude
+                })
             });
 
             cb(err, rows);

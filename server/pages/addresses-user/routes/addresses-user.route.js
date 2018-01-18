@@ -9,10 +9,11 @@ router.route('/create')
 router.route('/createGPS')
     .get(addresses.createGPS);    
 
-router.route('/me')
-    .get(addresses.list);
-
 router.route('/')
-    .post()
+    .get(addresses.list);
+    
+
+// router.route('/')
+//     .post()
 
 module.exports = router;

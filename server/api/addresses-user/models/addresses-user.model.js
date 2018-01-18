@@ -1,5 +1,6 @@
 let UserModel = require(__base + 'api/users/models/user.model');
 let AddressesUserModel = require(__base + 'api/addresses-user/models/addresses-user.model');
+let AddressModel = require (__base + 'api/address/models/address.model');
 
 class AddressUserModel
 {
@@ -15,7 +16,7 @@ class AddressUserModel
             rep: ''
         };
 
-        this.row.addressRef = new AdressModel(this.row.adressRef);
+        this.row.addressRef = new AddressModel(this.row.adressRef);
         this.row.userRef = new UserModel(this.row.userRef);
     }
 

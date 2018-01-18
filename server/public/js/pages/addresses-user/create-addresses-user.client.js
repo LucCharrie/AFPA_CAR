@@ -1,24 +1,35 @@
-var createAddressesUserController = {};
+var createAddressUserController = {};
 
 (function (self) {
-
     //
     // Init
     //
+    var my_id;
     self.init = function () {
+        console.log(2);
         $('.addresses_auto').autocomplete({
+        
+            
             source: function (request, response) {
+                
+                
                 $.ajax({
-                    url: "/api/addresses-autocomplete",
-                    dataType: "json",
+                    url: '/api/addresses-autocomplete',
+                    dataType: 'json',
                     data: {
                         term: request.term
                     },
                     success: function (data) {
+                        
+                        
                         response($.map(data, function (item) {
+                            
+
+                            
                             return {
-                                "value": item.numero + ' ' + item.rep + ' ' + item.street + ' ' + item.city + ' ' + item.zip_code,
-                                "id": item.id
+                                'value': item.numero + ' ' +  item.street + ' ' + item.zip_code + ' ' + item.city,
+                                // item.name + ' ' + item.address,
+                                'id': item.id
                             };
                         }));
                     }
@@ -28,40 +39,31 @@ var createAddressesUserController = {};
             minLength: 2,
 
             select: function (event, ui) {
-                form.addressId = ui.item.id;
-                $('#form-create-address input[name="name"]').val(),
+                $('#form-create-address input[name="address"]').data('id', ui.item.id);
+                my_id = ui.item.id;
+                console.log(my_id);
+                // console.log(ui.item.id)
             }
         });
 
         $('#form-create-address button[type="submit"]').click(function() {
+            console.log(my_id);
             var form = {
-                name : $('#form-create-address input[name="name"]').val(),
-                addressId : $('#form-create-address input[name="addressId"]').val(),
-                street : $('#form-create-address input[name="street"]').val(),
-                city : $('#form-create-address input[name="city"]').val(),
-                latitude : $('#form-create-address input[name="latitude"]').val(),
-                longitude : $('#form-create-address input[name="longitude"]').val(),
-                zip_code : $('#form-create-address input[name="zip_code"]').val(),
-                numero : $('#form-create-address input[name="numero"]').val(),
-                rep : $('#form-create-address input[name="rep"]').val()
-                };
+                
+                name : $('#form-create-address input[name="address_name"]').val(),
+                address    : $('#form-create-address input[name="address"]').val()//data("id")
+            };
+        console.log(3);
             $.ajax({
                 method: 'POST',
-                url: '/api/addresses-user/me',
+                url: '/api/addresses-user/',
                 data: {
-                    name : form.name,
-                    addressId : form.addressId,
-                    street : form.street,
-                    city : form.city,
-                    latitude : form.latitude,
-                    longitude : form.longitude,
-                    zip_code : form.zip_code,
-                    numero : form.numero,
-                    rep : form.rep
+                    // addressId: form.addressId,
+                    address_name: form.name,
+                    address: form.address
                 },
                 success : function(data) {
                     window.location.replace('/addresses-user');
-                    console.log(form.addressId);
                 },
                 error : function(xhr) {
                     var data = xhr.responseJSON;
@@ -69,7 +71,6 @@ var createAddressesUserController = {};
                 }
             });
         });
-        
     }
 
     ////////////////////////////////////////////////////////////
@@ -78,4 +79,4 @@ var createAddressesUserController = {};
     window.onload = self.init;
     
 
-})(createAddressesUserController);
+})(createAddressUserController);

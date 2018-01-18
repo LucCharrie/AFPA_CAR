@@ -5,7 +5,7 @@ class AddressAutoModel
 {
     constructor (row) {
         this.row = row || {
-            id: null,
+            id_address_autocomplete: null,
             street: '',
             city: '',
             latitude: '',
@@ -17,10 +17,10 @@ class AddressAutoModel
     }
 
     get id() {
-        return this.row.id;
+        return this.row.id_address_autocomplete;
     }
     set id(val) {
-        this.row.id = val;
+        this.row.id_address_autocomplete = val;
     }
 
     get street() {
