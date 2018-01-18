@@ -1,11 +1,6 @@
 var createAddressesUserController = {};
 
 (function (self) {
-    var form = {
-        carId : null,
-        color : null,
-        numimmat : null
-    };
 
     //
     // Init
@@ -14,7 +9,7 @@ var createAddressesUserController = {};
         $('.addresses_auto').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/api/addresses-user",
+                    url: "/api/addresses-autocomplete",
                     dataType: "json",
                     data: {
                         term: request.term
@@ -22,7 +17,7 @@ var createAddressesUserController = {};
                     success: function (data) {
                         response($.map(data, function (item) {
                             return {
-                                "value": item.brand.brand_name + ' ' + item.model_name,
+                                "value": item.numero + ' ' + item.rep + ' ' + item.street + ' ' + item.city + ' ' + item.zip_code,
                                 "id": item.id
                             };
                         }));
@@ -33,24 +28,39 @@ var createAddressesUserController = {};
             minLength: 2,
 
             select: function (event, ui) {
-                form.carId = ui.item.id;
+                form.addressId = ui.item.id;
             }
         });
 
-        $('#form-create-car button[type="submit"]').click(function() {
-            form.color    = $('#form-create-car select[name="color"]').val();
-            form.numimmat = $('#form-create-car input[name="numimmat"]').val();
-    
+        $('#form-create-address button[type="submit"]').click(function() {
+            var form = {
+                name : $('#form-create-address input[name="name"]').val(),
+                addressId : $('#form-create-address input[name="addressId"]').val(),
+                street : $('#form-create-address input[name="street"]').val(),
+                city : $('#form-create-address input[name="city"]').val(),
+                latitude : $('#form-create-address input[name="latitude"]').val(),
+                longitude : $('#form-create-address input[name="longitude"]').val(),
+                zip_code : $('#form-create-address input[name="zip_code"]').val(),
+                numero : $('#form-create-address input[name="numero"]').val(),
+                rep : $('#form-create-address input[name="rep"]').val()
+                };
             $.ajax({
                 method: 'POST',
-                url: '/api/cars-user/me',
+                url: '/api/addresses-user/me',
                 data: {
-                    carId: form.carId,
-                    color: form.color,
-                    numimmat: form.numimmat
+                    name : form.name,
+                    addressId : form.addressId,
+                    street : form.street,
+                    city : form.city,
+                    latitude : form.latitude,
+                    longitude : form.longitude,
+                    zip_code : form.zip_code,
+                    numero : form.numero,
+                    rep : form.rep
                 },
                 success : function(data) {
-                    window.location.replace('/cars-user');
+                    window.location.replace('/addresses-user');
+                    console.log(form.addressId);
                 },
                 error : function(xhr) {
                     var data = xhr.responseJSON;
@@ -67,97 +77,4 @@ var createAddressesUserController = {};
     window.onload = self.init;
     
 
-})(createCarsUserController);
-
-
-
-
-// code list cars user
-////////////////////////////////////////
-////////////////////////////////////////
-
-var listCarsUserController = {};
-
-(function (self) {
-
-
-    //
-    // Init
-    //
-    self.init = function () {
-        $.ajax({
-            url: "/api/cars-user/me",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                self.carsUserListSuccess(data);
-            }
-        });
-    }
-
-    self.carsUserListSuccess = function(carsUser) {
-        $.each(carsUser, function (index, carUser) {
-          self.carUserAddCard(carUser.id, carUser);
-        });
-    }
-
-    self.carUserAddCard = function(id, carUser) {
-         $(".ui.cards").append(self.carUserBuildCard(id, carUser));
-    }
-
-    self.carUserDeleteCard = function(id) {
-        $.ajax({
-            url: "/api/cars-user/me/" + id,
-            type: 'DELETE',
-            dataType: "json",
-            success: function (data) {
-                $('.card[data-id=' + id + ']').remove();
-                Kovoit.pushNotification('success', data.success);
-            }
-        });
-    }
-
-    self.carUserBuildCard = function(id, carUser) {
-        var card =
-        "<div class='card card-trip-driver' data-id='" + id + "'>" +
-            "<div class='content'>" +
-                "<div class='header'> Ma voiture </div>" +
-            "</div>" +
-            "<div class='content-body'>" +
-                "<table class='ui celled table table-info'>" +
-                    "<tbody>" +
-                    "<tr>" +
-                        "<td> Marque : </td>" +
-                        "<td>" + carUser.car.brand.brand_name + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                        "<td> Modèle : </td>" +
-                        "<td>" + carUser.car.model_name + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                        "<td> Couleur :</td>" +
-                        "<td>" + carUser.color + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                        "<td> Immatriculation :</td>" +
-                        "<td>" + carUser.numimmat + "</td>" +
-                    "</tr>" +
-                "</table>" +
-            "</div>" +
-            "<div class='extra content'>" +
-                "<div class='ui basic blue button'> Editer</div>" +
-                "<div class='ui basic red button' onclick='listCarsUserController.carUserDeleteCard(" + id + ")'> Supprimer</div>" +
-            "</div>" +
-        "</div>";
-        
-        return card;
-      }
-
-
-    ////////////////////////////////////////////////////////////
-    //////// ON LOAD ///////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
-    window.onload = self.init;
-    
-
-})(listCarsUserController);
+})(createAddressesUserController);

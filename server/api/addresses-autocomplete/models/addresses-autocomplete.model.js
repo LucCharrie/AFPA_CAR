@@ -90,4 +90,4 @@ class AddressAutoModel
     }
 }
 
-module.exports = AddressModel
+module.exports = AddressAutoModel

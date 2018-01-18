@@ -6,7 +6,7 @@
 //=========================================================================
 
 let db = require(__base + 'config/db')
-let AddressAutoModel = require('../models/address_auto.model');
+let AddressAutoModel = require('../models/addresses-autocomplete.model');
 
 
 class AddressAutoDAO
@@ -14,7 +14,7 @@ class AddressAutoDAO
     static search(term, cb) {
         let splitted = term.split(' ');
         let where_clause = '';
-
+    
         for (let i = 0; i < splitted.length; i++)
         {
             where_clause += `CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + splitted[i] + `%'`;
@@ -24,9 +24,9 @@ class AddressAutoDAO
                 where_clause += ' AND ';
             }
         }
-
-        db.query(`SELECT numero, street, zip_code, city, latitude, longitude
-                    FROM address
+    
+        db.query(`SELECT numero, rep, street, zip_code, city, latitude, longitude
+                    FROM address_autocomplete
                     WHERE ` + where_clause + ` LIMIT 10;`, (err, rows) => {
             rows = rows || [];
 

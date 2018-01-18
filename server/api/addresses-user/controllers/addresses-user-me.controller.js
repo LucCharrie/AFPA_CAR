@@ -2,12 +2,11 @@ let AddressesUserService = require('../services/addresses-user.service');
 let AddressesUserModel = require('../models/addresses-user.model');
 
 /**
- * Create a Car of current user
+ * Create an address for current user
  */
 module.exports.create = function(req, res) {
-  req.checkBody('color', 'Couleur vide').notEmpty();
-  req.checkBody('numimmat', 'Immatriculation vide').notEmpty();
-  req.checkBody('carId', 'Voiture vide').notEmpty();
+  req.checkBody('address_name', 'Intitulé vide').notEmpty();
+  req.checkBody('address', 'Adresse vide').notEmpty();
 
   let errorsFields = req.validationErrors();
 
@@ -15,12 +14,15 @@ module.exports.create = function(req, res) {
     return res.status(500).json({'errors': errorsFields});
   }
 
-  let carUserModel = new CarUserModel({
-    color: req.body.color,
-    numimmat: req.body.numimmat,
-    carRef: {
-      id_car: req.body.carId
-    },
+  let adressUserModel = new AddressUserModel({
+    id: null,
+    street: '',
+    city: '',
+    latitude: '',
+    longitude: '',
+    numero: '',
+    zip_code: '',
+    rep: '',
     userRef: {
       id_user: req.session.user.id
     }
@@ -30,7 +32,7 @@ module.exports.create = function(req, res) {
     if (err) {
       res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
     } else {
-      res.json({ 'success': [{msg: 'carUser Updated !'}], 'addressUser': addressUser });
+      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
     }
   });
 }

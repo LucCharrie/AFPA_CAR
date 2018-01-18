@@ -10,8 +10,8 @@ let AddressService = require('../services/address.service');
 /**
  * Search of Address
  */
-module.exports.search = function(req, res) {
-  AddressService.search(req.query.term, (err, addressList) => {
+module.exports.create = function(req, res) {
+  AddressService.create(req.query.term, (err, addressList) => {
     res.json(addressList);
   });
 }

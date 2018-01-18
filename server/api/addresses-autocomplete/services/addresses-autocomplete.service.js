@@ -3,7 +3,7 @@
 // et les rendre au controller.
 //=========================================================================
 
-let AddressAutoDAO  = require('../dao/address_auto.dao.mysql');
+let AddressAutoDAO  = require('../dao/addresses-autocomplete.dao.mysql');
 
 
 class AddressAutoService

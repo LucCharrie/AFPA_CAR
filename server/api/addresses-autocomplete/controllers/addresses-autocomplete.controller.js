@@ -4,7 +4,7 @@
 // rends la vue (typiquement).
 //=========================================================================
 
-let AddressAutoService = require('../services/address_auto.service');
+let AddressAutoService = require('../services/addresses-autocomplete.service');
 
 
 /**

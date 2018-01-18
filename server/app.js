@@ -42,6 +42,7 @@ app.use('/api/cars-brands', require('./api/cars-brands/routes/cars-brands.route'
 app.use('/api/trip_favorite', require('./api/trip_favorite/routes/trip_favorite.route'));
 app.use('/api/trip', require('./api/trip/routes/trip.route'));
 app.use('/api/addresses-user', require('./api/addresses-user/routes/addresses-user.route'));
+app.use('/api/addresses-autocomplete', require('./api/addresses-autocomplete/routes/addresses-autocomplete.route'));
 
 
 // pages routes
