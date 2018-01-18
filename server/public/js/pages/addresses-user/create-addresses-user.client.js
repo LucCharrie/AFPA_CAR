@@ -29,6 +29,7 @@ var createAddressesUserController = {};
 
             select: function (event, ui) {
                 form.addressId = ui.item.id;
+                $('#form-create-address input[name="name"]').val(),
             }
         });
 

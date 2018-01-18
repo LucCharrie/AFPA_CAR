@@ -1,22 +1,21 @@
 extends /core/views/layout
 
 block added_scripts
-  script(async, src='/public/js/pages/cars-user/create-cars-user.client.js')
+  script(src='/public/js/pages/cars-user/create-cars-user.client.js')
 
 block content
   h1 Ajouter une voiture
   
   .ui.form(id="form-create-car")
     .field
-      label ma voiture
+      label Ma voiture
       input(class='car_auto' name='car' type='text' placeholder="voiture")
   
     .field
       label Couleur
       select(name='color')
-        option(value='jaune') Jaune
-        option(value='noir') Noir
-        option(value='vert') Vert
+        for color in [ 'jaune', 'noir', 'vert']
+          option #{color}
 
     .field
       label Plaque d'immatriculation
@@ -24,4 +23,4 @@ block content
 
     br
     br
-    button.ui.button(type='submit') Ajouter véhicule
+    button.ui.button(type='submit') Enregistrer

@@ -1,0 +1,26 @@
+extends /core/views/layout
+
+block added_scripts
+  script(src='/public/js/pages/cars-user/edit-cars-user.client.js')
+
+block content
+  h1 Modifier une voiture
+
+  .ui.form(id='form-edit-car' data-id='#{carUser.id}')
+    .field
+      label Ma voiture
+      input(class='car_auto' name='car' value='#{carUser.car.brand.brand_name}  #{carUser.car.model_name}' data-id='#{carUser.car.id}' type='text' placeholder="voiture")
+
+    .field
+      label Couleur
+      select(name='color')
+        for color in [ 'jaune', 'noir', 'vert']
+          option(selected=color == carUser.color) #{color}
+
+    .field
+      label Plaque d'immatriculation
+      input(name='numimmat', value='#{carUser.numimmat}', placeholder='AB-1234-XZ', type='text')
+
+    br
+    br
+    button.ui.button(type='submit') Mettre à jour les informations

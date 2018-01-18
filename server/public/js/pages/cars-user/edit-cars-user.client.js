@@ -1,4 +1,4 @@
-var createCarsUserController = {};
+var editCarsUserController = {};
 
 (function (self) {
     //
@@ -27,20 +27,21 @@ var createCarsUserController = {};
             minLength: 2,
 
             select: function (event, ui) {
-                $('#form-create-car input[name="car"]').data('id', ui.item.id);
+                // l'id du form | le nom de l'input | l'attribut data-id (Cf. data-id='#{carUser.car.id}' ) 
+                $('#form-edit-car input[name="car"]').data('id', ui.item.id);
             }
         });
 
-        $('#form-create-car button[type="submit"]').click(function() {
+        $('#form-edit-car button[type="submit"]').click(function() {
             var form = {
-                color    : $('#form-create-car select[name="color"]').val(),
-                numimmat : $('#form-create-car input[name="numimmat"]').val(),
-                carId    : $('#form-create-car input[name="car"]').data("id")
+                color    : $('#form-edit-car select[name="color"]').val(),
+                numimmat : $('#form-edit-car input[name="numimmat"]').val(),
+                carId    : $('#form-edit-car input[name="car"]').data('id')
             };
-        
+
             $.ajax({
-                method: 'POST',
-                url: '/api/cars-user/',
+                method: 'PUT',
+                url: '/api/cars-user/me/' + $('#form-edit-car').data('id'),
                 data: {
                     carId: form.carId,
                     color: form.color,
@@ -55,6 +56,7 @@ var createCarsUserController = {};
                 }
             });
         });
+        
     }
 
     ////////////////////////////////////////////////////////////
@@ -63,4 +65,4 @@ var createCarsUserController = {};
     window.onload = self.init;
     
 
-})(createCarsUserController);
+})(editCarsUserController);
