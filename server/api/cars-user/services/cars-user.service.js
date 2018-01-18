@@ -7,20 +7,28 @@ let CarsUserDAO  = require('../dao/cars-user.dao.mysql');
 
 class CarsUserService
 {
-    static listByUserID(id, cb) {
-        return CarsUserDAO.listByUserID(id, cb);
+    static create(carUser, cb) {
+        return CarsUserDAO.create(carUser, cb);
+    }
+
+    static update(carUser, cb) {
+        return CarsUserDAO.update(carUser, cb);
     }
 
     static delete(id, cb) {
         return CarsUserDAO.delete(id, cb);
     }
 
-    static deleteByUserID(id, idUser, cb) {
-        return CarsUserDAO.deleteByUserID(id, idUser, cb);
+    static find(id, cb) {
+        return CarsUserDAO.find(id, cb);
     }
 
-    static create(CarUserModel, cb) {
-        return CarsUserDAO.create(CarUserModel, cb);
+    static list(cb) {
+        return CarsUserDAO.list(cb);
+    }
+
+    static listByUserID(idUser, cb) {
+        return CarsUserDAO.listByUserID(idUser, cb);
     }
 }
 

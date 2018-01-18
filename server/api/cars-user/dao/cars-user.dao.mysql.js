@@ -10,44 +10,78 @@ let db = require(__base + 'config/db')
 let CarUserModel = require('../models/car-user.model');
 
 class CarsUserDAO {
-    static create(CarUserModel, cb) {
+    static create(carUser, cb) {
         db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
-        [CarUserModel.color, CarUserModel.numimmat, CarUserModel.car.id, CarUserModel.user.id], (err, result) => {
+        [carUser.color, carUser.numimmat, carUser.car.id, carUser.user.id], (err, result) => {
             CarsUserDAO.find(result.insertId, cb);
         });
     }
 
-    // static update(car, cb) {
-    //     db.query('UPDATE car SET title = ?, text = ?, author_id = ? WHERE id = ?', [car.title, car.text, car.author.id, car.id], (err) => {
-    //         CarsDAO.find(car.id, cb);
-    //     });
-    // }
+    static update(carUser, cb) {
+        db.query('UPDATE car_user SET color = ?, numimmat = ?, car_id = ? WHERE id_car_user = ?',
+        [carUser.color, carUser.numimmat, carUser.car.id, carUser.id], (err) => {
+            CarsUserDAO.find(carUser.id, cb);
+        });
+    }
 
     static delete(id, cb) {
-        db.query('DELETE FROM car_user WHERE id = ?', [id], (err) => {
+        db.query('DELETE FROM car_user WHERE id_car_user = ?', [id], (err) => {
             cb(err);
         });
     }
 
-    static deleteByUserID(id, idUser, cb) {
-        db.query('DELETE FROM car_user WHERE id_car_user = ? AND user_id = ?', [id, idUser], (err) => {
-            cb(err);
-        });
-    }
-
-    static listByUserID(id, cb) {
+    static find(id, cb) {
         db.query(`SELECT cu.id_car_user,
-                    cu.color,
-                    cu.numimmat,
-                    c.id_car,
-                    c.model_name,
-                    cb.brand_name,
-                    u.id_user
+                         cu.color,
+                         cu.numimmat,
+                         c.id_car,
+                         c.model_name,
+                         cb.brand_name,
+                         u.id_user
                 FROM car_user AS cu
                 LEFT JOIN car AS c ON c.id_car = cu.car_id
                 LEFT JOIN car_brand AS cb ON cb.id_car_brand = c.car_brand_id
                 LEFT JOIN user AS u ON u.id_user = cu.user_id
-                WHERE u.id_user = ` + id + `;`, (err, rows) => {
+                WHERE cu.id_car_user = ? LIMIT 1`, [id], (err, rows) => {
+            let row = rows[0];
+
+            if (row) {
+                let carUserModel = new CarUserModel({
+                    id_car_user: row.id_car_user,
+                    color: row.color,
+                    numimmat: row.numimmat,
+                    carRef: {
+                        id_car: row.id_car,
+                        model_name: row.model_name,
+                        brandRef: {
+                            brand_name: row.brand_name
+                        }
+                    },
+                    userRef: {
+                        id_user: row.id_user
+                    }
+                });
+    
+                cb(err, carUserModel);
+            }
+            else {
+                cb(err);
+            }
+        });
+    }
+
+    static list(cb) {
+        db.query(`SELECT cu.id_car_user,
+                         cu.color,
+                         cu.numimmat,
+                         c.id_car,
+                         c.model_name,
+                         cb.brand_name,
+                         u.id_user
+                FROM car_user AS cu
+                LEFT JOIN car AS c ON c.id_car = cu.car_id
+                LEFT JOIN car_brand AS cb ON cb.id_car_brand = c.car_brand_id
+                LEFT JOIN user AS u ON u.id_user = cu.user_id;`, (err, rows) => {
             rows = rows || [];
 
             cb(err, rows.map((row) => {
@@ -70,34 +104,38 @@ class CarsUserDAO {
         });
     }
 
-    static find(id, cb) {
+    static listByUserID(idUser, cb) {
         db.query(`SELECT cu.id_car_user,
                          cu.color,
                          cu.numimmat,
                          c.id_car,
                          c.model_name,
-                         cb.brand_name
+                         cb.brand_name,
+                         u.id_user
                 FROM car_user AS cu
                 LEFT JOIN car AS c ON c.id_car = cu.car_id
                 LEFT JOIN car_brand AS cb ON cb.id_car_brand = c.car_brand_id
                 LEFT JOIN user AS u ON u.id_user = cu.user_id
-                WHERE cu.id_car_user = ? LIMIT 1`, [id], (err, rows) => {
-            let row = rows[0];
+                WHERE u.id_user = ` + idUser + `;`, (err, rows) => {
+            rows = rows || [];
 
-            let carUserModel = new CarUserModel({
-                id_car_user: row.id_car_user,
-                color: row.color,
-                numimmat: row.numimmat,
-                carRef: {
-                    id: row.id_car,
-                    model_name: row.model_name,
-                    brandRef: {
-                        brand_name: row.brand_name
+            cb(err, rows.map((row) => {
+                return new CarUserModel({
+                    id_car_user: row.id_car_user,
+                    color: row.color,
+                    numimmat: row.numimmat,
+                    carRef: {
+                        id: row.id_car,
+                        model_name: row.model_name,
+                        brandRef: {
+                            brand_name: row.brand_name
+                        }
+                    },
+                    userRef : {
+                        id_user: row.id_user
                     }
-                }
-            });
-
-            cb(err, carUserModel);
+                });
+            }));
         });
     }
 }

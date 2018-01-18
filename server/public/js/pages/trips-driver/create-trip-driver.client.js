@@ -42,26 +42,21 @@ var createTripDriver = {};
         $('.address_auto').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "http://photon.komoot.de/api/",
+                    url: "/api/address",
                     dataType: "json",
                     data: {
-                        q: request.term
+                        term: request.term
                     },
                     success: function (data) {
-                        response($.map(data.features, function (item) {
-                            var street = item.properties.name || '';
-                            var postcode = item.properties.postcode || '';
-                            var city = item.properties.city || '';
-                            var country = item.properties.country || '';
-
+                        response($.map(data, function (item) {
                             return {
-                                "value": street + ' ' + postcode + ' ' + city + ' ' + country,
-                                "lat": item.geometry.coordinates[0],
-                                "lng": item.geometry.coordinates[1]
+                                "value": item.numero + ', ' + item.street + ', ' + item.city,
+                                "lat": item.latitude,
+                                "lng": item.longitude
                             };
                         }));
                     }
-                });
+                })
             },
             minLength: 2,
 

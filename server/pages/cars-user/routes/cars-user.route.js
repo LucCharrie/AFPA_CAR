@@ -9,7 +9,7 @@ router.route('/create')
 router.route('/')
     .get(cars.list);
 
-router.route('/:idCar')
-    .get(cars.show);
+router.route('/edit/:idCarUser')
+    .get(cars.edit);
 
 module.exports = router;

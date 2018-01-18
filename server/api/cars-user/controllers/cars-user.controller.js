@@ -4,36 +4,116 @@
 // rends la vue (typiquement).
 //=========================================================================
 
-let CarsUsersService = require('../services/cars-user.service');
+let CarsUserService = require('../services/cars-user.service');
 let CarUserModel = require('../models/car-user.model');
 
-
 /**
- * Read a car
+ * Create a CarUser
  */
-module.exports.read = function(req, res) {
-  CarsUsersService.find(req.params.idCar, (err, car) => { // à voir pour utiliser le middleware carByID
-    res.json(car);
+module.exports.create = function(req, res) {
+  req.checkBody('color', 'Couleur vide').notEmpty();
+  req.checkBody('numimmat', 'Immatriculation vide').notEmpty();
+  req.checkBody('carId', 'Voiture vide').notEmpty();
+
+  let errorsFields = req.validationErrors();
+
+  if (errorsFields) {
+    return res.status(500).json({'errors': errorsFields});
+  }
+
+  let carUser = new CarUserModel({
+    color: req.body.color,
+    numimmat: req.body.numimmat,
+    carRef: {
+      id_car: req.body.carId
+    },
+    userRef: {
+      id_user: req.session.user.id
+    }
+  });
+
+  CarsUserService.create(carUser, (err, carUser) => {
+    if (err) {
+      res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
+    } else {
+      res.json({ 'success': [{msg: 'CarUser Updated !'}], 'carUser': carUser });
+    }
   });
 }
 
+/**
+ * Update a CarUser
+ */
+module.exports.update = function(req, res) {
+  if (req.carUser) {
+    req.carUser.car.id = req.body.carId;
+    req.carUser.color = req.body.color;
+    req.carUser.numimmat = req.body.numimmat;
+
+    CarsUserService.update(req.carUser, (err, carUser) => {
+      if (err) {
+        res.status(500).json({ 'errors': [{msg: 'Failed to update carUser !'}] });
+      }
+      else {
+        res.json({ 'success': [{msg: 'carUser Updated !'}], 'carUser': carUser });
+      }
+    });
+  }
+}
 
 /**
- * User middleware
+ * Delete a CarUser
  */
-exports.carByID = function (req, res, next, idUser) {
-  if (isNaN(idUser)) {
+module.exports.delete = function(req, res) {
+  if (req.carUser) {
+    CarsUserService.delete(req.carUser.id, (err) => {
+      if (err) {
+        res.status(500).json({ 'errors': [{msg: 'Failed to delete carUser !'}] });
+      }
+      else {
+        res.json({ 'success': [{msg: 'carUser Deleted !'}]});
+      }
+    });
+  }
+}
+
+/**
+ * Read a CarUser
+ */
+module.exports.read = function(req, res) {
+  if (req.carUser) {
+    res.json(req.carUser);
+  }
+  else {
+    res.status(404).json({});
+  }
+}
+
+/**
+ * List all CarsUser
+ */
+module.exports.list = function(req, res) {
+  CarsUserService.list((err, carsUser) => {
+    res.json(carsUser);
+  });
+}
+
+/**
+ * CarUserByID middleware
+ */
+exports.carUserByID = function (req, res, next, idCarUser) {
+  if (isNaN(idCarUser)) {
     return res.status(400).send({
-      car: 'User is invalid'
+      carUser: 'carUser is invalid'
     });
   }
 
-  CarsUsersService.find(idUser, (err, car) => {
-    if (!car) {
-      return next(new Error('Failed to load car ' + idUser));
+  CarsUserService.find(idCarUser, (err, carUser) => {
+    if (!carUser) {
+      return next(new Error('Failed to load carUser ' + idCarUser));
     }
 
-    req.car = car;
+    req.carUser = carUser;
     next();
   });
 }
