@@ -22,7 +22,7 @@ let CarsService = require('../services/cars.service');
  * List of Cars
  */
 module.exports.search = function(req, res) {
-    CarsService.search(req.query.term, (err, cars) => {
+    CarsService.search(req.query.term.id, (err, cars) => {
       res.json(cars);
     });
 }

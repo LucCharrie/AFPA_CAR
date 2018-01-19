@@ -11,12 +11,12 @@ let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
     static create(AddressesUserModel, cb) {
-        
-        db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
-        [CarUserModel.color, CarUserModel.numimmat, CarUserModel.car.id, CarUserModel.user.id], (err, result) => {
-            console.log(err);
-            //CarsUserDAO.find(result.insertId, cb);
-        });
+        console.log(19);
+        // db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
+        // [CarUserModel.color, CarUserModel.numimmat, CarUserModel.car.id, CarUserModel.user.id], (err, result) => {
+        //     console.log(err);
+        //     //CarsUserDAO.find(result.insertId, cb);
+        // });
     }
 
     // static update(car, cb) {

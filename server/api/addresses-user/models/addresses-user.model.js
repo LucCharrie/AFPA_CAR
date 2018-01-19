@@ -13,7 +13,8 @@ class AddressUserModel
             longitude: '',
             numero: '',
             zip_code: '',
-            rep: ''
+            rep: '',
+            userRef: ''
         };
 
         this.row.addressRef = new AddressModel(this.row.adressRef);
