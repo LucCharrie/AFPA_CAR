@@ -4,14 +4,14 @@
 // rends la vue (typiquement).
 //=========================================================================
 
-let AddressService = require('../services/address.service');
+let AddressAutoService = require('../services/addresses-autocomplete.service');
 
 
 /**
  * Search of Address
  */
-module.exports.create = function(req, res) {
-  AddressService.create(req.query.term, (err, addressList) => {
+module.exports.search = function(req, res) {
+  AddressAutoService.search(req.query.term, (err, addressList) => {
     res.json(addressList);
   });
 }

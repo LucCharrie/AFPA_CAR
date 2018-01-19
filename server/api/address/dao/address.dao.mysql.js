@@ -11,22 +11,23 @@ let AddressModel = require('../models/address.model');
 
 class AddressDAO
 {
-    static search(term, cb) {
+    static create(term, cb) {
+        console.log(term);
         let splitted = term.split(' ');
         let where_clause = '';
 
-        for (let i = 0; i < splitted.length; i++)
-        {
-            where_clause += `CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + splitted[i] + `%'`;
+        // for (let i = 0; i < splitted.length; i++)
+        // {
+        //     where_clause += `CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + splitted[i] + `%'`;
 
-            if (i < splitted.length - 1)
-            {
-                where_clause += ' AND ';
-            }
-        }
+        //     if (i < splitted.length - 1)
+        //     {
+        //         where_clause += ' AND ';
+        //     }
+        // }
 
         db.query(`SELECT numero, street, zip_code, city, latitude, longitude
-                    FROM address
+                    FROM address_autocomplete
                     WHERE ` + where_clause + ` LIMIT 10;`, (err, rows) => {
             rows = rows || [];
 
@@ -37,6 +38,9 @@ class AddressDAO
             cb(err, rows);
         });
     }
+
 }
+
+
 
 module.exports = AddressDAO;

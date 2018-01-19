@@ -1,3 +1,5 @@
+
+
 class TripFavoriteModel {
     constructor(row) {
         this.row = row || {
@@ -10,7 +12,10 @@ class TripFavoriteModel {
             address_departure_id: '',
             address_arrival_id: ''  
         }
+
     }
+
+    
 
     get id_trip_favorite() {
         return this.row.id_trip_favorite;
@@ -43,6 +48,7 @@ class TripFavoriteModel {
     set driver(val) {
         this.row.driver = val;
     }
+
     get user_id() {
         return this.row.user_id;
     } 

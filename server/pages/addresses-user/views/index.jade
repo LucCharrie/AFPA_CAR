@@ -1,0 +1,28 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, defer, src='/public/js/pages/addresses-user/addresses-user.client.js')
+
+block content
+  h1 Mes voitures
+  
+  .ui.form
+    .field
+      label ma voiture
+      input(class='car_auto' id='car' type='text' placeholder="voiture")
+  
+    .field
+      label Couleur
+      select(id='mycolor')
+        option(value='jaune') Jaune
+        option(value='noir') Noir
+        option(value='vert') Vert
+
+    .field
+      label Plaque d'immatriculation
+      input#numimmat(placeholder='AB-1234-XZ', type='text')
+
+    br
+    br
+    button.ui.button(id="updateUserBtn", type='submit') Mettre à jour les informations
+    .button.ui.button(onclick="") Rechercher

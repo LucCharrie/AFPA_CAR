@@ -9,16 +9,16 @@ block content
   .ui.grid
     .two.column.row
       .column
-        form(id='tripForm' action="", method="post").ui.form 
+        .ui.form
           .field
             label Nom
-            input#name_trip(type='text', placeholder='Mon trajet')
+            input#name_trip(type='text', name='name' placeholder='Mon trajet')
           .field
             label Voiture
-              input#car_user(class='car_auto' type='text', name='gender' placeholder='Ma voiture')
+              input#car_user(class='car_auto' type='text', name='car_user' placeholder='Ma voiture')
           .field
             label Nombre de places disponibles
-            input#nb_seats(type='number')
+            input#nb_seats(type='number' name='nb_seats')
           ul#parentVia(style="list-style:none; padding-left:0")
             li.field
               label Adresse départ
@@ -30,7 +30,6 @@ block content
           .button.ui.button#viaMore(onclick="createTripDriver.viaMore()") Via +
           br
           br
-          #createButton.button.fluid.ui.button(onclick="createTripDriver.createTrip()") Créer 
-
+          button#createTrip.button.fluid.ui.button(onclick="createTripDriver.createTrip()") Créer  
       .column
         #map

@@ -41,6 +41,8 @@ app.use('/api/users', require('./api/users/routes/users.route'));
 app.use('/api/cars-brands', require('./api/cars-brands/routes/cars-brands.route'));
 app.use('/api/trip_favorite', require('./api/trip_favorite/routes/trip_favorite.route'));
 app.use('/api/trip', require('./api/trip/routes/trip.route'));
+app.use('/api/addresses-user', require('./api/addresses-user/routes/addresses-user.route'));
+app.use('/api/addresses-autocomplete', require('./api/addresses-autocomplete/routes/addresses-autocomplete.route'));
 
 
 // pages routes
@@ -49,6 +51,7 @@ app.use('/cars-user', require('./pages/cars-user/routes/cars-user.route'));
 app.use('/trips-driver', require('./pages/trips-driver/routes/trips-driver.route'));
 app.use('/trips-passager', require('./pages/trips-passager/routes/trips-passager.route'));
 app.use('/users', require('./pages/users/routes/users.route'));
+app.use('/addresses-user', require('./pages/addresses-user/routes/addresses-user.route'));
 
 
 

@@ -5,7 +5,7 @@ var usersCtrl = require('../../users/controllers/users.controller');
 
 
 router.route('/')
-        .get(tripFavoriteCtrl.list)
+        .get(tripFavoriteCtrl.tripByUserId)
         .post(tripFavoriteCtrl.create);
 
 router.route('/:idTripFavorite')

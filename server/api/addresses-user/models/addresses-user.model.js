@@ -1,7 +1,8 @@
-let moment = require(__base + 'config/moment')
+let UserModel = require(__base + 'api/users/models/user.model');
+let AddressesUserModel = require(__base + 'api/addresses-user/models/addresses-user.model');
+let AddressModel = require (__base + 'api/address/models/address.model');
 
-
-class AddressModel
+class AddressUserModel
 {
     constructor (row) {
         this.row = row || {
@@ -12,8 +13,12 @@ class AddressModel
             longitude: '',
             numero: '',
             zip_code: '',
-            rep: ''
+            rep: '',
+            userRef: ''
         };
+
+        this.row.addressRef = new AddressModel(this.row.adressRef);
+        this.row.userRef = new UserModel(this.row.userRef);
     }
 
     get id() {
@@ -90,4 +95,4 @@ class AddressModel
     }
 }
 
-module.exports = AddressModel
+module.exports = AddressUserModel
