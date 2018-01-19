@@ -70,9 +70,6 @@ body.login-page {
 /*
  * CARD TRIP DRIVER
  */
-/* .card-trip-driver {
-
-} */
 .card-trip-driver .title {
     font-size:20px;
 }
@@ -155,4 +152,50 @@ body.login-page {
     display:block;
     margin-top:5px;
     margin-left:10px;
+}
+
+
+/*
+ * DROPDOWN-HEADER
+ */
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-container:hover .dropdown-content {
+    transform: scale(1);
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 52px;
+    margin: 0;
+    left: 0;
+    min-width:200px;
+    display:block;
+    padding: 0;
+    list-style-type: none;
+    background-color:#00C853;
+    z-index: 10;
+    transform-origin: left top;
+    transition: all 0.2s;
+    transform:scale(0);
+}
+
+.dropdown-content li {
+    cursor:pointer;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+}
+
+.dropdown-container.item:hover {
+    background: rgba(0,0,0,.05);
+}
+
+.dropdown-container.item {
+    cursor:pointer;
+}
+
+.dropdown-container a {
+    color:white;
 }

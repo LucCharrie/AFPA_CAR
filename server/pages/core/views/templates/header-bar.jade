@@ -9,7 +9,14 @@
     //- a.item(href='') Administrateur
 
     .ui.menu.right
-      a.item(href='/notifications') Notifications
+      .dropdown-container.item
+        a(href='/notifications') Notifications
+        i(class='dropdown icon')
+        ul.dropdown-content
+          li: a.item(href='/') plouf
+          li: a.item(href='/') replouf
+
+
       a.item(href='/users') Mon profil
       a.item(href='/cars-user') Mes voitures
       a.item(href='') Deconnexion
