@@ -10,8 +10,8 @@ let AddressesUserModel = require('../models/addresses-user.model');
 module.exports.createGPS = function(req, res) {
   // input(name='address_name' type='text' placeholder="Maison")
   req.checkBody('address_name', 'Intitulé vide').notEmpty();
-  req.checkBody('address', 'Adresse vide').notEmpty();
-  // req.checkBody('latitude', 'Latitude vide').notEmpty();
+  req.checkBody('number', 'Adresse vide').isEmail();
+  req.checkBody('latitude', 'Latitude vide').notEmpty();
 
   let errorsFields = req.validationErrors();
 

@@ -56,7 +56,7 @@ var createAddressUserController = {};
         console.log(3);
             $.ajax({
                 method: 'POST',
-                url: '/api/addresses-user/',
+                url: '/api/addresses-user/create',
                 data: {
                     addressId: my_id,
                     address_name: form.name,

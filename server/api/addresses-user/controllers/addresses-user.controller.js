@@ -45,6 +45,44 @@ module.exports.create = function(req, res) {
   });
 }
 
+module.exports.createGPS = function(req, res) {
+  req.checkBody('name', 'Intitulé vide').notEmpty();
+  req.checkBody('number', 'Numero incorrect').isInt();
+  
+  req.checkBody('street', 'Rue vide').notEmpty();
+  req.checkBody('city', 'Rue vide').notEmpty();
+  req.checkBody('zip', 'Rue vide').notEmpty();
+  req.checkBody('latitude', 'vide').isFloat();
+  req.checkBody('longitude', 'vide').isFloat();
+
+  let errorsFields = req.validationErrors();
+
+  if (errorsFields) {
+    return res.status(500).json({'errors': errorsFields});
+  }
+
+  let addressUserModel = new AddressUserModel({
+    id: null,
+    street: '',
+    city: '',
+    latitude: '',
+    longitude: '',
+    numero: '',
+    zip_code: '',
+    rep: '',
+    userRef: {
+      id_user: req.session.user.id
+    }
+  });
+
+  AddressesUsersService.createGPS(addressUserModel, req.body, (err, addressUser) => {
+    if (err) {
+      res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
+    } else {
+      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
+    }
+  });
+}
 
 /**
  * Read an address

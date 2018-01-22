@@ -1,7 +1,7 @@
 extends /core/views/layout
 
 block added_scripts
-  script(async, src='/public/js/pages/addresses-user/create-addresses-user.client.js')
+  script(async, src='/public/js/pages/addresses-user/createGPS-addresses-user.client.js')
 
 block content
   h1 Ajouter une adresse avec des coordonnées GPS
@@ -9,44 +9,41 @@ block content
   .ui.form(id="form-create-address")
     .field
       label Intitulé
-      input(name='address_name' type='text' placeholder="Maison")
+      input(name='name' type='text' placeholder="Maison")
       br
     .fields
-      .seven.wide.field
-        label Card Number
-        input(type='text', name='card[number]', maxlength='16', placeholder='Card #')
       .four.wide.field
-        label CVC
-        input(type='text', name='card[cvc]', maxlength='3', placeholder='CVC')
-      .six.wide.field
-        label Expiration
+        label Numero
         .two.fields
           .field
-            select.ui.fluid.search.dropdown(name='card[expire-month]')
-              option(value='') Month
-              option(value='1') January
-              option(value='2') February
-              option(value='3') March
-              option(value='4') April
-              option(value='5') May
-              option(value='6') June
-              option(value='7') July
-              option(value='8') August
-              option(value='9') September
-              option(value='10') October
-              option(value='11') November
-              option(value='12') December
+            input(type='text', name='number', maxlength='5', placeholder='22')
           .field
-            input(type='text', name='card[expire-year]', maxlength='4', placeholder='Year')
+            input(type='text', name='rep', maxlength='9', placeholder='bis')
+      .nine.wide.field
+        label Rue
+        input(type='text', name='street', maxlength='255', placeholder='Rue des tests')
+      .three.wide.field
+        label Ville
+        input(type='text', name='city', maxlength='150', placeholder='Montpellier')
+      .field
+        label Code postal
+        input(type='text', name='zip', maxlength='5', placeholder='34000')
+      br
+    br
+    .field
+        label Coordonnés GPS
+        
+    .fields
+      .sixteen.wide.field
+        .two.fields
+          .field
+            label Latitude
+            input(type='text', name='latitude', maxlength='20', placeholder='43.565361')
+            br
+            a(href='https://www.coordonnees-gps.fr/') Trouver vos coordonnées GPS.
+          .field
+            label Longitude
+            input(type='text', name='longitude', maxlength='20', placeholder='3.845116')
+        
 
-    br
-    label Longitude
-    input(name='longitude' type='text' placeholder="2.287592000000018")
-    br
-    label Latitude
-    input(name='latitude' type='text' placeholder="48.862725")
-    br
-    a(href='https://www.coordonnees-gps.fr/') Trouver vos coordonnées GPS.
-
-    br
     button.ui.button(type='submit') Ajouter l'adresse
