@@ -41,13 +41,12 @@ var createAddressUserController = {};
             select: function (event, ui) {
                 $('#form-create-address input[name="address"]').data('id', ui.item.id);
                 my_id = ui.item.id;
-                console.log(my_id);
-                // console.log(ui.item.id)
+
             }
         });
 
         $('#form-create-address button[type="submit"]').click(function() {
-            console.log(my_id);
+            
             var form = {
                 
                 name : $('#form-create-address input[name="address_name"]').val(),

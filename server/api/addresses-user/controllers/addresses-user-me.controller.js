@@ -41,8 +41,11 @@ module.exports.createGPS = function(req, res) {
  * List of current user's addresses
  */
 module.exports.list = function(req, res) {
-  AddressesUserService.listByUserID(req.session.user.id, (err, addressesUser) => {
-    res.json(addressesUser);
+  
+  console.log(req.session.user.id);
+    AddressesUserService.listByUserID(req.session.user.id, (err, addressesUser) => {
+     console.log( '#4#' + addressesUser[0] )
+      res.json(addressesUser);
   });
 }
 
@@ -50,7 +53,7 @@ module.exports.list = function(req, res) {
  * Delete an address of current user
  */
 module.exports.delete = function(req, res) {
-  AddressUserService.deleteByUserID(req.params.idAddressUser, req.session.user.id, (err) => {
+  AddressesUserService.deleteByUserID(req.params.idAddressUser, req.session.user.id, (err) => {
     res.json({ 'success': [{msg: 'addressUser Deleted !'}]});
   });
 }

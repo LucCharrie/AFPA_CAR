@@ -21,7 +21,7 @@ block content
             input(type='text', name='rep', maxlength='9', placeholder='bis')
       .nine.wide.field
         label Rue
-        input(type='text', name='street', maxlength='255', placeholder='Rue des tests')
+        input(type='text', name='street', maxlength='255', placeholder='Rue du test')
       .three.wide.field
         label Ville
         input(type='text', name='city', maxlength='150', placeholder='Montpellier')
@@ -39,11 +39,12 @@ block content
           .field
             label Latitude
             input(type='text', name='latitude', maxlength='20', placeholder='43.565361')
-            br
-            a(href='https://www.coordonnees-gps.fr/') Trouver vos coordonnées GPS.
+            
           .field
             label Longitude
             input(type='text', name='longitude', maxlength='20', placeholder='3.845116')
         
-
+        a(href='https://www.coordonnees-gps.fr/') Trouver vos coordonnées GPS.
+    br
+    br
     button.ui.button(type='submit') Ajouter l'adresse

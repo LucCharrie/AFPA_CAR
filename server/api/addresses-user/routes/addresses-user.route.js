@@ -8,6 +8,9 @@ router.route('/create')
     .post(addressesUserCtrl.create)
     //.put(addressesUserCtrl.createGPS);
 
+router.route('/me')
+    .get(addressesUserMeCtrl.list)
+
 router.route('/:idAddressesUser')
     .delete(addressesUserMeCtrl.delete);
 

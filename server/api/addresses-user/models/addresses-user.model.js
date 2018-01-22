@@ -6,26 +6,22 @@ class AddressUserModel
 {
     constructor (row) {
         this.row = row || {
-            id: null,
-            street: '',
-            city: '',
-            latitude: '',
-            longitude: '',
-            numero: '',
-            zip_code: '',
-            rep: '',
-            userRef: ''
+            userRef: '',
+            addressRef: '',
+            libelle: '',
         };
 
         this.row.addressRef = new AddressModel(this.row.adressRef);
         this.row.userRef = new UserModel(this.row.userRef);
     }
 
-    get id() {
-        return this.row.id;
+
+
+    get libelle() {
+        return this.row.libelle;
     }
-    set id(val) {
-        this.row.id = val;
+    set libelle(val) {
+        this.row.libelle = val;
     }
 
     get street() {
@@ -79,14 +75,16 @@ class AddressUserModel
 
     toJSON() {
         return {
-            id: this.id,
-            street: this.street,
-            city: this.city,
-            latitude: this.latitude,
-            longitude: this.longitude,
-            zip_code: this.zip_code,
-            numero: this.numero,
-            rep: this.rep
+            // id: this.id,
+                libelle : this.libelle
+                // user:
+            // street: this.street,
+            // city: this.city,
+            // latitude: this.latitude,
+            // longitude: this.longitude,
+            // zip_code: this.zip_code,
+            // numero: this.numero,
+            // rep: this.rep
         };
     }
 

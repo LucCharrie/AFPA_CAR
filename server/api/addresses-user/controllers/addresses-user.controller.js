@@ -36,8 +36,7 @@ module.exports.create = function(req, res) {
 
   AddressesUsersService.create(addressUserModel, req.body.addressId, (err, addressUser) => {
     if (err) {
-      console.log(72);
-      console.log(req.body.addressID);
+
       res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
     } else {
       res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });

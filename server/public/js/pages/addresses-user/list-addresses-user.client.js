@@ -8,23 +8,26 @@ var listAddressUserController = {};
     //
     self.init = function () {
         $.ajax({
-            url: "/api/address-user/me",
+            url: "/api/addresses-user/me",
             type: "GET",
             dataType: "json",
             success: function (data) {
-                self.AddressUserListSuccess(data);
+                self.addressesUserListSuccess(data);
+                console.log(data);
             }
         });
     }
 
-    self.AddressUserListSuccess = function(AddressUser) {
-        $.each(carsUser, function (index, addressUser) {
-          self.addressUserAddCard(addressUser.id, addressUser);
-        });
+    self.addressesUserListSuccess = function(addressesUser) {
+        
+        // $.each(addressesUser, function (index, addressUserOnly) {
+        // console.log(addressUserOnly.libelle); 
+        //   self.addressUserAddCard(addressUserOnly);
+        // });
     }
 
-    self.addressUserAddCard = function(id, addressUser) {
-         $(".ui.cards").append(self.addressUserBuildCard(id, addressUser));
+    self.addressUserAddCard = function(addressUserOnly) {
+         $(".ui.cards").append(self.addressUserBuildCard(addressUserOnly));
     }
 
     self.addressUserDeleteCard = function(id) {
@@ -39,9 +42,9 @@ var listAddressUserController = {};
         });
     }
 
-    self.addressUserBuildCard = function(id, addressUser) {
+    self.addressUserBuildCard = function(addressUserOnly) {
         var card =
-        "<div class='card card-trip-driver' data-id='" + id + "'>" +
+        "<div class='card card-trip-driver' data-id='" + id_user + "'>" +
             "<div class='content'>" +
                 "<div class='header'> Ma voiture </div>" +
             "</div>" +
