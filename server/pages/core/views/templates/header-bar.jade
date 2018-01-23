@@ -3,8 +3,8 @@
     .item.brand
       img(src='/public/img/logo-app.png')
     a.item(href='/home') Accueil
-    a.item(href='/trips-driver') Trajets conducteur
-    a.item(href='/trips-passager') Trajets passager
+    a.item(href='/trips-driver') Mes Trajets 
+    //- a.item(href='/trips-passager') Trajets passager
     //- faire un onglet "administrateur" si le sus-dit administrateur est connecté
     //- a.item(href='') Administrateur
 
@@ -13,11 +13,11 @@
         a(href='/notifications') Notifications
         i(class='dropdown icon')
         ul.dropdown-content
-          li: a.item(href='/') plouf
-          li: a.item(href='/') replouf
+          li: a.item(href='/') notif1
+          li: a.item(href='/') notif2
 
 
       a.item(href='/users') Mon profil
-      a.item(href='/cars-user') Mes voitures
-      a.item(href='/addresses-user') Mes Adresses
+      //- a.item(href='/cars-user') Mes voitures
+      //- a.item(href='/addresses-user') Mes Adresses
       a.item(href='') Deconnexion
