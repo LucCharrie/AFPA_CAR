@@ -14,7 +14,7 @@ class AddressAutoDAO
     static search(term, cb) {
         let splitted = term.split(' ');
         let where_clause = '';
-    
+
         for (let i = 0; i < splitted.length; i++)
         {
             where_clause += `CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + splitted[i] + `%'`;

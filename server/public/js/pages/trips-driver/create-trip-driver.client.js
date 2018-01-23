@@ -44,7 +44,7 @@ var createTripDriver = {};
         $('.address_auto').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/api/address",
+                    url: "/api/addresses-autocomplete",
                     dataType: "json",
                     data: {
                         term: request.term
