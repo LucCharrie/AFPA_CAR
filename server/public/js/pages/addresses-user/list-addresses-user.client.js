@@ -50,7 +50,8 @@ var listAddressUserController = {};
                     "<tbody>" +
                     "<tr>" +
                         // "<td> Adresse : </td>" +
-                        "<td>" + addressUser.address.numero + " " + addressUser.address.rep + " " + addressUser.address.street +
+                        "<td>" + addressUser.address.numero +
+                        (addressUser.address.rep = null)? " " : (" " + addressUser.address.rep + " ") + addressUser.address.street +
                          " <br> " + addressUser.address.city + " " + addressUser.address.zip_code + "</td>" +
                     "</tr>" +
                     "<tr>" +
