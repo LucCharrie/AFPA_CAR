@@ -6,7 +6,6 @@ var createAddressUserController = {};
     //
     var my_id;
     self.init = function () {
-        console.log(2);
         $('.addresses_auto').autocomplete({
         
             
@@ -52,7 +51,7 @@ var createAddressUserController = {};
                 name : $('#form-create-address input[name="address_name"]').val(),
                 address    : $('#form-create-address input[name="address"]').val()//data("id")
             };
-        console.log(3);
+            
             $.ajax({
                 method: 'POST',
                 url: '/api/addresses-user/create',

@@ -8,7 +8,6 @@ let AddressesUserModel = require('../models/addresses-user.model');
 ////////////////////////////////////////
 
 module.exports.createGPS = function(req, res) {
-  // input(name='address_name' type='text' placeholder="Maison")
   req.checkBody('address_name', 'Intitulé vide').notEmpty();
   req.checkBody('number', 'Adresse vide').isEmail();
   req.checkBody('latitude', 'Latitude vide').notEmpty();
@@ -41,10 +40,7 @@ module.exports.createGPS = function(req, res) {
  * List of current user's addresses
  */
 module.exports.list = function(req, res) {
-  
-  console.log(req.session.user.id);
     AddressesUserService.listByUserID(req.session.user.id, (err, addressesUser) => {
-     console.log( '#4#' + addressesUser[0] )
       res.json(addressesUser);
   });
 }

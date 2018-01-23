@@ -12,7 +12,6 @@ let AddressModel = require('../models/address.model');
 class AddressDAO
 {
     static create(term, cb) {
-        console.log(term);
         let splitted = term.split(' ');
         let where_clause = '';
 

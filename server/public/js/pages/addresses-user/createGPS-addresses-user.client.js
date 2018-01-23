@@ -20,7 +20,6 @@ var createAddressUserController = {};
                 latitude  : $('#form-create-address input[name="latitude"]').val(),
                 longitude : $('#form-create-address input[name="longitude"]').val()
             };
-        console.log(form);
             $.ajax({
                 method: 'POST',
                 url: '/api/addresses-user/createGPS',

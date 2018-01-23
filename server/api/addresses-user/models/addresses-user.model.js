@@ -8,10 +8,10 @@ class AddressUserModel
         this.row = row || {
             userRef: '',
             addressRef: '',
-            libelle: '',
+            libelle: ''
         };
 
-        this.row.addressRef = new AddressModel(this.row.adressRef);
+        this.row.addressRef = new AddressModel(this.row.addressRef);
         this.row.userRef = new UserModel(this.row.userRef);
     }
 
@@ -24,67 +24,25 @@ class AddressUserModel
         this.row.libelle = val;
     }
 
-    get street() {
-        return this.row.street;
+    get user() {
+        return this.row.userRef;
     }
-    set street(val) {
-        this.row.street = val;
-    }
-
-    get city() {
-        return this.row.city;
-    }
-    set city(val) {
-        this.row.city = val;
+    set user(val) {
+        this.row.userRef = val;
     }
 
-    get latitude() {
-        return this.row.latitude;
+    get address() {
+        return this.row.addressRef;
     }
-    set latitude(val) {
-        this.row.latitude = val;
-    }
-
-    get longitude() {
-        return this.row.longitude;
-    }
-    set longitude(val) {
-        this.row.longitude = val;
-    }
-
-    get zip_code() {
-        return this.row.zip_code;
-    }
-    set zip_code(val) {
-        this.row.zip_code = val;
-    }
-    
-    get numero() {
-        return this.row.numero;
-    }
-    set numero(val) {
-        this.row.numero = val;
-    }
-
-    get rep() {
-        return this.row.rep;
-    }
-    set rep(val) {
-        this.row.rep = val;
+    set address(val) {
+        this.row.addressRef = val;
     }
 
     toJSON() {
         return {
-            // id: this.id,
-                libelle : this.libelle
-                // user:
-            // street: this.street,
-            // city: this.city,
-            // latitude: this.latitude,
-            // longitude: this.longitude,
-            // zip_code: this.zip_code,
-            // numero: this.numero,
-            // rep: this.rep
+            libelle : this.libelle,
+            address: this.address,
+            user: this.user      
         };
     }
 

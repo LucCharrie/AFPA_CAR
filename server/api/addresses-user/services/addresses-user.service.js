@@ -20,16 +20,10 @@ class AddressesUserService
     }
 
     static create(AddressUserModel, addressID, cb) {
-        console.log(999);
-        console.log(addressID);
-        console.log(1001);
         return AddressesUserDAO.create(AddressUserModel, cb);
     }
 
     static createGPS(AddressUserModel, address, cb) {
-        console.log(42);
-        console.log(address);
-        console.log(1001);
         return AddressesUserDAO.create(AddressUserModel, cb);//createGPS dans DAO
     }
 

@@ -13,14 +13,12 @@ class UsersDAO
 {
     static create(user, cb) {
         db.query('INSERT INTO user SET login = ?, email = ?, password = ?, firstname = ?, lastname = ?, created_at = ?', [user.login, user.email, user.password, user.firstname, user.lastname, new Date()], (err, result) => {
-            if (err) console.log(err);
             UsersDAO.findById(result.insertId, cb);
         });
     }
 
     static update(user, cb) {
         db.query('UPDATE user SET firstname = ?, lastname = ?, gender = ?, birthday = ?, mobile_phone = ?, login = ?, email = ?, formation_id = ?  WHERE id_user = ?', [user.firstname, user.lastname, user.gender, user.birthday, user.mobile_phone, user.login, user.email, user.formation, user.id], (err) => {
-            console.log(err);
             cb(err, user);
         });
     }

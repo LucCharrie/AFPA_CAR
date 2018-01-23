@@ -8,8 +8,6 @@ module.exports.list = function (req, res) {
 }
 
 module.exports.create = function (req, res) {
-
-    console.log(req.body)
     let tripFavoriteModel = new TripFavoriteModel({
         user_id: req.session.user.id,
         car_user_id: req.session.user.car_user_id,

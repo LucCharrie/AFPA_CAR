@@ -11,10 +11,9 @@ let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
     static create(AddressesUserModel, cb) {
-        console.log(19);
         // db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
         // [CarUserModel.color, CarUserModel.numimmat, CarUserModel.car.id, CarUserModel.user.id], (err, result) => {
-        //     console.log(err);
+        //    
         //     //CarsUserDAO.find(result.insertId, cb);
         // });
     }
@@ -54,28 +53,29 @@ class AddressesUserDAO {
                 WHERE ua.date_suppression IS NULL AND 
                 ua.user_id = ` + idUser + `;`, (err, rows) => {
             rows = rows || [];
-            console.log(rows);
-            console.log( '##' + rows[0].libelle )
+            
             cb(err, rows.map((row) => {
+                
                 return new AddressesUserModel({
-                    // userRef : {
-                    //     id_user: row.user_id
-                    // },
+                    userRef : {
+                        id_user: row.user_id
+                    },
 
-                    // addressRef: {
-                    //     street: row.street,
-                    //     city: row.city,
-                    //     latitude: row.latitude,
-                    //     longitude: row.longitude,
-                    //     zip_code: row.zip_code,
-                    //     numero: row.numero,
-                    //     rep: row.rep
-                    // },
+                    addressRef: {
+                        id: row.address_id,
+                        street: row.street,
+                        city: row.city,
+                        latitude: row.latitude,
+                        longitude: row.longitude,
+                        zip_code: row.zip_code,
+                        numero: row.numero,
+                        rep: row.rep
+                    },
 
                     libelle: row.libelle
                     
                 });
-                console.log (toto.libelle)
+                
             }));
         });
     }
