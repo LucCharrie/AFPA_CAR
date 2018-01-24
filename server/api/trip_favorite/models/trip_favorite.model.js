@@ -10,7 +10,13 @@ class TripFavoriteModel {
             user_id: '',
             car_user_id: '',
             address_departure_id: '',
-            address_arrival_id: ''  
+            address_arrival_id: ''
+            // street: '', 
+            // city: '', 
+            // zip_code: '', 
+            // numero: '', 
+            // latitude: '', 
+            // longitude: '',  
         }
 
     }
@@ -90,7 +96,13 @@ class TripFavoriteModel {
             user_id: this.user_id,
             car_user_id: this.car_user_id,
             address_departure_id: this.address_departure_id,
-            address_arrival_id: this.address_arrival_id  
+            address_arrival_id: this.address_arrival_id
+            // street:  this.street, 
+            // city: this.city, 
+            // zip_code: this.zip_code, 
+            // numero: this.numero, 
+            // latitude: this.latitude, 
+            // longitude: this.longitude, 
         };
     }
 
