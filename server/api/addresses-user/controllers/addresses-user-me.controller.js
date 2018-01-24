@@ -19,6 +19,7 @@ module.exports.createGPS = function(req, res) {
   }
 
   let addressUserModel = new AddressUserModel({
+    
     name: req.body.name,
     longitude: req.body.longitude,
     latitude: req.body.latitude,

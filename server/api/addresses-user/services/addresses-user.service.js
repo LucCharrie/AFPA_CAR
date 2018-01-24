@@ -19,7 +19,8 @@ class AddressesUserService
         return AddressesUserDAO.deleteByUserID(id, idUser, cb);
     }
 
-    static create(AddressUserModel, addressID, cb) {
+    static create(AddressUserModel, cb) {
+        
         return AddressesUserDAO.create(AddressUserModel, cb);
     }
 

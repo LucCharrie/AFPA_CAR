@@ -21,7 +21,8 @@ module.exports.create = function(req, res) {
   }
 
   let addressUserModel = new AddressUserModel({
-    id: null,
+    idAuto: req.body.addressId,
+    name: req.body.address_name,
     street: '',
     city: '',
     latitude: '',
@@ -29,17 +30,17 @@ module.exports.create = function(req, res) {
     numero: '',
     zip_code: '',
     rep: '',
-    userRef: {
-      id_user: req.session.user.id
-    }
+    id_user: req.session.user.id
+    
   });
-
-  AddressesUsersService.create(addressUserModel, req.body.addressId, (err, addressUser) => {
+  // console.log(addressUserModel);
+  AddressesUsersService.create(addressUserModel, (err) => {
+    
     if (err) {
 
-      res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
+      res.status(500).json({ 'errors': [{msg: 'Failed to create address !'}] });
     } else {
-      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
+      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUserModel });
     }
   });
 }

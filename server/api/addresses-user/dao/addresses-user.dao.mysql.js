@@ -11,11 +11,14 @@ let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
     static create(AddressesUserModel, cb) {
-        // db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
-        // [CarUserModel.color, CarUserModel.numimmat, CarUserModel.car.id, CarUserModel.user.id], (err, result) => {
-        //    
-        //     //CarsUserDAO.find(result.insertId, cb);
-        // });
+        var data = AddressesUserModel.row;
+        // console.log(AddressesUserModel);
+        // console.log(AddressesUserModel.row.idAuto + " " +AddressesUserModel.row.id_user+" "+ AddressesUserModel.row.name);
+        console.log(data.idAuto + " " + data.id_user + " " + data.name);
+        db.query('Call _PS_add_adress_from_autocomplete(?,?,?)', [data.idAuto, data.id_user, data.name], (err) => {
+            cb(err);
+            //return (err) ? cb(err) : AddressesUserDAO.find(result.insertId, cb);
+        });
     }
 
     // static update(car, cb) {
