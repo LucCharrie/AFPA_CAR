@@ -27,7 +27,7 @@ var listCarsUserController = {};
 
     self.carUserDeleteCard = function(id) {
         $.ajax({
-            url: '/api/cars-user/me/' + id,
+            url: '/api/cars-user/' + id,
             type: 'DELETE',
             dataType: 'json',
             success: function (data) {
@@ -63,7 +63,7 @@ var listCarsUserController = {};
         "</div>";
         
         return card;
-      }
+    }
 
 
     ////////////////////////////////////////////////////////////

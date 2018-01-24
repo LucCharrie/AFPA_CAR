@@ -90,6 +90,15 @@ module.exports.list = function(req, res) {
 }
 
 /**
+ * List CarsUser for current user
+ */
+module.exports.listCurrentUser = function(req, res) {
+  CarsUserService.listByUserID(req.session.user.id, (err, carsUser) => {
+    res.json(carsUser);
+  });
+}
+
+/**
  * CarUserByID middleware
  */
 exports.carUserByID = function (req, res, next, idCarUser) {
