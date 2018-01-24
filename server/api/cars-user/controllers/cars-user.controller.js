@@ -39,7 +39,7 @@ module.exports.create = function(req, res) {
       res.json({ 'success': [{msg: 'CarUser Updated !'}], 'carUser': carUser });
     }
   });
-}
+} 
 
 /**
  * Update a CarUser

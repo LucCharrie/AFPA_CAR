@@ -9,9 +9,9 @@ var createAddressUserController = {};
         $('#form-create-address button[type="submit"]').click(function() {
 
             var form = {
-                name : $('#form-create-address input[name="name"]').val(),
+                libelle : $('#form-create-address input[name="libelle"]').val(),
 
-                number    : $('#form-create-address input[name="number"]').val(),
+                numero    : $('#form-create-address input[name="numero"]').val(),
                 rep       : $('#form-create-address input[name="rep"]').val(),
                 street    : $('#form-create-address input[name="street"]').val(),
                 city      : $('#form-create-address input[name="city"]').val(),
@@ -24,8 +24,9 @@ var createAddressUserController = {};
                 method: 'POST',
                 url: '/api/addresses-user/createGPS',
                 data: {
-                    name: form.name,
-                    number : form.number,
+                    libelle: form.libelle,
+
+                    numero : form.numero,
                     rep: form.rep,
                     street: form.street,
                     city: form.city,

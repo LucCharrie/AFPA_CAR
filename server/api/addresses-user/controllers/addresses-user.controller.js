@@ -11,7 +11,7 @@ let AddressUserModel = require('../models/addresses-user.model');
  * Create an address for current user
  */
 module.exports.create = function(req, res) {
-  req.checkBody('address_name', 'Intitulé vide').notEmpty();
+  req.checkBody('libelle', 'Intitulé vide').notEmpty();
   req.checkBody('address', 'Adresse vide').notEmpty();
 
   let errorsFields = req.validationErrors();
@@ -20,24 +20,18 @@ module.exports.create = function(req, res) {
     return res.status(500).json({'errors': errorsFields});
   }
 
-  let addressUserModel = new AddressUserModel({
-    idAuto: req.body.addressId,
-    name: req.body.address_name,
-    street: '',
-    city: '',
-    latitude: '',
-    longitude: '',
-    numero: '',
-    zip_code: '',
-    rep: '',
-    id_user: req.session.user.id
-    
+  let addressUser = new AddressUserModel({
+    id_Auto: req.body.addressId,
+    libelle: req.body.libelle,
+    userRef: {
+      id_user: req.session.user.id
+    },    
   });
-  // console.log(addressUserModel);
-  AddressesUsersService.create(addressUserModel, (err) => {
+
+
+  AddressesUsersService.create(addressUser, (err) => {
     
     if (err) {
-
       res.status(500).json({ 'errors': [{msg: 'Failed to create address !'}] });
     } else {
       res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUserModel });
@@ -46,8 +40,8 @@ module.exports.create = function(req, res) {
 }
 
 module.exports.createGPS = function(req, res) {
-  req.checkBody('name', 'Intitulé vide').notEmpty();
-  req.checkBody('number', 'Numero incorrect').isInt();
+  req.checkBody('libelle', 'Intitulé vide').notEmpty();
+  req.checkBody('numero', 'Numero incorrect').isInt();
   
   req.checkBody('street', 'Rue vide').notEmpty();
   req.checkBody('city', 'Rue vide').notEmpty();
@@ -61,21 +55,24 @@ module.exports.createGPS = function(req, res) {
     return res.status(500).json({'errors': errorsFields});
   }
 
-  let addressUserModel = new AddressUserModel({
-    id: null,
-    street: '',
-    city: '',
-    latitude: '',
-    longitude: '',
-    numero: '',
-    zip_code: '',
-    rep: '',
+  let addressUser = new AddressUserModel({
+
+    libelle: req.body.libelle,
+    addressRef: {
+      street: req.body.street,
+      city: req.body.city,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      numero: req.body.numero,
+      zip_code: req.body.zip_code,
+      rep: req.body.rep,
+    },
     userRef: {
       id_user: req.session.user.id
-    }
+    },    
   });
 
-  AddressesUsersService.createGPS(addressUserModel, req.body, (err, addressUser) => {
+  AddressesUsersService.createGPS(addressUser, (err) => {
     if (err) {
       res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
     } else {

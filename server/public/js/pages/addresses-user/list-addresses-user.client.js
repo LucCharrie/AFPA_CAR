@@ -49,7 +49,6 @@ var listAddressUserController = {};
                 "<table class='ui celled table table-info'>" +
                     "<tbody>" +
                     "<tr>" +
-                        // "<td> Adresse : </td>" +
                         "<td>" + addressUser.address.numero +
                         " " + addressUser.address.rep + " " + addressUser.address.street +
                          " <br> " + addressUser.address.city + " " + addressUser.address.zip_code + "</td>" +

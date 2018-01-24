@@ -10,33 +10,21 @@ let db = require(__base + 'config/db')
 let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
-    static create(AddressesUserModel, cb) {
-        var data = AddressesUserModel.row;
-        // console.log(AddressesUserModel);
-        // console.log(AddressesUserModel.row.idAuto + " " +AddressesUserModel.row.id_user+" "+ AddressesUserModel.row.name);
-        console.log(data.idAuto + " " + data.id_user + " " + data.name);
-        db.query('Call _PS_add_adress_from_autocomplete(?,?,?)', [data.idAuto, data.id_user, data.name], (err) => {
-            cb(err);
-            //return (err) ? cb(err) : AddressesUserDAO.find(result.insertId, cb);
-        });
-    }
-
-    // static update(car, cb) {
-    //     db.query('UPDATE car SET title = ?, text = ?, author_id = ? WHERE id = ?', [car.title, car.text, car.author.id, car.id], (err) => {
-    //         CarsDAO.find(car.id, cb);
-    //     });
-    // }
-
-    static delete(id, cb) {
-        db.query('DELETE FROM car_user WHERE id = ?', [id], (err) => {
+    static create(AddressUser, cb) {
+        console.log(AddressUser);
+        db.query('Call _PS_add_adress_from_autocomplete(?,?,?)',
+        [AddressUser.idAuto, AddressUser.user.id, AddressUser.libelle], (err) => {
             cb(err);
         });
     }
 
-    static deleteByUserID(id, idUser, cb) {
-        db.query('DELETE FROM car_user WHERE id_car_user = ? AND user_id = ?', [id, idUser], (err) => {
-            cb(err);
-        });
+    static createGPS(AddressUser, cb) {
+        console.log(AddressUser);
+        console.log(AddressUser.libelle);
+        // db.query('Call _PS_... (?,?,?)',
+        // [ AddressUser.user.id, AddressUser.libelle, AddressUser.street], (err) => {
+        //     cb(err);
+        // });
     }
 
     static listByUserID(idUser, cb) {
@@ -54,7 +42,7 @@ class AddressesUserDAO {
                 FROM user_address AS ua
                 LEFT JOIN address AS a ON a.id_address = ua.address_id
                 WHERE ua.date_suppression IS NULL AND 
-                ua.user_id = ` + idUser + `;`, (err, rows) => {
+                ua.user_id =  ? ;`, [idUser], (err, rows) => {
             rows = rows || [];
             
             cb(err, rows.map((row) => {
