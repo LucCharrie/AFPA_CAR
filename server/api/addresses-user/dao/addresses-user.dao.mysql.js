@@ -10,19 +10,19 @@ let db = require(__base + 'config/db')
 let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
-    static create(AddressUser, cb) {
-        console.log(AddressUser);
+    static create(addressUser, cb) {
+        console.log(addressUser);
         db.query('Call _PS_add_adress_from_autocomplete(?,?,?)',
-        [AddressUser.idAuto, AddressUser.user.id, AddressUser.libelle], (err) => {
+        [addressUser.idAuto, addressUser.user.id, addressUser.libelle], (err) => {
             cb(err);
         });
     }
 
-    static createGPS(AddressUser, cb) {
-        console.log(AddressUser);
-        console.log(AddressUser.libelle);
+    static createGPS(addressUser, cb) {
+        console.log(addressUser);
+        console.log(addressUser.libelle);
         // db.query('Call _PS_... (?,?,?)',
-        // [ AddressUser.user.id, AddressUser.libelle, AddressUser.street], (err) => {
+        // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
         //     cb(err);
         // });
     }
@@ -71,36 +71,6 @@ class AddressesUserDAO {
         });
     }
 
-    static find(id, cb) {
-        db.query(`SELECT cu.id_car_user,
-                         cu.color,
-                         cu.numimmat,
-                         c.id_car,
-                         c.model_name,
-                         cb.brand_name
-                FROM car_user AS cu
-                LEFT JOIN car AS c ON c.id_car = cu.car_id
-                LEFT JOIN car_brand AS cb ON cb.id_car_brand = c.car_brand_id
-                LEFT JOIN user AS u ON u.id_user = cu.user_id
-                WHERE cu.id_car_user = ? LIMIT 1`, [id], (err, rows) => {
-            let row = rows[0];
-
-            let carUserModel = new CarUserModel({
-                id_car_user: row.id_car_user,
-                color: row.color,
-                numimmat: row.numimmat,
-                carRef: {
-                    id: row.id_car,
-                    model_name: row.model_name,
-                    brandRef: {
-                        brand_name: row.brand_name
-                    }
-                }
-            });
-
-            cb(err, carUserModel);
-        });
-    }
 }
 
 module.exports = AddressesUserDAO;

@@ -34,7 +34,7 @@ module.exports.create = function(req, res) {
     if (err) {
       res.status(500).json({ 'errors': [{msg: 'Failed to create address !'}] });
     } else {
-      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUserModel });
+      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
     }
   });
 }
