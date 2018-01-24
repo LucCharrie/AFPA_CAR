@@ -41,7 +41,7 @@ var editCarsUserController = {};
 
             $.ajax({
                 method: 'PUT',
-                url: '/api/cars-user/me/' + $('#form-edit-car').data('id'),
+                url: '/api/cars-user/' + $('#form-edit-car').data('id'),
                 data: {
                     carId: form.carId,
                     color: form.color,
