@@ -26,8 +26,8 @@ class TripFavoriteDAO {
 
 
     static create(trip, cb) {
-       // console.log(trip);
-        
+        // console.log(trip);
+
 
         db.query('INSERT INTO trip_favorite SET name = ?, nb_seats = ?, driver = ?, user_id = ?, car_user_id = ?, address_departure_id = ?, address_arrival_id = ?',
             [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id, trip.address_departure_id, trip.address_arrival_id],
@@ -63,37 +63,73 @@ class TripFavoriteDAO {
 
     static findByUserID(id, cb) {
 
-        db.query(`SELECT name, nb_seats, 
-
+        db.query(`
+        
+        ######################################
+        ## List of trip_favorite by user_id ##
+        ######################################
+        
+        SELECT id_trip_favorite, name, nb_seats, driver,
+        
+        # select adresses
         dep.street, dep.city, dep.zip_code, dep.numero, dep.latitude, dep.longitude, 
         arr.street, arr.city, arr.zip_code, arr.numero, arr.latitude, arr.longitude,
-        hours_departure, hours_arrival, way_type, day
         
+        # select heures
+        hours_departure, hours_arrival, way_type,
+        
+        # select jours
+        GROUP_CONCAT(day),
+        
+        # select voiture
+        numimmat, color, model_name, brand_name      
+        
+        # adresses
         FROM trip_favorite AS tf
         LEFT JOIN address AS dep
         ON tf.address_departure_id = dep.id_address
         LEFT JOIN address AS arr
         ON tf.address_arrival_id = arr.id_address
         
+        # heures
         LEFT JOIN trip_favorite_has_day_week AS tfweek
         ON tf.id_trip_favorite = tfweek.trip_favorite_id
+        
+        # jours
         LEFT JOIN day_week AS dweek
         ON tfweek.day_week_id = dweek.id_day_week
         
-        # 1 for testing, ? in real life
-        WHERE user_id = 1`, [id], (err, rows) => {
-            if (rows[0]) {
-                rows = rows.map((row) => {
-                    return new TripFavoriteModel(row);
-                });
-                cb(err, rows);
-            }
-            else {
-                cb(err, null);
-            }
-        });
-    }
+        # voiture
+        LEFT JOIN car_user
+        ON tf.car_user_id = car_user.id_car_user
+        LEFT JOIN car
+        ON car_user.car_id = car.id_car
+        LEFT JOIN car_brand
+        ON car.car_brand_id = car_brand.id_car_brand
+        
+        # Sort the List
+        # '1' in dev, '?' in prod
+        WHERE tf.user_id = 1
+        GROUP BY id_trip_favorite
+        
+        `, [id], (err, rows) => {
+                if (rows[0]) {
+                    rows = rows.map((row) => {
+                        // In prod
+                        // return  new TripFavoriteModel({
 
+                        // });
+
+                        // In dev
+                        return row;
+                    });
+                    cb(err, rows);
+                }
+                else {
+                    cb(err, null);
+                }
+            });
+    }
 }
 
 module.exports = TripFavoriteDAO;

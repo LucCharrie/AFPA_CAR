@@ -40,7 +40,8 @@ module.exports.tripByUserId = function (req, res) {
 
     var id = 1; // req.session.user.id;
     TripFavoriteService.findByUserID(id, (err, tripFavorite) => {
-        res.json(tripFavorite);
+       // res.json(tripFavorite);
+       res.send({trips: tripFavorite})
     });
 }
 
