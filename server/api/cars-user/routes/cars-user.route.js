@@ -1,33 +1,31 @@
 let express = require('express');
 let router = express.Router();
 let carsUserCtrl = require('../controllers/cars-user.controller');
-let carsUserMeCtrl = require('../controllers/cars-user-me.controller');
+let carsUserPolicy = require('../policies/cars-user.policy');
 
 //
-// Routes for current user (Me)
+// Globals CarsUser route
 //
 router.route('/me')
-    .get(carsUserMeCtrl.list);
+    .get(carsUserCtrl.listCurrentUser);
 
-router.route('/me/:idCarUserMe')
-    .get(carsUserCtrl.read)
-    .put(carsUserCtrl.update)
-    .delete(carsUserCtrl.delete);
-
-router.param('idCarUserMe', carsUserMeCtrl.carUserByID);
-
-//
-// Globals cars-user route
-//
-router.route('/')
+router.route('/').all(carsUserPolicy.isAllowed)
     .get(carsUserCtrl.list)
     .post(carsUserCtrl.create);
 
-router.route('/:idCarUser')
+//
+// Single's CarsUser route
+//
+
+// Routage évolué : avant de checker les droits....
+// ## induit l'appel de : exports.carUserByID = function (req, res, next, idCarUser) {....
+// ## avant la route ci-dessous router.route('/:idCarUser').all(carsUser
+router.param('idCarUser', carsUserCtrl.carUserByID); 
+
+// l'ordre de ces deux instructions importe peu .....
+router.route('/:idCarUser').all(carsUserPolicy.isAllowed).all(carsUserPolicy.isOwner)
     .get(carsUserCtrl.read)
     .put(carsUserCtrl.update)
     .delete(carsUserCtrl.delete);
-
-router.param('idCarUser', carsUserCtrl.carUserByID);
 
 module.exports = router;
