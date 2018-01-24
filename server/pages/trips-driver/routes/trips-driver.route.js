@@ -12,6 +12,9 @@ let router = express.Router();
 router.route('/')
   .get(tripsDriverCtrl.index);
 
+  router.route('/edit/:idTripFavorite')
+  .get(tripsDriverCtrl.edit);
+
 router.route('/create')
   .get(tripsDriverCtrl.create);
 

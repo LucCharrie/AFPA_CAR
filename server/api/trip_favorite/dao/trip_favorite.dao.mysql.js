@@ -115,7 +115,12 @@ class TripFavoriteDAO {
         `, [id], (err, rows) => {
                 if (rows[0]) {
                     rows = rows.map((row) => {
-                        //return  new TripFavoriteModel(row);
+                        // In prod
+                        // return  new TripFavoriteModel({
+
+                        // });
+
+                        // In dev
                         return row;
                     });
                     cb(err, rows);

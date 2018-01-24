@@ -1,3 +1,8 @@
+let AddressModel = require(__base + 'api/address/models/address.model');
+
+let CarBrandModel = require(__base + 'api/cars-brands/models/car-brand.model');
+let Car = require(__base + 'api/cars/models/car.model');
+let CarModel = require(__base + 'api/cars-user/models/car-user.model');
 
 
 class TripFavoriteModel {
@@ -10,15 +15,10 @@ class TripFavoriteModel {
             user_id: '',
             car_user_id: '',
             address_departure_id: '',
-            address_arrival_id: ''
-            // street: '', 
-            // city: '', 
-            // zip_code: '', 
-            // numero: '', 
-            // latitude: '', 
-            // longitude: '',  
+            address_arrival_id: '' 
         }
-
+        
+        //this.row.brandRef = new CarBrandModel(this.row.brandRef);
     }
 
     
@@ -97,12 +97,6 @@ class TripFavoriteModel {
             car_user_id: this.car_user_id,
             address_departure_id: this.address_departure_id,
             address_arrival_id: this.address_arrival_id
-            // street:  this.street, 
-            // city: this.city, 
-            // zip_code: this.zip_code, 
-            // numero: this.numero, 
-            // latitude: this.latitude, 
-            // longitude: this.longitude, 
         };
     }
 
