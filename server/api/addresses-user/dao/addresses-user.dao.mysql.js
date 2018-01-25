@@ -10,18 +10,18 @@ let db = require(__base + 'config/db')
 let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
-    static create(AddressUser, cb) {
+    static create(addressUser, cb) {
         db.query('Call _PS_add_adress_from_autocomplete(?,?,?)',
-        [AddressUser.idAuto, AddressUser.user.id, AddressUser.libelle], (err) => {
+        [addressUser.idAuto, addressUser.user.id, addressUser.libelle], (err) => {
             cb(err);
         });
     }
 
-    static createGPS(AddressUser, cb) {
-        console.log(AddressUser);
-        console.log(AddressUser.libelle);
+    static createGPS(addressUser, cb) {
+        console.log(addressUser);
+        console.log(addressUser.libelle);
         // db.query('Call _PS_... (?,?,?)',
-        // [ AddressUser.user.id, AddressUser.libelle, AddressUser.street], (err) => {
+        // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
         //     cb(err);
         // });
     }
@@ -69,5 +69,5 @@ class AddressesUserDAO {
             }));
         });
     }
-
+}
 module.exports = AddressesUserDAO;
