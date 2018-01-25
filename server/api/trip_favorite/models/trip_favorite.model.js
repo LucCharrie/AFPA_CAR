@@ -1,4 +1,4 @@
-let AddressModel = require(__base + 'api/address/models/address.model');
+let Address = require(__base + 'api/address/models/address.model');
 
 let CarBrandModel = require(__base + 'api/cars-brands/models/car-brand.model');
 let Car = require(__base + 'api/cars/models/car.model');
@@ -17,8 +17,11 @@ class TripFavoriteModel {
             address_departure_id: '',
             address_arrival_id: '' 
         }
-        
-        //this.row.brandRef = new CarBrandModel(this.row.brandRef);
+        this.row.addressDepRef = new Address(this.row.addressDepRef);
+        this.row.addressArrRef = new Address(this.row.addressArrRef);
+        this.row.brandRef = new CarBrandModel(this.row.brandRef);
+        this.row.modelRef = new CarModel(this.row.modelRef);
+        this.row.carRef = new Car(this.row.carRef);
     }
 
     

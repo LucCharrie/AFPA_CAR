@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var tripFavoriteCtrl = require('../controllers/trip_favorite.controller');
-var usersCtrl = require('../../users/controllers/users.controller');
 
 
 router.route('/')

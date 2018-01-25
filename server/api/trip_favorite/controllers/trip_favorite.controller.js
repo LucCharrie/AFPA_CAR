@@ -31,7 +31,7 @@ module.exports.delete = function (req, res) {
 }
 
 module.exports.read = function(req, res) {
-    res.json(req.trip);
+    res.json(req.tripFavorite);
 }
 
 module.exports.tripByUserId = function (req, res) {

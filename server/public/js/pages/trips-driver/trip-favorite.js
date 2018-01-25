@@ -43,6 +43,7 @@ var listTripFavCtrl = {};
   }
 
   self.tripFavBuildCard = function (tripFav) {
+    //console.log(tripFav);
     var card =
       "<div class='card card-trip-driver' data-id='" + tripFav.id_trip_favorite + "'>" +
       "<div class='content'>" +
@@ -61,7 +62,7 @@ var listTripFavCtrl = {};
       "</tr>" +
       "<tr>" +
       "<td> Départ à </td>" +
-      "<td>" + tripFav.hours_departure + "</td>" +
+      "<td>" + tripFav.latitude + "</td>" +
       "</tr>" +
       "<tr>" +
       "<td> Arrivée à </td>" +
