@@ -10,12 +10,7 @@ let db = require(__base + 'config/db')
 let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
-<<<<<<< HEAD
     static create(addressUser, cb) {
-        console.log(addressUser);
-=======
-    static create(AddressUser, cb) {
->>>>>>> addess-maison
         db.query('Call _PS_add_adress_from_autocomplete(?,?,?)',
         [addressUser.idAuto, addressUser.user.id, addressUser.libelle], (err) => {
             cb(err);
@@ -74,10 +69,6 @@ class AddressesUserDAO {
             }));
         });
     }
-
-<<<<<<< HEAD
 }
 
-=======
->>>>>>> addess-maison
 module.exports = AddressesUserDAO;

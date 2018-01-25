@@ -53,14 +53,6 @@ var listAddressUserController = {};
                         " " + addressUser.address.rep + " " + addressUser.address.street +
                          " <br> " + addressUser.address.city + " " + addressUser.address.zip_code + "</td>" +
                     "</tr>" +
-                    "<tr>" +
-                        "<td> Nom : </td>" +
-                        "<td>" + addressUser.address.latitude + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                        "<td> Adresse : </td>" +
-                        "<td>" + addressUser.address.longitude + "</td>" +
-                    "</tr>" +
                  "</table>" +
             "</div>" +
             "<div class='extra content'>" +
