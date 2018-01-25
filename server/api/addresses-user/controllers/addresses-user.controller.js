@@ -21,15 +21,14 @@ module.exports.create = function(req, res) {
   }
 
   let addressUser = new AddressUserModel({
-    id_Auto: req.body.addressId,
     libelle: req.body.libelle,
     userRef: {
       id_user: req.session.user.id
-    },    
+    }
   });
 
 
-  AddressesUsersService.create(addressUser, (err) => {
+  AddressesUsersService.create(addressUser, req.body.addressId, (err) => {
     
     if (err) {
       res.status(500).json({ 'errors': [{msg: 'Failed to create address !'}] });

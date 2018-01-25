@@ -37,9 +37,9 @@ class AddressesUserService
         });
     }
 
-    static create(addressUser, cb) {
+    static create(addressUser, idAuto, cb) {
         
-        return AddressesUserDAO.create(addressUser, (err, addressUserReturned) => {
+        return AddressesUserDAO.create(addressUser, idAuto, (err, addressUserReturned) => {
             if (err) {
                 console.error(err);
             }

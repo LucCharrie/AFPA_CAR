@@ -10,9 +10,9 @@ let db = require(__base + 'config/db')
 let AddressesUserModel = require('../models/addresses-user.model');
 
 class AddressesUserDAO {
-    static create(addressUser, cb) {
+    static create(addressUser, idAuto, cb) {
         db.query('Call _PS_add_adress_from_autocomplete(?,?,?)',
-        [addressUser.idAuto, addressUser.user.id, addressUser.libelle], (err) => {
+        [idAuto, addressUser.user.id, addressUser.libelle], (err) => {
             cb(err);
         });
     }

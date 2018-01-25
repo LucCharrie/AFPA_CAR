@@ -19,7 +19,7 @@ acl.allow([{
         permissions: ['get']
     }, {
         resources: '/:idCarUser',
-        permissions: ['get', 'post', 'delete', 'put']
+        permissions: '*'
     }]
 }, {
     roles: ['guest'],
@@ -52,4 +52,6 @@ exports.isOwner = function (req, res, next) {
     if (req.carUser && req.carUser.user.id !== req.session.user.id) {
         return res.status(500).send('You are not the owner !');
     }
+
+    next();
 };
