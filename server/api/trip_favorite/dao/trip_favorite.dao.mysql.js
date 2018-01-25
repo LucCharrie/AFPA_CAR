@@ -63,6 +63,7 @@ class TripFavoriteDAO {
 
     static findByUserID(id, cb) {
 
+        console.log('id_user :', id)
         db.query(`
         
         ######################################
@@ -107,11 +108,9 @@ class TripFavoriteDAO {
         LEFT JOIN car_brand
         ON car.car_brand_id = car_brand.id_car_brand
         
-        # Sort the List
-        # '1' in dev, '?' in prod
-        WHERE tf.user_id = 1
+        # trier la liste 
+        WHERE tf.user_id = ?
         GROUP BY id_trip_favorite
-        
         `, [id], (err, rows) => {
                 if (rows[0]) {
                     rows = rows.map((row) => {
