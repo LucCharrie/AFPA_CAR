@@ -50,10 +50,10 @@ module.exports.createGPS = function(req, res) {
   req.checkBody('number', 'Numero incorrect').isInt();
   
   req.checkBody('street', 'Rue vide').notEmpty();
-  req.checkBody('city', 'Rue vide').notEmpty();
-  req.checkBody('zip', 'Rue vide').notEmpty();
-  req.checkBody('latitude', 'vide').isFloat();
-  req.checkBody('longitude', 'vide').isFloat();
+  req.checkBody('city', 'Ville vide').notEmpty();
+  req.checkBody('zip', 'Code Postal vide').notEmpty();
+  req.checkBody('latitude', 'Latitude vide').isFloat();
+  req.checkBody('longitude', 'Longitude vide').isFloat();
 
   let errorsFields = req.validationErrors();
 
