@@ -20,7 +20,7 @@ module.exports.auth = function(req, res) {
   let errorsFields = req.validationErrors();
 
   if (errorsFields) {
-    return res.json({'errors': errorsFields});
+    return res.status(500).json({'errors': errorsFields});
   }
 
   UsersAuthService.checkAccount(req.body.email, req.body.password, (err, user) => {

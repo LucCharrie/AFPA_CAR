@@ -9,6 +9,7 @@ var Kovoit = {};
   // PRIVATE VARS
   //
   var MEDIA_SRC = '/public/img';
+  var userSession = session.user;
 
   //
   // PRIVATE FUNCS
@@ -59,5 +60,5 @@ var Kovoit = {};
     $(parent).html(element);
     element.show();
   }
-
+  
 })(Kovoit);
