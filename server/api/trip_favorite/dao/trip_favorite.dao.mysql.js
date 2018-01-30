@@ -72,12 +72,12 @@ class TripFavoriteDAO {
         
         SELECT id_trip_favorite, name, nb_seats, driver,
         
-        dep.street AS depStr, dep.city AS depCity, dep.zip_code AS depZip, dep.numero AS depNum, dep.latitude AS depLat, dep.longitude AS depLgn, 
-        arr.street AS arrStr, arr.city AS arrCity, arr.zip_code AS arrZip, arr.numero AS arrNum, arr.latitude AS arrLat, arr.longitude AS arrLng,
+        dep.street AS depStr, dep.city AS depCity, dep.zip_code AS depZip, dep.numero AS depNum, dep.latitude AS depLat, dep.longitude AS depLng, dep.rep AS depRep, 
+        arr.street AS arrStr, arr.city AS arrCity, arr.zip_code AS arrZip, arr.numero AS arrNum, arr.latitude AS arrLat, arr.longitude AS arrLng, arr.rep AS arrRep,
         
         hours_departure, hours_arrival, way_type,
         
-        GROUP_CONCAT(day),
+        GROUP_CONCAT(day) AS days,
         
         numimmat, color, model_name, brand_name      
         
@@ -114,6 +114,11 @@ class TripFavoriteDAO {
                             name: row.name,
                             nb_seats: row.nb_seats,
                             driver: row.driver,
+                            days: row.days,
+                            hours_departure: row.hours_departure, 
+                            hours_arrival: row.hours_arrival, 
+                            way_type: row.way_type,
+
 
                             addressDepRef: {
                                 street: row.depStr,
@@ -121,7 +126,8 @@ class TripFavoriteDAO {
                                 zip_code: row.depZip,
                                 numero: row.depNum,
                                 latitude: row.depLat,
-                                longitude: row.depLng
+                                longitude: row.depLng,
+                                rep: row.depRep
                             },
 
                             addressArrRef: {
@@ -130,31 +136,31 @@ class TripFavoriteDAO {
                                 zip_code: row.arrZip,
                                 numero: row.arrNum,
                                 latitude: row.arrLat,
-                                longitude: row.arrLng
+                                longitude: row.arrLng,
+                                rep: row.arrRep
                             },
 
-                            modelRef: {
-                                id_car_user: row.id_car_user,
+                            carUserRef: {
                                 color: row.color,
                                 numimmat: row.numimmat,
                                 carRef: {
-                                    id_car: row.id_car,
                                     model_name: row.model_name,
                                     brandRef: {
                                         brand_name: row.brand_name
                                     }
-                                }
+                                } 
                             }
+
                         });
 
                     });
-
-                    //console.log(rows[0].row)
+                   //console.log(rows[0]);
                     cb(err, rows);
                 }
                 else {
                     cb(err, null);
                 }
+
             });
     }
 }
