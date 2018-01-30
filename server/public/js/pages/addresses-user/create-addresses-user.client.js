@@ -22,11 +22,11 @@ var createAddressUserController = {};
                         
                         
                         response($.map(data, function (item) {
-                            
+                            item.numero += (item.rep == null)? '' : ' ' + item.rep;
 
                             
                             return {
-                                'value': item.numero + ' ' +  item.street + ' ' + item.zip_code + ' ' + item.city,
+                                'value': item.numero +  ' ' +  item.street + ' ' + item.zip_code + ' ' + item.city,
                                 'id': item.id
                             };
                         }));

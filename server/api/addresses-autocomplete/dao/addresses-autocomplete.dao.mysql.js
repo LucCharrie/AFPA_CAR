@@ -17,7 +17,7 @@ class AddressAutoDAO
 
         for (let i = 0; i < splitted.length; i++)
         {
-            where_clause += `CONCAT(numero, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + splitted[i] + `%'`;
+            where_clause += `CONCAT(numero, ' ', rep, ' ', street, ' ', zip_code, ' ', city) LIKE '%` + splitted[i] + `%'`;
 
             if (i < splitted.length - 1)
             {

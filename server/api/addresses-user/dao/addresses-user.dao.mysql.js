@@ -5,29 +5,35 @@
 // au reste du code de l'application.
 //=========================================================================
 
-let db = require(__base + 'config/db')
+let db = require( __base + 'config/db' )
 
-let AddressesUserModel = require('../models/addresses-user.model');
+let AddressesUserModel = require( '../models/addresses-user.model' );
 
-class AddressesUserDAO {
-    static create(addressUser, idAuto, cb) {
-        db.query('Call _PS_add_adress_from_autocomplete(?,?,?)',
-        [idAuto, addressUser.user.id, addressUser.libelle], (err) => {
-            cb(err);
-        });
+class AddressesUserDAO
+{
+    static create( addressUser, idAuto, cb )
+    {
+        
+        db.query( 'Call _PS_add_adress_from_autocomplete(?,?,?)',
+            [ idAuto, addressUser.user.id, addressUser.libelle ], ( err ) =>
+            {
+                cb( err );
+            } );
     }
 
-    static createGPS(addressUser, cb) {
-        console.log(addressUser);
-        console.log(addressUser.libelle);
+    static createGPS( addressUser, cb )
+    {
+        console.log( addressUser );
+        console.log( addressUser.libelle );
         // db.query('Call _PS_... (?,?,?)',
         // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
         //     cb(err);
         // });
     }
 
-    static listByUserID(idUser, cb) {
-        db.query(`SELECT ua.user_id,
+    static listByUserID( idUser, cb )
+    {
+        db.query( `SELECT ua.user_id,
                     ua.address_id,
                     ua.date_suppression,
                     ua.libelle,
@@ -41,34 +47,64 @@ class AddressesUserDAO {
                 FROM user_address AS ua
                 LEFT JOIN address AS a ON a.id_address = ua.address_id
                 WHERE ua.date_suppression IS NULL AND 
-                ua.user_id =  ? ;`, [idUser], (err, rows) => {
-            rows = rows || [];
-            
-            cb(err, rows.map((row) => {
-                
-                return new AddressesUserModel({
-                    userRef : {
-                        id_user: row.user_id
-                    },
+                ua.user_id =  ? ;`, [ idUser ], ( err, rows ) =>
+            {
+                rows = rows || [];
 
-                    addressRef: {
-                        id: row.address_id,
-                        street: row.street,
-                        city: row.city,
-                        latitude: row.latitude,
-                        longitude: row.longitude,
-                        zip_code: row.zip_code,
-                        numero: row.numero,
-                        rep: row.rep
-                    },
+                cb( err, rows.map( ( row ) =>
+                {
 
-                    libelle: row.libelle
-                    
-                });
-                
-            }));
+                    return new AddressesUserModel( {
+                        userRef: {
+                            id_user: row.user_id
+                        },
+
+                        addressRef: {
+                            id: row.address_id,
+                            street: row.street,
+                            city: row.city,
+                            latitude: row.latitude,
+                            longitude: row.longitude,
+                            zip_code: row.zip_code,
+                            numero: row.numero,
+                            rep: row.rep
+                        },
+
+                        libelle: row.libelle
+
+                    } );
+
+                } ) );
+            } );
+    }
+
+
+    static createGPS( addressUser, cb )
+    {
+        console.log( addressUser );
+        console.log( addressUser.libelle );
+        // db.query('Call _PS_... (?,?,?)',
+        // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
+        //     cb(err);
+        // });
+    }
+
+    static delete( addressUser, cb )
+    {
+        console.log(66);
+        console.log(addressUser);
+        console.log(addressUser.address.id );
+        console.log( addressUser.libelle);
+        db.query(`UPDATE afpa_car_test.user_address
+        SET date_suppression = DATE(NOW())
+        WHERE 	user_id = ?
+            AND address_id = ?
+            AND libelle = ?
+            AND date_suppression IS NULL;`,
+        [ addressUser.user.id, addressUser.address.id, addressUser.libelle], (err) => {
+            cb(err);
         });
     }
-}
 
+}
 module.exports = AddressesUserDAO;
