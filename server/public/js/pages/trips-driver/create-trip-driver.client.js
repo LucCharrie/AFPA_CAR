@@ -28,14 +28,25 @@ var createTripDriver = {};
     // Init
     //
     self.init = function () {
-        self.map = L.map('map').setView([self.centerlat, self.centerlon], self.zoomLevel);
+        self.map = L.map('map', {
+           zoomControl: true
+        }).setView([self.centerlat, self.centerlon], self.zoomLevel);
+       // self.map = L.map('map').setView([self.centerlat, self.centerlon], self.zoomLevel);
+        // self.map.control.zoom({
+        //     position: 'topright'
+        // }).addTo(map);
+        
+        self.map.zoomControl.setPosition('topright');
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(self.map);
 
         self.router = new L.Routing.osrmv1({
             serviceUrl: 'http://10.111.62.65:5000/route/v1'
         });
+
+        listAddress.init();
     };
+
 
     //
     // Ajax
@@ -176,38 +187,47 @@ var createTripDriver = {};
         e.parentNode.parentNode.remove();
     };
 
+    //
+    // Boutons Conducteur
+    //
+    self.driver = function (e) {
 
-    ////////////////////////////////////////////////////////////
-    //////// CAR DRIVER ////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
+        let fieldFirst = document.getElementById('cars_user_first');
+        let labelCar = document.createElement('label');
+        let inputCar = document.createElement('select');
+        labelCar.innerHTML = "Voiture";
+        inputCar.setAttribute('id', 'cars_user');
+        inputCar.setAttribute('name', 'cars_user');
+
+        let fieldSecond = document.getElementById('cars_user_second');
+        let labelPlace = document.createElement('label');
+        let inputPlace = document.createElement('input');
+        labelPlace.innerHTML = "Nbr. de places";
+        inputPlace.setAttribute('id', 'nb_seats');
+        inputPlace.setAttribute('type', 'number');
+        inputPlace.setAttribute('name', 'nb_seats');
 
 
-    self.initCars = function () {
-        $('.car_auto').autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/api/cars",
-                    dataType: "json",
-                    data: {
-                        term: request.term
-                    },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return {
-                                "value": item.brand.brand_name + ' ' + item.model_name,
-                                "id": item.id
-                            };
-                        }));
-                    }
-                });
-            },
+        if (e.checked) {
 
-            minLength: 2,
+            fieldFirst.appendChild(labelCar);
+            fieldFirst.appendChild(inputCar);
 
-            select: function (event, ui) {
-                console.log(ui.item.id);
+            fieldSecond.appendChild(labelPlace);
+            fieldSecond.appendChild(inputPlace);
+
+            listCars.init();
+
+        } else {
+
+            while (fieldFirst.firstChild) {
+                fieldFirst.removeChild(fieldFirst.firstChild);
             }
-        });
+
+            while (fieldSecond.firstChild) {
+                fieldSecond.removeChild(fieldSecond.firstChild);
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////
@@ -215,30 +235,30 @@ var createTripDriver = {};
     ////////////////////////////////////////////////////////////
 
     self.createTrip = function () {
-            form.name = $('#name_trip[name="name"]').val();
-            form.car_user = $('#car_user[name="car_user"]').val();
-            form.nb_seats = $('#nb_seats[name="nb_seats"]').val();
-            form.address_departure = $('#address_departure[name="address_departure"]').val();
-            form.address_arrival = $('#address_arrival[name="address_arrival"]').val();
+        form.name = $('#name_trip[name="name"]').val();
+        form.car_user = $('#cars_user[name="cars_user"]').val();
+        form.nb_seats = $('#nb_seats[name="nb_seats"]').val();
+        form.address_departure = $('#address_departure_id[name="address_departure"]').val();
+        form.address_arrival = $('#address_arrival_id[name="address_arrival"]').val();
 
-            $.ajax({
-                method: 'POST',
-                url: '/api/trip_favorite',
-                data: {
-                    name: form.name,
-                    car_user: form.car_user,
-                    nb_seats: form.nb_seats,
-                    address_departure: form.address_departure,
-                    address_arrival: form.address_arrival
-                },
-                success: function (data) {
-                    //Kovoit.pushNotification('success', data.success)
-                },
-                error: function (xhr) {
-                    var data = xhr.responseJSON;
-                    //Kovoit.pushNotification('error', data.errors)
-                }
-            });
+        $.ajax({
+            method: 'POST',
+            url: '/api/trip_favorite',
+            data: {
+                name: form.name,
+                car_user: form.car_user,
+                nb_seats: form.nb_seats,
+                address_departure: form.address_departure,
+                address_arrival: form.address_arrival
+            },
+            success: function (data) {
+                Kovoit.pushNotification('success', data.success)
+            },
+            error: function (xhr) {
+                var data = xhr.responseJSON;
+                Kovoit.pushNotification('error', data.errors)
+            }
+        });
     }
 
 
@@ -249,7 +269,6 @@ var createTripDriver = {};
     window.onload = function () {
         self.init();
         self.ajaxREQ();
-        self.initCars();
         //self.createTrip();
     }
 

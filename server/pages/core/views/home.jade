@@ -1,7 +1,11 @@
 extends layout
 
 block content
-  h1 Home
+  if locals.user
+  h1 Welcome  #{user.firstname}
+
+  if user.role == 0
+    button(type="button") conducteur
 
   .ui.two.column.grid
     .column
@@ -56,8 +60,3 @@ block content
               a.ui.green.circular.label S
               a.ui.green.circular.label D
 
-  if locals.user
-    p Welcome to #{user.firstname}
-
-    if user.role == 0
-      button(type="button") conducteur
