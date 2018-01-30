@@ -4,6 +4,7 @@ block added_scripts
   script(async, defer, src='/public/js/pages/trips-driver/create-trip-driver.client.js')
   script(async, defer, src='/public/js/pages/trips-driver/list-car-user.client.js')
   script(async, defer, src='/public/js/pages/trips-driver/list-address-user.client.js')
+  script(async, defer, src='/public/js/pages/trips-driver/create-trip-favorite-ui.client.js')
 
   script(async, defer, src="/public/js/common/afpa-car-bundle.js")
 
@@ -24,14 +25,14 @@ block content
         .field
           label Conducteur
           .ui.toggle.checkbox(style="margin-top: 10px")
-            input(type="checkbox" name="driver" onchange="createTripDriver.driver(this)")
+            input(type="checkbox" name="driver" onchange="uiTrip.driver(this)")
             label Non/Oui
       .two.fields
         .field#cars_user_first
         .field#cars_user_second
-      .field
-        label Adresse de départ
-        select#address_user(name="address_user")
+      //- .field
+      //-   label Adresse de départ
+      //-   select#address_user(name="address_user")
       ul#parentVia(style="list-style:none; padding-left:0")
         li.field
           label Adresse de départ
@@ -40,5 +41,5 @@ block content
           label Adresse de arrivée
           input(class='address_auto' id='address_arrival' type='text' name='address_arrival' placeholder="Arrivée")
       .ui.button(onclick="createTripDriver.sendCoords()") Calcule d'itinéraire
-      .ui.button#viaMore(onclick="createTripDriver.viaMore()") Ajouter un via
+      .ui.button#viaMore(onclick="uiTrip.viaMore()") Ajouter un via
   .ui.bottom.attached.button#createTrip(style="width: 40%", onclick="createTripDriver.createTrip()") Créer  

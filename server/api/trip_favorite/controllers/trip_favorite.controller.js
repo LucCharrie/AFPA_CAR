@@ -2,7 +2,7 @@ let TripFavoriteService = require('../services/trip_favorite.service')
 let TripFavoriteModel = require('../models/trip_favorite.model')
 
 module.exports.list = function (req, res) {
-    TripFavoriteService.list((err, tripFavorite) => {
+    TripFavoriteService.list(req.session.user.id, (err, tripFavorite) => {
         res.json(tripFavorite);
     });
 }

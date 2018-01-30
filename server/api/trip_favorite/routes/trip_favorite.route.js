@@ -11,6 +11,9 @@ router.route('/:idTripFavorite')
         .get(tripFavoriteCtrl.read)
         .delete(tripFavoriteCtrl.delete);
 
+router.route('/list')           
+        .get(tripFavoriteCtrl.list)
+
 router.param('idTripFavorite', tripFavoriteCtrl.tripByID);
 
 

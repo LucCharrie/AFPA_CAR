@@ -3,7 +3,7 @@ let TripFavoriteModel = require('../models/trip_favorite.model');
 
 class TripFavoriteDAO {
 
-    static list(cb) {
+    static list(id, cb) {
 
         db.query(`SELECT tf.id_trip_favorite, 
 		                tf.name,

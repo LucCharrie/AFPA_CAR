@@ -24,33 +24,29 @@ var createTripDriver = {};
 
     var form = {};
 
-    //
-    // Init
-    //
+    ////////////////////////////////////////////////////////////
+    //////// INIT MAP  /////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
     self.init = function () {
         self.map = L.map('map', {
-           zoomControl: true
+            zoomControl: true
         }).setView([self.centerlat, self.centerlon], self.zoomLevel);
-       // self.map = L.map('map').setView([self.centerlat, self.centerlon], self.zoomLevel);
-        // self.map.control.zoom({
-        //     position: 'topright'
-        // }).addTo(map);
-        
+
         self.map.zoomControl.setPosition('topright');
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(self.map);
 
         self.router = new L.Routing.osrmv1({
-            serviceUrl: 'http://10.111.62.65:5000/route/v1'
+            serviceUrl: 'http://10.111.61.255:5000/route/v1'
         });
 
-        listAddress.init();
+        // listAddress.init();
     };
 
 
-    //
-    // Ajax
-    //
+    ////////////////////////////////////////////////////////////
+    //////// AUTOCOMPLETE ADDRESS //////////////////////////////
+    ////////////////////////////////////////////////////////////
     self.ajaxREQ = function () {
         $('.address_auto').autocomplete({
             source: function (request, response) {
@@ -82,9 +78,9 @@ var createTripDriver = {};
     };
 
 
-    //
-    // Bouton Rechercher
-    //
+    ////////////////////////////////////////////////////////////
+    //////// CALCUL TRIP ///////////////////////////////////////
+    ////////////////////////////////////////////////////////////
     self.sendCoords = function () {
 
         var routeWaypoints = [];
@@ -102,8 +98,6 @@ var createTripDriver = {};
             }
         }
 
-
-
         // delete old path & markers
         if (self.group !== null) {
             self.map.removeLayer(self.group);
@@ -115,7 +109,6 @@ var createTripDriver = {};
 
         } else { }
 
-
         // path from --> to --> to
         sortWayPoints();
 
@@ -125,7 +118,6 @@ var createTripDriver = {};
             lng: (routeWaypoints[0].latLng.lng + routeWaypoints[routeWaypoints.length - 1].latLng.lng) / 2
         }
         self.map.flyTo([averageOfRoute.lat, averageOfRoute.lng], 10);
-
 
         // calcul path and add markers
         self.router.route(routeWaypoints, (err, routes) => {
@@ -138,97 +130,7 @@ var createTripDriver = {};
             }
 
         }, null, {});
-
     };
-
-
-    //
-    // Boutons ajouter via
-    //
-    self.viaMore = function () {
-
-
-        var id = 'via_' + self.inc++;
-
-        var viaList = document.createElement("li");
-        viaList.setAttribute('class', 'field');
-
-        var viaDiv = document.createElement("div");
-        viaDiv.setAttribute('class', 'ui action input');
-
-        var viaInput = document.createElement("input");
-        viaInput.setAttribute("id", id);
-        viaInput.setAttribute('class', 'address_auto');
-        viaInput.setAttribute('type', 'text');
-        viaInput.setAttribute('placeholder', 'Ajouter une destination');
-
-        var viaButton = document.createElement("button");
-        viaButton.setAttribute('class', 'ui button');
-        viaButton.setAttribute('onclick', 'createTripDriver.viaLess(this)');
-        viaButton.textContent = 'X';
-
-        viaDiv.appendChild(viaInput);
-        viaDiv.appendChild(viaButton);
-        viaList.appendChild(viaDiv)
-
-
-        var viaEnd = document.getElementById("viaEnd");
-        document.getElementById("parentVia").insertBefore(viaList, viaEnd);
-
-        self.ajaxREQ();
-
-    };
-
-
-    //
-    // Boutons supprimer via
-    //
-    self.viaLess = function (e) {
-        e.parentNode.parentNode.remove();
-    };
-
-    //
-    // Boutons Conducteur
-    //
-    self.driver = function (e) {
-
-        let fieldFirst = document.getElementById('cars_user_first');
-        let labelCar = document.createElement('label');
-        let inputCar = document.createElement('select');
-        labelCar.innerHTML = "Voiture";
-        inputCar.setAttribute('id', 'cars_user');
-        inputCar.setAttribute('name', 'cars_user');
-
-        let fieldSecond = document.getElementById('cars_user_second');
-        let labelPlace = document.createElement('label');
-        let inputPlace = document.createElement('input');
-        labelPlace.innerHTML = "Nbr. de places";
-        inputPlace.setAttribute('id', 'nb_seats');
-        inputPlace.setAttribute('type', 'number');
-        inputPlace.setAttribute('name', 'nb_seats');
-
-
-        if (e.checked) {
-
-            fieldFirst.appendChild(labelCar);
-            fieldFirst.appendChild(inputCar);
-
-            fieldSecond.appendChild(labelPlace);
-            fieldSecond.appendChild(inputPlace);
-
-            listCars.init();
-
-        } else {
-
-            while (fieldFirst.firstChild) {
-                fieldFirst.removeChild(fieldFirst.firstChild);
-            }
-
-            while (fieldSecond.firstChild) {
-                fieldSecond.removeChild(fieldSecond.firstChild);
-            }
-        }
-    }
 
     ////////////////////////////////////////////////////////////
     //////// CREATE TRIP ///////////////////////////////////////
@@ -263,13 +165,12 @@ var createTripDriver = {};
 
 
     ////////////////////////////////////////////////////////////
-    //////// INIT FUNCTION ON LOAD /////////////////////////////
+    //////// INIT OBJECT ONLOAD ////////////////////////////////
     ////////////////////////////////////////////////////////////
 
     window.onload = function () {
         self.init();
         self.ajaxREQ();
-        //self.createTrip();
     }
 
 
