@@ -5,18 +5,19 @@ let addressesUserMeCtrl = require('../controllers/addresses-user-me.controller')
 
 router.route('/create')
     //.get(addressesUserMeCtrl.list)
-    .post(addressesUserCtrl.create)
+    .post(addressesUserCtrl.create);
     //.put(addressesUserCtrl.createGPS);
 
 router.route('/me')
     .get(addressesUserMeCtrl.list)
+    .post(addressesUserMeCtrl.delete);
 
-router.route('/:idAddressesUser')
+router.route('/:data')
     .delete(addressesUserMeCtrl.delete);
 
 router.route('/createGPS')
     .post(addressesUserCtrl.createGPS);
 
-// router.param(':idAdress', carByID);
+router.param('data', addressesUserMeCtrl.parseData);
 
 module.exports = router;

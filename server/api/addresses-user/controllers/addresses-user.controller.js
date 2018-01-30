@@ -4,57 +4,66 @@
 // rends la vue (typiquement).
 //=========================================================================
 
-let AddressesUsersService = require('../services/addresses-user.service');
-let AddressUserModel = require('../models/addresses-user.model');
+let AddressesUsersService = require( '../services/addresses-user.service' );
+let AddressUserModel = require( '../models/addresses-user.model' );
+
 
 /**
  * Create an address for current user
  */
-module.exports.create = function(req, res) {
-  req.checkBody('libelle', 'Intitulé vide').notEmpty();
-  req.checkBody('address', 'Adresse vide').notEmpty();
+module.exports.create = function ( req, res )
+{
 
-  let errorsFields = req.validationErrors();
-
-  if (errorsFields) {
-    return res.status(500).json({'errors': errorsFields});
-  }
-
-  let addressUser = new AddressUserModel({
+  let addressUser = new AddressUserModel( {
     libelle: req.body.libelle,
     userRef: {
       id_user: req.session.user.id
     }
-  });
+  } );
 
-
-  AddressesUsersService.create(addressUser, req.body.addressId, (err) => {
-    
-    if (err) {
-      res.status(500).json({ 'errors': [{msg: 'Failed to create address !'}] });
-    } else {
-      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
-    }
-  });
-}
-
-module.exports.createGPS = function(req, res) {
-  req.checkBody('libelle', 'Intitulé vide').notEmpty();
-  req.checkBody('numero', 'Numero incorrect').isInt();
-  
-  req.checkBody('street', 'Rue vide').notEmpty();
-  req.checkBody('city', 'Rue vide').notEmpty();
-  req.checkBody('zip', 'Rue vide').notEmpty();
-  req.checkBody('latitude', 'vide').isFloat();
-  req.checkBody('longitude', 'vide').isFloat();
+  req.checkBody( 'libelle', 'Intitulé vide' ).notEmpty();
+  req.checkBody( 'address', 'Adresse vide' ).notEmpty();
 
   let errorsFields = req.validationErrors();
 
-  if (errorsFields) {
-    return res.status(500).json({'errors': errorsFields});
+  if ( errorsFields )
+  {
+    return res.status( 500 ).json( { 'errors': errorsFields } );
   }
 
-  let addressUser = new AddressUserModel({
+
+  AddressesUsersService.create( addressUser, req.body.addressId, ( err ) =>
+  {
+
+    if ( err )
+    {
+      res.status( 500 ).json( { 'errors': [ { msg: 'Failed to create address !' }] } );
+    } else
+    {
+      res.json( { 'success': [ { msg: 'addressUser Updated !' }], 'addressUser': addressUser } );
+    }
+  } );
+}
+
+module.exports.createGPS = function ( req, res )
+{
+  req.checkBody( 'libelle', 'Intitulé vide' ).notEmpty();
+  req.checkBody( 'numero', 'Numero incorrect' ).isInt();
+
+  req.checkBody( 'street', 'Rue vide' ).notEmpty();
+  req.checkBody( 'city', 'Rue vide' ).notEmpty();
+  req.checkBody( 'zip', 'Rue vide' ).notEmpty();
+  req.checkBody( 'latitude', 'vide' ).isFloat();
+  req.checkBody( 'longitude', 'vide' ).isFloat();
+
+  let errorsFields = req.validationErrors();
+
+  if ( errorsFields )
+  {
+    return res.status( 500 ).json( { 'errors': errorsFields } );
+  }
+
+  let addressUser = new AddressUserModel( {
 
     libelle: req.body.libelle,
     addressRef: {
@@ -68,44 +77,53 @@ module.exports.createGPS = function(req, res) {
     },
     userRef: {
       id_user: req.session.user.id
-    },    
-  });
+    },
+  } );
 
-  AddressesUsersService.createGPS(addressUser, (err) => {
-    if (err) {
-      res.status(500).json({ 'errors': [{msg: 'Failed to create car !'}] });
-    } else {
-      res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
+  AddressesUsersService.createGPS( addressUser, ( err ) =>
+  {
+    if ( err )
+    {
+      res.status( 500 ).json( { 'errors': [ { msg: 'Failed to create car !' }] } );
+    } else
+    {
+      res.json( { 'success': [ { msg: 'addressUser Updated !' }], 'addressUser': addressUser } );
     }
-  });
+  } );
 }
 
 /**
  * Read an address
  */
-module.exports.read = function(req, res) {
-  AddressesUsersService.find(req.params.idAddresses-user, (err, address) => { // à voir pour utiliser le middleware addressByID
-    res.json(address);
-  });
+module.exports.read = function ( req, res )
+{
+  AddressesUsersService.find( req.params.idAddresses - user, ( err, address ) =>
+  { // à voir pour utiliser le middleware addressByID
+    res.json( address );
+  } );
 }
 
 
 /**
  * User middleware
  */
-exports.addressesByID = function (req, res, next, idUser) {
-  if (isNaN(idUser)) {
-    return res.status(400).send({
+exports.addressesByID = function ( req, res, next, idUser )
+{
+  if ( isNaN( idUser ) )
+  {
+    return res.status( 400 ).send( {
       address: 'User is invalid'
-    });
+    } );
   }
 
-  AddressesUsersService.find(idUser, (err, address) => {
-    if (!address) {
-      return next(new Error('Failed to load address ' + idUser));
+  AddressesUsersService.find( idUser, ( err, address ) =>
+  {
+    if ( !address )
+    {
+      return next( new Error( 'Failed to load address ' + idUser ) );
     }
 
     req.address = address;
     next();
-  });
+  } );
 }
