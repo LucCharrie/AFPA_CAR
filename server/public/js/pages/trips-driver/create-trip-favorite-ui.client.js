@@ -3,39 +3,47 @@ var uiTrip = {};
 
 (function (self) {
 
-  //
+    self.inc = 0;
+
+    //
     // Boutons ajouter via
     //
     self.viaMore = function () {
 
+        // id pour récupérer id du tableau quand submit
         var id = 'via_' + self.inc++;
 
+        // création d'éléments
         var viaList = document.createElement("li");
         viaList.setAttribute('class', 'field');
 
         var viaDiv = document.createElement("div");
         viaDiv.setAttribute('class', 'ui action input');
+      
+        var viaSelect = document.createElement('select')
+        viaSelect.setAttribute('class', 'tripForm ui dropdown');
+        viaSelect.setAttribute('id', id);
+        viaSelect.setAttribute('name', id);
 
-        var viaInput = document.createElement("input");
-        viaInput.setAttribute("id", id);
-        viaInput.setAttribute('class', 'address_auto');
-        viaInput.setAttribute('type', 'text');
-        viaInput.setAttribute('placeholder', 'Ajouter une destination');
 
         var viaButton = document.createElement("button");
         viaButton.setAttribute('class', 'ui button');
+        viaButton.setAttribute('style', 'margin-left: 5px');
         viaButton.setAttribute('onclick', 'uiTrip.viaLess(this)');
         viaButton.textContent = 'X';
 
-        viaDiv.appendChild(viaInput);
+        viaDiv.appendChild(viaSelect);
         viaDiv.appendChild(viaButton);
-        viaList.appendChild(viaDiv)
+        viaList.appendChild(viaDiv);
 
+        // element ajouter à chaque +
         var viaEnd = document.getElementById("viaEnd");
         document.getElementById("parentVia").insertBefore(viaList, viaEnd);
 
-        //.ajaxREQ();
-    };
+        // recharger l'ajax
+        listAddress.init('#'+id);
+
+};
 
 
     //
@@ -54,8 +62,9 @@ var uiTrip = {};
         let labelCar = document.createElement('label');
         let inputCar = document.createElement('select');
         labelCar.innerHTML = "Voiture";
-        inputCar.setAttribute('id', 'cars_user');
-        inputCar.setAttribute('name', 'cars_user');
+        inputCar.setAttribute('class', 'ui dropdown');
+        inputCar.setAttribute('id', 'car_user_id');
+        inputCar.setAttribute('name', 'car_user_id');
 
         let fieldSecond = document.getElementById('cars_user_second');
         let labelPlace = document.createElement('label');
@@ -89,6 +98,18 @@ var uiTrip = {};
         }
     }
 
+    // Permuter les couleurs des jours
+    self.days = function(e){
+        // Website color
+        // var green = '#00C853' = rgb(0, 200, 83);
+        // var gray = '#e8e8e8' = rgb(232, 232, 232);
+
+        if(e.className === "ui circular large label"){
+            e.className = "ui green circular large label";
+        } else {
+            e.className = "ui circular large label";
+        }
+    }
 
 
 

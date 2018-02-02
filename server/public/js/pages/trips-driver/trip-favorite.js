@@ -41,7 +41,6 @@ var listTripFavCtrl = {};
   }
 
   self.tripFavBuildCard = function (trip) {
-    console.log(trip);
     var card =
       "<div class='card card-trip-driver' data-id='" + trip.id_trip_favorite + "'>" +
       "<div class='content'>" +

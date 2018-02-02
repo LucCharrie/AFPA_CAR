@@ -27,14 +27,13 @@ var listCars = {};
 
 
   self.addData = function (data) {
-    $('#cars_user').append(self.buildData(data));
+    $('#car_user_id').append(self.buildData(data));
   }
 
 
   self.buildData = function (data) {
     var card = "<option value="+ 
-                data.id + "_" + 
-                data.user.id+">" + 
+                data.id + ">" + 
                 data.car.brand.brand_name + " " + 
                 data.car.model_name + 
                 "</option>";

@@ -5,19 +5,23 @@ class TripFavoriteDAO {
 
     static list(id, cb) {
 
-        db.query(`SELECT tf.id_trip_favorite, 
-		                tf.name,
-                        tf.nb_seats,
-                        tf.driver,
-                        tf.user_id,
-                        tf.car_user_id,
-                        tf.address_departure_id,
-                        tf.address_arrival_id
-                        FROM trip_favorite AS tf`, (err, rows) => {
+        console.log("id:", id)
+
+        db.query(`SELECT id_trip_favorite, 
+		                name,
+                        nb_seats,
+                        driver,
+                        user_id,
+                        car_user_id,
+                        address_departure_id,
+                        address_arrival_id
+                        FROM trip_favorite
+                        WHERE user_id != 1`, [id], (err, rows) => {
                 rows = rows || [];
 
                 rows = rows.map((row) => {
-                    return new TripFavoriteModel(row);
+                    console.log(row)
+                    return row;
                 });
 
                 cb(err, rows);
@@ -26,13 +30,16 @@ class TripFavoriteDAO {
 
 
     static create(trip, cb) {
-        // console.log(trip);
 
-
-        db.query('INSERT INTO trip_favorite SET name = ?, nb_seats = ?, driver = ?, user_id = ?, car_user_id = ?, address_departure_id = ?, address_arrival_id = ?',
+        db.query(`INSERT INTO trip_favorite SET name = ?, 
+                                                nb_seats = ?, 
+                                                driver = ?, 
+                                                user_id = ?, 
+                                                car_user_id = ?, 
+                                                address_departure_id = ?, 
+                                                address_arrival_id = ?`,
             [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id, trip.address_departure_id, trip.address_arrival_id],
             (err) => {
-                //console.log( err )
                 cb(err);
             });
 
@@ -41,6 +48,7 @@ class TripFavoriteDAO {
         //});   
     }
 
+
     static delete(trip, cb) {
         db.query('DELETE FROM trip_favorite WHERE id_trip_favorite = ?', [trip.id_trip_favorite],
             (err) => {
@@ -48,6 +56,7 @@ class TripFavoriteDAO {
             });
 
     }
+
 
     static findByID(id, cb) {
 
@@ -63,9 +72,7 @@ class TripFavoriteDAO {
 
     static findByUserID(id, cb) {
 
-        console.log('id_user :', id)
         db.query(`
-        
         ######################################
         ## List of trip_favorite by user_id ##
         ######################################
@@ -115,8 +122,8 @@ class TripFavoriteDAO {
                             nb_seats: row.nb_seats,
                             driver: row.driver,
                             days: row.days,
-                            hours_departure: row.hours_departure, 
-                            hours_arrival: row.hours_arrival, 
+                            hours_departure: row.hours_departure,
+                            hours_arrival: row.hours_arrival,
                             way_type: row.way_type,
 
 
@@ -148,13 +155,12 @@ class TripFavoriteDAO {
                                     brandRef: {
                                         brand_name: row.brand_name
                                     }
-                                } 
+                                }
                             }
 
                         });
 
                     });
-                   //console.log(rows[0]);
                     cb(err, rows);
                 }
                 else {

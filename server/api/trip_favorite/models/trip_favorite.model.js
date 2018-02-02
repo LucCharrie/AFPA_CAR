@@ -22,7 +22,8 @@ class TripFavoriteModel
             way_type: '',
             addressDepRef: '',
             addressArrRef:'',
-            carUserRef:''            
+            carUserRef:'', 
+            vias:''           
         };
         this.row.addressDepRef = new Address(this.row.addressDepRef);
         this.row.addressArrRef = new Address(this.row.addressArrRef);
@@ -148,6 +149,15 @@ class TripFavoriteModel
     set carUserRef(val) {
         this.row.carUserRef = val;
     }
+
+    get vias() {
+        return this.row.vias;
+    }
+
+    set vias(val) {
+        this.row.vias = val;
+    }
+    
     
 
     toJSON() {
@@ -166,7 +176,8 @@ class TripFavoriteModel
             way_type: this.way_type,
             addressDepRef: this.addressDepRef,
             addressArrRef: this.addressArrRef,
-            carUserRef: this.carUserRef
+            carUserRef: this.carUserRef,
+            vias: this.vias
         };
     }
 

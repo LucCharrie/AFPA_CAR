@@ -1,8 +1,9 @@
 extends /core/views/layout
 
 block added_scripts
-  script(async, defer, src='/public/js/pages/trips-driver/create-trip-driver.client.js')
+  script(async, defer, src='/public/js/pages/trips-driver/create-trip-favorite.client.js')
   script(async, defer, src='/public/js/pages/trips-driver/list-car-user.client.js')
+  script(async, defer, src='/public/js/pages/trips-driver/list-coords-user.client.js')
   script(async, defer, src='/public/js/pages/trips-driver/list-address-user.client.js')
   script(async, defer, src='/public/js/pages/trips-driver/create-trip-favorite-ui.client.js')
 
@@ -14,32 +15,52 @@ block full_map
 
 
 block content
-  .ui.container.attached.segment(style="display:inline-block; width: 40%; margin:0px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; background:rgba(0, 200, 83, 0.7)")
+  .ui.container.attached.segment(style="display:inline-block; width: 40%; margin:0px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; background:rgba(0, 200, 83, 0.7); border-radius: 10px 10px 0px 0px")
     h3(style="text-align:center; color: #ffffff") Trajet
     hr(style="align:center; color: #ffffff")
-    .ui.form
+    
+    .ui.form    
       .two.fields
         .field
           label Nom
-          input#name_trip(type='text', name='name' placeholder='Mon trajet')
+          input.tripForm#name_trip(type='text', name='name' placeholder='Mon trajet')
         .field
           label Conducteur
           .ui.toggle.checkbox(style="margin-top: 10px")
-            input(type="checkbox" name="driver" onchange="uiTrip.driver(this)")
+            input.tripForm(type="checkbox" name="driver" onchange="uiTrip.driver(this)")
             label Non/Oui
+      
       .two.fields
         .field#cars_user_first
         .field#cars_user_second
-      //- .field
-      //-   label Adresse de départ
-      //-   select#address_user(name="address_user")
+
+      hr(style="align:center; color: #ffffff")     
+      .seven.fields(style="margin-top: 17px")
+        .field
+          .ui.circular.large.label(name="lundi", data-id="2", onclick="uiTrip.days(this)") L
+        .field
+          .ui.circular.large.label(name="mardi", data-id="3", onclick="uiTrip.days(this)") M
+        .field
+          .ui.circular.large.label(name="mercredi", data-id="4", onclick="uiTrip.days(this)") M
+        .field
+          .ui.circular.large.label(name="jeudi", data-id="5", onclick="uiTrip.days(this)") J
+        .field
+          .ui.circular.large.label(name="vendredi", data-id="6", onclick="uiTrip.days(this)") V
+        .field 
+          .ui.circular.large.label(name="samedi", data-id="7", onclick="uiTrip.days(this)") S
+        .field
+          .ui.circular.large.label(name="dimanche",  data-id="1", onclick="uiTrip.days(this)") D        
+
+      hr(style="align:center; color: #ffffff")
       ul#parentVia(style="list-style:none; padding-left:0")
         li.field
-          label Adresse de départ
-          input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="Départ")
+          label Départ
+          select.tripForm.ui.dropdown#address_departure(name='address_departure_id')
         li#viaEnd.field
-          label Adresse de arrivée
-          input(class='address_auto' id='address_arrival' type='text' name='address_arrival' placeholder="Arrivée")
-      .ui.button(onclick="createTripDriver.sendCoords()") Calcule d'itinéraire
-      .ui.button#viaMore(onclick="uiTrip.viaMore()") Ajouter un via
-  .ui.bottom.attached.button#createTrip(style="width: 40%", onclick="createTripDriver.createTrip()") Créer  
+          label Arrivée
+          select.tripForm.ui.dropdown#address_arrival(name='address_arrival_id')
+      
+      .ui.button(onclick="createTripFavorite.sendCoords()") Calcul d'itinéraire
+      .ui.button#viaMore(onclick="uiTrip.viaMore()") +
+
+  .ui.bottom.attached.button#createTrip(style="width: 40%; border-radius: 0px 0px 10px 10px;", onclick="createTripFavorite.createTrip()") Créer  
