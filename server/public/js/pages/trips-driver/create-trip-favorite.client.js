@@ -28,7 +28,15 @@ var createTripFavorite = {};
         vias: [],
         address_departure_id: 0,
         address_arrival_id: 0,
-        days: []
+        days: [],
+        lun: '',
+        mar: '',
+        mer: '',
+        jeu: '',
+        ven: '',
+        sam: '',
+        dim: ''
+
     }
 
 
@@ -160,7 +168,7 @@ var createTripFavorite = {};
         TripOBJ.name = document.getElementsByName("name")[0].value;
 
         var dr = document.getElementsByName("driver")[0].checked;
-        if(dr){
+        if (dr) {
             TripOBJ.driver = 1;
         } else {
             TripOBJ.driver = undefined;
@@ -177,11 +185,20 @@ var createTripFavorite = {};
         }
 
         // Jours
-        var days = document.querySelectorAll('div.green', 'div.circular', 'div.label');
-        for (var day of days) {
-            TripOBJ.days.push(day.getAttribute('data-id'));
-        }
-        TripOBJ.days = JSON.stringify(TripOBJ.days);
+        // var days = document.querySelectorAll('div.green', 'div.circular', 'div.label');
+        // for (var day of days) {
+        //     TripOBJ.days.push(day.getAttribute('data-id'));
+        // }
+        // TripOBJ.days = JSON.stringify(TripOBJ.days);
+
+        TripOBJ.lun = document.getElementsByName('days')[0].attributes['data-id'].nodeValue;
+        TripOBJ.mar = document.getElementsByName('days')[1].attributes['data-id'].nodeValue;
+        TripOBJ.mer = document.getElementsByName('days')[2].attributes['data-id'].nodeValue;
+        TripOBJ.jeu = document.getElementsByName('days')[3].attributes['data-id'].nodeValue;
+        TripOBJ.ven = document.getElementsByName('days')[4].attributes['data-id'].nodeValue;
+        TripOBJ.sam = document.getElementsByName('days')[5].attributes['data-id'].nodeValue;
+        TripOBJ.dim = document.getElementsByName('days')[6].attributes['data-id'].nodeValue;
+
 
         // Addresses
         var departure = document.getElementById("address_departure");
@@ -203,32 +220,28 @@ var createTripFavorite = {};
         TripOBJ.vias = JSON.stringify(TripOBJ.vias);
 
 
-
         // Send TripOBJ to Backend
-        if (TripOBJ.days.length > 0) {
-            $.ajax({
-                method: 'POST',
-                url: '/api/trip_favorite',
-                data: TripOBJ,
-                
-                success: function (data) {
-                    Kovoit.pushNotification('success', data.success)
-                },
-                error: function (xhr) {
-                    var data = xhr.responseJSON;
-                    //Kovoit.pushNotification('error', data.errors)
-                }
-            });
-        } else {
-            Kovoit.pushNotification('error', TripOBJ.vias);
-        }
+        $.ajax({
+            method: 'POST',
+            url: '/api/trip_favorite',
+            data: TripOBJ,
 
-        window.open('/trips-driver','_self');
+            success: function (data) {
+                Kovoit.pushNotification('success', data.success)
+            },
+            error: function (xhr) {
+                var data = xhr.responseJSON;
+                //Kovoit.pushNotification('error', data.errors)
+            }
+        });
+
+
+        window.open('/trips-driver', '_self');
 
         // TripOBJ.days = [];
         // TripOBJ.vias = [];
 
-    }
+    };
 
 
 

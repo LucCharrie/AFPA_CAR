@@ -9,7 +9,7 @@ module.exports.list = function (req, res) {
 
 module.exports.create = function (req, res) {
 
-    let tripFavoriteModel = new TripFavoriteModel({
+    let tripFavoriteModel = {
         name: req.body.name,
         nb_seats: req.body.nb_seats,
         driver: req.body.driver,
@@ -17,10 +17,15 @@ module.exports.create = function (req, res) {
         car_user_id: req.body.car_user_id ,
         address_departure_id: req.body.address_departure_id*1,
         address_arrival_id: req.body.address_arrival_id*1,
-        days: JSON.parse(req.body.days),
-        vias: JSON.parse(req.body.vias)
-    });
-
+        lun: JSON.parse(req.body.lun),
+        mar: JSON.parse(req.body.mar),
+        mer: JSON.parse(req.body.mer),
+        jeu: JSON.parse(req.body.jeu),
+        ven: JSON.parse(req.body.ven),
+        sam: JSON.parse(req.body.sam),
+        dim: JSON.parse(req.body.dim)
+    }
+    
     TripFavoriteService.create(tripFavoriteModel, (err, tripFavorite) => {
         res.json(tripFavorite);
     });

@@ -41,6 +41,7 @@ var listTripFavCtrl = {};
   }
 
   self.tripFavBuildCard = function (trip) {
+    console.log(trip);
     var card =
       "<div class='card card-trip-driver' data-id='" + trip.id_trip_favorite + "'>" +
       "<div class='content'>" +
@@ -50,20 +51,16 @@ var listTripFavCtrl = {};
       "<table class='ui celled table table-info'>" +
       "<tbody>" +
       "<tr>" +
-      "<td> Voiture </td>" +
-      "<td>" + trip.brand_name + "  " + trip.model_name + "   " + trip.numimmat + "  " + trip.color + "</td>" +
+      "<td> Départ </td>" +
+      "<td>" + trip.addressDepRef.latitude + " / " + trip.addressDepRef.longitude + "</td>" +
       "</tr>" +
       "<tr>" +
-      "<td> Nbr de places </td>" +
-      "<td>" + trip.nb_seats + "</td>" +
+      "<td> Arrivée </td>" +
+      "<td>" + trip.addressArrRef.latitude + " / " + trip.addressArrRef.longitude + "</td>" +
       "</tr>" +
       "<tr>" +
-      "<td> Départ à </td>" +
-      "<td>" + trip.hours_departure + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td> Arrivée à </td>" +
-      "<td>" + trip.hours_arrival + "</td>" +
+      "<td> Jours </td>" +
+      "<td>" + trip.days +"</td>" +
       "</tr>" +
       "</table>" +
       "</div>" +

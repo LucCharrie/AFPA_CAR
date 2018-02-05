@@ -100,14 +100,13 @@ var uiTrip = {};
 
     // Permuter les couleurs des jours
     self.days = function(e){
-        // Website color
-        // var green = '#00C853' = rgb(0, 200, 83);
-        // var gray = '#e8e8e8' = rgb(232, 232, 232);
 
         if(e.className === "ui circular large label"){
             e.className = "ui green circular large label";
+            e.setAttribute('data-id', true)
         } else {
             e.className = "ui circular large label";
+            e.setAttribute('data-id', false)
         }
     }
 

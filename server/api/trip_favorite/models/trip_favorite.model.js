@@ -1,7 +1,7 @@
 let Address = require(__base + 'api/address/models/address.model');
 let CarUser = require(__base + 'api/cars-user/models/car-user.model');
 let AddressUser = require(__base + 'api/addresses-user/models/addresses-user.model');
-
+let TripFavDay = require('./trip_favorite_has_day_week.model')
 
 
 class TripFavoriteModel 
@@ -16,18 +16,18 @@ class TripFavoriteModel
             car_user_id: '',
             address_departure_id: '',
             address_arrival_id: '',
-            days: row.days,
-            hours_departure: '', 
-            hours_arrival: '', 
-            way_type: '',
+            days: '',
+            tripFavDayRef:'',
             addressDepRef: '',
             addressArrRef:'',
             carUserRef:'', 
-            vias:''           
+            vias:''   
         };
+        this.row.tripFavDayRef = new TripFavDay(this.row.tripFavDayRef);
         this.row.addressDepRef = new Address(this.row.addressDepRef);
         this.row.addressArrRef = new Address(this.row.addressArrRef);
         this.row.carUserRef = new CarUser(this.row.carUserRef);
+        
     }
 
     get id_trip_favorite() {
@@ -102,28 +102,12 @@ class TripFavoriteModel
         this.row.days = val;
     }
 
-    get hours_departure() {
-        return this.row.hours_departure;
+    get tripFavDayRef(){
+        return this.row.tripFavDayRef;
     }
 
-    set hours_departure(val) {
-        this.row.hours_departure = val;
-    }
-
-    get hours_arrival() {
-        return this.row.hours_arrival;
-    }
-
-    set hours_arrival(val) {
-        this.row.hours_arrival = val;
-    }
-
-    get way_type() {
-        return this.row.way_type;
-    }
-
-    set way_type(val) {
-        this.row.way_type = val;
+    set tripFavDayRef(val){
+        this.row.tripFavDayRef = val;
     }
 
     get addressDepRef() {
@@ -157,8 +141,7 @@ class TripFavoriteModel
     set vias(val) {
         this.row.vias = val;
     }
-    
-    
+
 
     toJSON() {
         return {
@@ -171,9 +154,7 @@ class TripFavoriteModel
             address_departure_id: this.address_departure_id,
             address_arrival_id: this.address_arrival_id,
             days: this.days,
-            hours_departure: this.hours_departure, 
-            hours_arrival: this.hours_arrival, 
-            way_type: this.way_type,
+            tripFavDayRef: this.tripFavDayRef,
             addressDepRef: this.addressDepRef,
             addressArrRef: this.addressArrRef,
             carUserRef: this.carUserRef,

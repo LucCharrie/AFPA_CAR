@@ -7,10 +7,17 @@ class Day {
         }
     }
 
-    get id() {
+    set id_day_week(e){
+        this.row.id_day_week = e;
+    }
+
+    get id_day_week() {
         return this.row.id_day_week;
     }
 
+    set day(e){
+        this.row.day = e;
+    }
     get day() {
         return this.row.day;
     }

@@ -10,9 +10,19 @@ block content
   .ui.two.column.grid
     .column
       .ui.container
-        a.ui.button(href='/cars-user') Ajouter voiture
-        a.ui.button(href='/addresses-user') Ajouter Adresse  
-        a.ui.button(href='/trips-driver/create') Créer un trajet
+        .field
+          a.ui.circular.large.label(href='/cars-user') +  
+          label Ajouter une voiture
+        br
+        .field
+          a.ui.circular.large.label(href='/addresses-user') + 
+          label  Ajouter une adresse 
+        br
+        .field
+          a.ui.circular.large.label(href='/trips-driver/create') +
+          label Créer un trajet
+        br
+        
 
 
     .column

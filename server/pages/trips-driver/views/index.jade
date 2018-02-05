@@ -7,9 +7,22 @@ block added_scripts
 block content
   h1 Mes trajets
 
-  .ui.secondary.menu
-    a.active.item(href='/trips-driver/create') Créer un trajet
-    a.active.item(href='/cars-user') Ajouter voiture
-    a.active.item(href='/addresses-user/create') Ajouter Adresse
+  .ui.container(style="margin-top: 30px")
+    .field
+      a.ui.circular.large.label(href='/trips-driver/create') +
+      label Créer un trajet
+    br 
+    .field
+      a.ui.circular.large.label(href='/cars-user/create') +  
+      label Ajouter une voiture
+    br
+    .field
+      a.ui.circular.large.label(href='/addresses-user/create') + 
+      label  Ajouter une adresse 
+    br
+
+  hr(style="margin-bottom: 30px")
 
   .ui.cards
+
+ 
