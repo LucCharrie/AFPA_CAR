@@ -17,17 +17,15 @@ var listTripFavCtrl = {};
   }
 
   self.tripFavListSuccess = function (tripFav) {
-    $.each(tripFav, function (index, tripFav) {
-      for (var i = 0; i < tripFav.length; ++i) {
-        self.tripFavAddCard(tripFav[i]);
-        console.log(tripFav[i])
+    $.each(tripFav, function (index, trip) {
+      for (var i = 0; i < trip.length; ++i) {
+        self.tripFavAddCard(trip[i]);
       }
     });
   }
 
-  self.tripFavAddCard = function (tripFav) {
-
-    $('.ui.cards').append(self.tripFavBuildCard(tripFav));
+  self.tripFavAddCard = function (trip) {
+    $('.ui.cards').append(self.tripFavBuildCard(trip));
   }
 
   self.tripFavDeleteCard = function(id) {
@@ -42,36 +40,33 @@ var listTripFavCtrl = {};
       });
   }
 
-  self.tripFavBuildCard = function (tripFav) {
+  self.tripFavBuildCard = function (trip) {
+    console.log(trip);
     var card =
-      "<div class='card card-trip-driver' data-id='" + tripFav.id_trip_favorite + "'>" +
+      "<div class='card card-trip-driver' data-id='" + trip.id_trip_favorite + "'>" +
       "<div class='content'>" +
-      "<div class='header'> " + tripFav.name + " </div>" +
+      "<div class='header'> " + trip.name + " </div>" +
       "</div>" +
       "<div class='content-body'>" +
       "<table class='ui celled table table-info'>" +
       "<tbody>" +
       "<tr>" +
-      "<td> Voiture </td>" +
-      "<td>" + tripFav.brand_name + "  " + tripFav.model_name + "   " + tripFav.numimmat + "  " + tripFav.color + "</td>" +
+      "<td> Départ </td>" +
+      "<td>" + trip.addressDepRef.latitude + " / " + trip.addressDepRef.longitude + "</td>" +
       "</tr>" +
       "<tr>" +
-      "<td> Nbr de places </td>" +
-      "<td>" + tripFav.nb_seats + "</td>" +
+      "<td> Arrivée </td>" +
+      "<td>" + trip.addressArrRef.latitude + " / " + trip.addressArrRef.longitude + "</td>" +
       "</tr>" +
       "<tr>" +
-      "<td> Départ à </td>" +
-      "<td>" + tripFav.hours_departure + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td> Arrivée à </td>" +
-      "<td>" + tripFav.hours_arrival + "</td>" +
+      "<td> Jours </td>" +
+      "<td>" + trip.days +"</td>" +
       "</tr>" +
       "</table>" +
       "</div>" +
       "<div class='extra content'>" +
-      "<a href='/trips-driver/edit/'" + tripFav.id_trip_favorite + "' class='ui basic blue button'> Editer</a>" +
-      "<a class='ui basic red button' onclick='listTripFavCtrl.tripFavDeleteCard(" + tripFav.id_trip_favorite + ")'> Supprimer</a>" +
+      "<a href='/trips-driver/edit/'" + trip.id_trip_favorite + "' class='ui basic blue button'> Editer</a>" +
+      "<a class='ui basic red button' onclick='listTripFavCtrl.tripFavDeleteCard(" + trip.id_trip_favorite + ")'> Supprimer</a>" +
       "</div>" +
       "</div>";
 

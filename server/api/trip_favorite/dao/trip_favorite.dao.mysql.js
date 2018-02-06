@@ -3,21 +3,27 @@ let TripFavoriteModel = require('../models/trip_favorite.model');
 
 class TripFavoriteDAO {
 
-    static list(cb) {
+    static list(id, cb) {
 
-        db.query(`SELECT tf.id_trip_favorite, 
-		                tf.name,
-                        tf.nb_seats,
-                        tf.driver,
-                        tf.user_id,
-                        tf.car_user_id,
-                        tf.address_departure_id,
-                        tf.address_arrival_id
-                        FROM trip_favorite AS tf`, (err, rows) => {
+        console.log("id:", id)
+
+        db.query(`SELECT 
+                id_trip_favorite, 
+                name,
+                nb_seats,
+                driver,
+                user_id,
+                car_user_id,
+                address_departure_id,
+                address_arrival_id
+                FROM trip_favorite
+                WHERE user_id != 1`, [id], (err, rows) => {
+
                 rows = rows || [];
 
                 rows = rows.map((row) => {
-                    return new TripFavoriteModel(row);
+                    console.log(row)
+                    return row;
                 });
 
                 cb(err, rows);
@@ -26,20 +32,33 @@ class TripFavoriteDAO {
 
 
     static create(trip, cb) {
-        // console.log(trip);
+        
 
-
-        db.query('INSERT INTO trip_favorite SET name = ?, nb_seats = ?, driver = ?, user_id = ?, car_user_id = ?, address_departure_id = ?, address_arrival_id = ?',
-            [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id, trip.address_departure_id, trip.address_arrival_id],
-            (err) => {
-                //console.log( err )
+        db.query(`CALL _PS_create_trip_favorite(?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id,
+            trip.address_departure_id, trip.address_arrival_id,
+            trip.lun, trip.mar, trip.mer, trip.jeu, trip.ven, trip.sam, trip.dim],
+            (err, rows) => {
                 cb(err);
             });
 
-        //db.query('CALL _PS_tripFromFavorite (?, ?)', [trip.id_trip_favorite, 3], (err)=>{
-        //    cb(err);
-        //});   
+        db.query(`
+            SELECT id_trip_favorite 
+            FROM trip_favorite
+            ORDER BY id_trip_favorite DESC 
+            LIMIT 1;`,
+            (err, rows) => {
+                let idTripFav = rows;
+                cb(err);
+
+                db.query('CALL _PS_tripFromFavorite (?, 2)', [idTripFav[0].id_trip_favorite], (err) => {
+                    cb(err);
+                });
+            });
+            
     }
+
+
 
     static delete(trip, cb) {
         db.query('DELETE FROM trip_favorite WHERE id_trip_favorite = ?', [trip.id_trip_favorite],
@@ -48,6 +67,7 @@ class TripFavoriteDAO {
             });
 
     }
+
 
     static findByID(id, cb) {
 
@@ -64,42 +84,33 @@ class TripFavoriteDAO {
     static findByUserID(id, cb) {
 
         db.query(`
-        
         ######################################
         ## List of trip_favorite by user_id ##
         ######################################
         
         SELECT id_trip_favorite, name, nb_seats, driver,
         
-        # select adresses
-        dep.street, dep.city, dep.zip_code, dep.numero, dep.latitude, dep.longitude, 
-        arr.street, arr.city, arr.zip_code, arr.numero, arr.latitude, arr.longitude,
+        dep.street AS depStr, dep.city AS depCity, dep.zip_code AS depZip, dep.numero AS depNum, dep.latitude AS depLat, dep.longitude AS depLng, dep.rep AS depRep, 
+        arr.street AS arrStr, arr.city AS arrCity, arr.zip_code AS arrZip, arr.numero AS arrNum, arr.latitude AS arrLat, arr.longitude AS arrLng, arr.rep AS arrRep,
         
-        # select heures
         hours_departure, hours_arrival, way_type,
         
-        # select jours
-        GROUP_CONCAT(day),
-        
-        # select voiture
+        GROUP_CONCAT(day) AS days,
+
         numimmat, color, model_name, brand_name      
         
-        # adresses
         FROM trip_favorite AS tf
         LEFT JOIN address AS dep
         ON tf.address_departure_id = dep.id_address
         LEFT JOIN address AS arr
         ON tf.address_arrival_id = arr.id_address
         
-        # heures
         LEFT JOIN trip_favorite_has_day_week AS tfweek
         ON tf.id_trip_favorite = tfweek.trip_favorite_id
         
-        # jours
         LEFT JOIN day_week AS dweek
         ON tfweek.day_week_id = dweek.id_day_week
         
-        # voiture
         LEFT JOIN car_user
         ON tf.car_user_id = car_user.id_car_user
         LEFT JOIN car
@@ -107,27 +118,72 @@ class TripFavoriteDAO {
         LEFT JOIN car_brand
         ON car.car_brand_id = car_brand.id_car_brand
         
-        # Sort the List
-        # '1' in dev, '?' in prod
-        WHERE tf.user_id = 1
+        WHERE tf.user_id = ?
         GROUP BY id_trip_favorite
-        
         `, [id], (err, rows) => {
-                if (rows[0]) {
+
+                rows = rows || [];
+
+                if (rows) {
                     rows = rows.map((row) => {
-                        // In prod
-                        // return  new TripFavoriteModel({
 
-                        // });
 
-                        // In dev
-                        return row;
+                        return new TripFavoriteModel({
+                            id_trip_favorite: row.id_trip_favorite,
+                            name: row.name,
+                            nb_seats: row.nb_seats,
+                            driver: row.driver,
+                            days: row.days,
+
+                            tripFavDayRef: {
+                                hours_departure: row.hours_departure,
+                                hours_arrival: row.hours_arrival,
+                                way_type: row.way_type,
+                                // dayRef: {
+                                //     day: row.day
+                                // }
+                            },
+
+                            addressDepRef: {
+                                street: row.depStr,
+                                city: row.depCity,
+                                zip_code: row.depZip,
+                                numero: row.depNum,
+                                latitude: row.depLat,
+                                longitude: row.depLng,
+                                rep: row.depRep
+                            },
+
+                            addressArrRef: {
+                                street: row.arrStr,
+                                city: row.arrCity,
+                                zip_code: row.arrZip,
+                                numero: row.arrNum,
+                                latitude: row.arrLat,
+                                longitude: row.arrLng,
+                                rep: row.arrRep
+                            },
+
+                            carUserRef: {
+                                color: row.color,
+                                numimmat: row.numimmat,
+                                carRef: {
+                                    model_name: row.model_name,
+                                    brandRef: {
+                                        brand_name: row.brand_name
+                                    }
+                                }
+                            }
+
+                        });
+
                     });
                     cb(err, rows);
                 }
                 else {
                     cb(err, null);
                 }
+
             });
     }
 }

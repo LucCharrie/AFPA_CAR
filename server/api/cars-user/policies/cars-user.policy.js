@@ -19,7 +19,7 @@ acl.allow([{
         permissions: ['get']
     }, {
         resources: '/:idCarUser',
-        permissions: ['get', 'post', 'delete', 'put']
+        permissions: '*'
     }]
 }, {
     roles: ['guest'],

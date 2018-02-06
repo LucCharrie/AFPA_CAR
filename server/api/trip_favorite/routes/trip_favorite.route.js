@@ -1,18 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var tripFavoriteCtrl = require('../controllers/trip_favorite.controller');
-var usersCtrl = require('../../users/controllers/users.controller');
 
+router.param('idTripFavorite', tripFavoriteCtrl.tripByID);
 
 router.route('/')
         .get(tripFavoriteCtrl.tripByUserId)
         .post(tripFavoriteCtrl.create);
 
+router.route('/list')
+        .get(tripFavoriteCtrl.list)
+
 router.route('/:idTripFavorite')
         .get(tripFavoriteCtrl.read)
         .delete(tripFavoriteCtrl.delete);
 
-router.param('idTripFavorite', tripFavoriteCtrl.tripByID);
 
 
 module.exports = router;

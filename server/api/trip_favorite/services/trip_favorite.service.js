@@ -2,8 +2,8 @@ let TripFavoriteDAO = require('../dao/trip_favorite.dao.mysql')
 
 class TripFavoriteService {
 
-    static list(cb) {
-        return TripFavoriteDAO.list(cb);
+    static list(id, cb) {
+        return TripFavoriteDAO.list(id, cb);
     }
 
     static create(args, cb) {

@@ -65,10 +65,10 @@ module.exports.update = function(req, res) {
 module.exports.delete = function(req, res) {
   CarsUserService.delete(req.carUser.id, (err) => {
     if (err) {
-      res.status(500).json({ 'errors': [{msg: 'Failed to delete carUser !'}] });
+      res.status(500).json({ 'errors': [{msg: 'La voiture n\'a pas pu être supprimée !'}] });
     }
     else {
-      res.json({ 'success': [{msg: 'carUser Deleted !'}]});
+      res.json({ 'success': [{msg: 'Voiture supprimée !'}]});
     }
   });
 }

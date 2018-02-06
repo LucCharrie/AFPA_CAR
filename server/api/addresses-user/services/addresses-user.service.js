@@ -17,29 +17,23 @@ class AddressesUserService
         });
     }
 
-    static delete(id, cb) {
-        return AddressesUserDAO.delete(id, (err, addressUserReturned) => {
+    static delete(addressUser, cb) {
+        console.log(9999);
+        return AddressesUserDAO.delete(addressUser, (err) => {
+            // console.log(699);
             if (err) {
+                console.log(9998);
                 console.error(err);
             }
-
-            cb(err, addressUserReturned);
+            console.log(9999);
+            cb(err);
         });
     }    
 
-    static deleteByUserID(id, idUser, cb) {
-        return AddressesUserDAO.deleteByUserID(id, idUser, (err, addressUserReturned) => {
-            if (err) {
-                console.error(err);
-            }
 
-            cb(err, addressUserReturned);
-        });
-    }
-
-    static create(addressUser, cb) {
+    static create(addressUser, idAuto, cb) {
         
-        return AddressesUserDAO.create(addressUser, (err, addressUserReturned) => {
+        return AddressesUserDAO.create(addressUser, idAuto, (err, addressUserReturned) => {
             if (err) {
                 console.error(err);
             }
@@ -57,6 +51,7 @@ class AddressesUserService
             cb(err, addressUserReturned);
         });
     }
+
 }
 
 module.exports = AddressesUserService;

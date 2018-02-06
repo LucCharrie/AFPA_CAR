@@ -9,7 +9,7 @@ let carsUserPolicy = require('../policies/cars-user.policy');
 router.route('/me')
     .get(carsUserCtrl.listCurrentUser);
 
-router.route('/').all(carsUserPolicy.isAllowed)
+router.route('/')//.all(carsUserPolicy.isAllowed)
     .get(carsUserCtrl.list)
     .post(carsUserCtrl.create);
 
@@ -23,7 +23,7 @@ router.route('/').all(carsUserPolicy.isAllowed)
 router.param('idCarUser', carsUserCtrl.carUserByID); 
 
 // l'ordre de ces deux instructions importe peu .....
-router.route('/:idCarUser').all(carsUserPolicy.isAllowed).all(carsUserPolicy.isOwner)
+router.route('/:idCarUser')//.all(carsUserPolicy.isAllowed).all(carsUserPolicy.isOwner)
     .get(carsUserCtrl.read)
     .put(carsUserCtrl.update)
     .delete(carsUserCtrl.delete);
