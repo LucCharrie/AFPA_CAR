@@ -11,7 +11,8 @@ module.exports.createGPS = function ( req, res )
 {
   req.checkBody( 'address_name', 'Intitulé vide' ).notEmpty();
   req.checkBody( 'number', 'Adresse vide' ).isEmail();
-  req.checkBody( 'latitude', 'Latitude vide' ).notEmpty();
+  req.checkBody( 'latitude', 'Latitude incorrect' ).islatLong(lat);
+  req.checkBody( 'longitude', 'Longitude incorrect' ).islatLong(long);
 
   let errorsFields = req.validationErrors();
 
@@ -34,7 +35,7 @@ module.exports.createGPS = function ( req, res )
   {
     if ( err )
     {
-      res.status( 500 ).json( { 'errors': [ { msg: 'Failed to create address !' }] } );
+      res.status( 500 ).json( { 'errors': [ { msg: 'Intitulé déja utilisé' }] } );
     } else
     {
       res.json( { 'success': [ { msg: 'addressUser Updated !' }], 'addressUser': addressUser } );
@@ -55,6 +56,7 @@ module.exports.list = function ( req, res )
 
 module.exports.parseData = function ( req, res, next, data )
 {
+  //?ID&lib --- query(...)
   var my_data = data.split( "~~" );
   if ( my_data[ 0 ].match( /[0-9]/ ) && my_data.length == 2 )
   {

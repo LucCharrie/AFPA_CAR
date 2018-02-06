@@ -37,7 +37,7 @@ var listAddressUserController = {};
            
             success: function (data) {
                 console.log(1);
-                $('.card[data-id=' + my_id + "' lib='" + my_libelle + "]").remove();
+                $(".card[data-id='" + my_id + "~~" + my_libelle + "']").remove();
                 Kovoit.pushNotification('success', data.success);
             }
         });
@@ -49,7 +49,7 @@ var listAddressUserController = {};
         myAddress += (addressUser.address.street == null)? '' : ' ' + addressUser.address.street;
         myAddress = (myAddress.length > 34)? myAddress.slice(0,34) + "..." : myAddress;
         var card =
-        "<div class='card card-trip-driver' data-id='" + addressUser.address.id + "' lib='" + addressUser.libelle + "'>" +
+        "<div class='card card-trip-driver' data-id='" + addressUser.address.id + "~~" + addressUser.libelle + "'>" +
             "<div class='content'>" +
                 "<div class='header'>" + addressUser.libelle + "</div>" +
             "</div>" +

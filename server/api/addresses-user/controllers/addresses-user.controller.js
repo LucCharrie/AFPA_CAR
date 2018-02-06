@@ -22,7 +22,9 @@ module.exports.create = function ( req, res )
   } );
 
   req.checkBody( 'libelle', 'Intitulé vide' ).notEmpty();
+  req.checkBody( 'libelle', 'Intitulé trop long, 25 caractères maximum' ).isLength({ max : 25});
   req.checkBody( 'address', 'Adresse vide' ).notEmpty();
+  
 
   let errorsFields = req.validationErrors();
 
@@ -37,7 +39,7 @@ module.exports.create = function ( req, res )
 
     if ( err )
     {
-      res.status( 500 ).json( { 'errors': [ { msg: 'Failed to create address !' }] } );
+      res.status( 500 ).json( { 'errors': [ { msg: 'Intitulé déja utilisé !' }] } );
     } else
     {
       res.json( { 'success': [ { msg: 'addressUser Updated !' }], 'addressUser': addressUser } );
