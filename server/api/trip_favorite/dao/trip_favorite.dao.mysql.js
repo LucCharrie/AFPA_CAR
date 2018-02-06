@@ -26,8 +26,8 @@ class TripFavoriteDAO {
 
 
     static create(trip, cb) {
-       // console.log(trip);
-        
+        // console.log(trip);
+
 
         db.query('INSERT INTO trip_favorite SET name = ?, nb_seats = ?, driver = ?, user_id = ?, car_user_id = ?, address_departure_id = ?, address_arrival_id = ?',
             [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id, trip.address_departure_id, trip.address_arrival_id],
@@ -63,11 +63,23 @@ class TripFavoriteDAO {
 
     static findByUserID(id, cb) {
 
-        db.query(`SELECT name, nb_seats, 
-
-        dep.street, dep.city, dep.zip_code, dep.numero, dep.latitude, dep.longitude, 
-        arr.street, arr.city, arr.zip_code, arr.numero, arr.latitude, arr.longitude,
-        hours_departure, hours_arrival, way_type, day
+        console.log('id_user :', id)
+        db.query(`
+        
+        ######################################
+        ## List of trip_favorite by user_id ##
+        ######################################
+        
+        SELECT id_trip_favorite, name, nb_seats, driver,
+        
+        dep.street AS depStr, dep.city AS depCity, dep.zip_code AS depZip, dep.numero AS depNum, dep.latitude AS depLat, dep.longitude AS depLng, dep.rep AS depRep, 
+        arr.street AS arrStr, arr.city AS arrCity, arr.zip_code AS arrZip, arr.numero AS arrNum, arr.latitude AS arrLat, arr.longitude AS arrLng, arr.rep AS arrRep,
+        
+        hours_departure, hours_arrival, way_type,
+        
+        GROUP_CONCAT(day) AS days,
+        
+        numimmat, color, model_name, brand_name      
         
         FROM trip_favorite AS tf
         LEFT JOIN address AS dep
@@ -77,23 +89,80 @@ class TripFavoriteDAO {
         
         LEFT JOIN trip_favorite_has_day_week AS tfweek
         ON tf.id_trip_favorite = tfweek.trip_favorite_id
+        
         LEFT JOIN day_week AS dweek
         ON tfweek.day_week_id = dweek.id_day_week
         
-        # 1 for testing, ? in real life
-        WHERE user_id = 1`, [id], (err, rows) => {
-            if (rows[0]) {
-                rows = rows.map((row) => {
-                    return new TripFavoriteModel(row);
-                });
-                cb(err, rows);
-            }
-            else {
-                cb(err, null);
-            }
-        });
-    }
+        LEFT JOIN car_user
+        ON tf.car_user_id = car_user.id_car_user
+        LEFT JOIN car
+        ON car_user.car_id = car.id_car
+        LEFT JOIN car_brand
+        ON car.car_brand_id = car_brand.id_car_brand
+        
+        WHERE tf.user_id = ?
+        GROUP BY id_trip_favorite
+        `, [id], (err, rows) => {
 
+                rows = rows || [];
+
+                if (rows) {
+                    rows = rows.map((row) => {
+
+                        return new TripFavoriteModel({
+                            id_trip_favorite: row.id_trip_favorite,
+                            name: row.name,
+                            nb_seats: row.nb_seats,
+                            driver: row.driver,
+                            days: row.days,
+                            hours_departure: row.hours_departure, 
+                            hours_arrival: row.hours_arrival, 
+                            way_type: row.way_type,
+
+
+                            addressDepRef: {
+                                street: row.depStr,
+                                city: row.depCity,
+                                zip_code: row.depZip,
+                                numero: row.depNum,
+                                latitude: row.depLat,
+                                longitude: row.depLng,
+                                rep: row.depRep
+                            },
+
+                            addressArrRef: {
+                                street: row.arrStr,
+                                city: row.arrCity,
+                                zip_code: row.arrZip,
+                                numero: row.arrNum,
+                                latitude: row.arrLat,
+                                longitude: row.arrLng,
+                                rep: row.arrRep
+                            },
+
+                            carUserRef: {
+                                color: row.color,
+                                numimmat: row.numimmat,
+                                carRef: {
+                                    model_name: row.model_name,
+                                    brandRef: {
+                                        brand_name: row.brand_name
+                                    }
+                                } 
+                            }
+
+                        });
+
+                    });
+                   //console.log(rows[0]);
+                    cb(err, rows);
+                }
+                else {
+                    cb(err, null);
+                }
+
+            });
+    }
 }
 
 module.exports = TripFavoriteDAO;

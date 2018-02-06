@@ -2,7 +2,7 @@
 
 let express = require('express');
 let coreCtrl = require('../controllers/core.controller');
-let corePolicies = require('../policies/core.policies');
+let corePolicies = require('../policies/core.policy');
 let router = express.Router();
 
 

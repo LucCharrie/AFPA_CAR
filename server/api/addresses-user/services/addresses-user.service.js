@@ -7,27 +7,50 @@ let AddressesUserDAO  = require('../dao/addresses-user.dao.mysql');
 
 class AddressesUserService
 {
-    static listByUserID(id, cb) {
-        return AddressesUserDAO.listByUserID(id, cb);
+    static listByUserID(idUser, cb) {
+        return AddressesUserDAO.listByUserID(idUser, (err, addressUserReturned) => {
+            if (err) {
+                console.error(err);
+            }
+
+            cb(err, addressUserReturned);
+        });
     }
 
-    static delete(id, cb) {
-        return AddressesUserDAO.delete(id, cb);
-    }
+    static delete(addressUser, cb) {
+        console.log(9999);
+        return AddressesUserDAO.delete(addressUser, (err) => {
+            // console.log(699);
+            if (err) {
+                console.log(9998);
+                console.error(err);
+            }
+            console.log(9999);
+            cb(err);
+        });
+    }    
 
-    static deleteByUserID(id, idUser, cb) {
-        return AddressesUserDAO.deleteByUserID(id, idUser, cb);
-    }
 
-    static create(AddressUserModel, cb) {
+    static create(addressUser, idAuto, cb) {
         
-        return AddressesUserDAO.create(AddressUserModel, cb);
+        return AddressesUserDAO.create(addressUser, idAuto, (err, addressUserReturned) => {
+            if (err) {
+                console.error(err);
+            }
+
+            cb(err, addressUserReturned);
+        });
     }
 
-    static createGPS(AddressUserModel, address, cb) {
-        return AddressesUserDAO.create(AddressUserModel, cb);//createGPS dans DAO
-    }
+    static createGPS(addressUser, cb) {
+        return AddressesUserDAO.create(addressUser, (err, addressUserReturned) => {//createGPS dans DAO
+            if (err) {
+                console.error(err);
+            }
 
+            cb(err, addressUserReturned);
+        });
+    }
 
 }
 

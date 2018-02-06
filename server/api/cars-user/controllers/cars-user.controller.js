@@ -39,7 +39,7 @@ module.exports.create = function(req, res) {
       res.json({ 'success': [{msg: 'CarUser Updated !'}], 'carUser': carUser });
     }
   });
-}
+} 
 
 /**
  * Update a CarUser
@@ -65,10 +65,10 @@ module.exports.update = function(req, res) {
 module.exports.delete = function(req, res) {
   CarsUserService.delete(req.carUser.id, (err) => {
     if (err) {
-      res.status(500).json({ 'errors': [{msg: 'Failed to delete carUser !'}] });
+      res.status(500).json({ 'errors': [{msg: 'La voiture n\'a pas pu être supprimée !'}] });
     }
     else {
-      res.json({ 'success': [{msg: 'carUser Deleted !'}]});
+      res.json({ 'success': [{msg: 'Voiture supprimée !'}]});
     }
   });
 }
@@ -85,6 +85,15 @@ module.exports.read = function(req, res) {
  */
 module.exports.list = function(req, res) {
   CarsUserService.list((err, carsUser) => {
+    res.json(carsUser);
+  });
+}
+
+/**
+ * List CarsUser for current user
+ */
+module.exports.listCurrentUser = function(req, res) {
+  CarsUserService.listByUserID(req.session.user.id, (err, carsUser) => {
     res.json(carsUser);
   });
 }

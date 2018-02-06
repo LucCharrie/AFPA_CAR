@@ -5,42 +5,35 @@
 // au reste du code de l'application.
 //=========================================================================
 
-let db = require(__base + 'config/db')
+let db = require( __base + 'config/db' )
 
-let AddressesUserModel = require('../models/addresses-user.model');
+let AddressesUserModel = require( '../models/addresses-user.model' );
 
-class AddressesUserDAO {
-    static create(AddressesUserModel, cb) {
-        var data = AddressesUserModel.row;
-        // console.log(AddressesUserModel);
-        // console.log(AddressesUserModel.row.idAuto + " " +AddressesUserModel.row.id_user+" "+ AddressesUserModel.row.name);
-        console.log(data.idAuto + " " + data.id_user + " " + data.name);
-        db.query('Call _PS_add_adress_from_autocomplete(?,?,?)', [data.idAuto, data.id_user, data.name], (err) => {
-            cb(err);
-            //return (err) ? cb(err) : AddressesUserDAO.find(result.insertId, cb);
-        });
+class AddressesUserDAO
+{
+    static create( addressUser, idAuto, cb )
+    {
+        
+        db.query( 'Call _PS_add_adress_from_autocomplete(?,?,?)',
+            [ idAuto, addressUser.user.id, addressUser.libelle ], ( err ) =>
+            {
+                cb( err );
+            } );
     }
 
-    // static update(car, cb) {
-    //     db.query('UPDATE car SET title = ?, text = ?, author_id = ? WHERE id = ?', [car.title, car.text, car.author.id, car.id], (err) => {
-    //         CarsDAO.find(car.id, cb);
-    //     });
-    // }
-
-    static delete(id, cb) {
-        db.query('DELETE FROM car_user WHERE id = ?', [id], (err) => {
-            cb(err);
-        });
+    static createGPS( addressUser, cb )
+    {
+        console.log( addressUser );
+        console.log( addressUser.libelle );
+        // db.query('Call _PS_... (?,?,?)',
+        // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
+        //     cb(err);
+        // });
     }
 
-    static deleteByUserID(id, idUser, cb) {
-        db.query('DELETE FROM car_user WHERE id_car_user = ? AND user_id = ?', [id, idUser], (err) => {
-            cb(err);
-        });
-    }
-
-    static listByUserID(idUser, cb) {
-        db.query(`SELECT ua.user_id,
+    static listByUserID( idUser, cb )
+    {
+        db.query( `SELECT ua.user_id,
                     ua.address_id,
                     ua.date_suppression,
                     ua.libelle,
@@ -54,65 +47,64 @@ class AddressesUserDAO {
                 FROM user_address AS ua
                 LEFT JOIN address AS a ON a.id_address = ua.address_id
                 WHERE ua.date_suppression IS NULL AND 
-                ua.user_id = ` + idUser + `;`, (err, rows) => {
-            rows = rows || [];
-            
-            cb(err, rows.map((row) => {
-                
-                return new AddressesUserModel({
-                    userRef : {
-                        id_user: row.user_id
-                    },
+                ua.user_id =  ? ;`, [ idUser ], ( err, rows ) =>
+            {
+                rows = rows || [];
 
-                    addressRef: {
-                        id: row.address_id,
-                        street: row.street,
-                        city: row.city,
-                        latitude: row.latitude,
-                        longitude: row.longitude,
-                        zip_code: row.zip_code,
-                        numero: row.numero,
-                        rep: row.rep
-                    },
+                cb( err, rows.map( ( row ) =>
+                {
 
-                    libelle: row.libelle
-                    
-                });
-                
-            }));
+                    return new AddressesUserModel( {
+                        userRef: {
+                            id_user: row.user_id
+                        },
+
+                        addressRef: {
+                            id: row.address_id,
+                            street: row.street,
+                            city: row.city,
+                            latitude: row.latitude,
+                            longitude: row.longitude,
+                            zip_code: row.zip_code,
+                            numero: row.numero,
+                            rep: row.rep
+                        },
+
+                        libelle: row.libelle
+
+                    } );
+
+                } ) );
+            } );
+    }
+
+
+    static createGPS( addressUser, cb )
+    {
+        console.log( addressUser );
+        console.log( addressUser.libelle );
+        // db.query('Call _PS_... (?,?,?)',
+        // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
+        //     cb(err);
+        // });
+    }
+
+    static delete( addressUser, cb )
+    {
+        console.log(66);
+        console.log(addressUser);
+        console.log(addressUser.address.id );
+        console.log( addressUser.libelle);
+        db.query(`UPDATE afpa_car_test.user_address
+        SET date_suppression = DATE(NOW())
+        WHERE 	user_id = ?
+            AND address_id = ?
+            AND libelle = ?
+            AND date_suppression IS NULL;`,
+        [ addressUser.user.id, addressUser.address.id, addressUser.libelle], (err) => {
+            cb(err);
         });
     }
 
-    static find(id, cb) {
-        db.query(`SELECT cu.id_car_user,
-                         cu.color,
-                         cu.numimmat,
-                         c.id_car,
-                         c.model_name,
-                         cb.brand_name
-                FROM car_user AS cu
-                LEFT JOIN car AS c ON c.id_car = cu.car_id
-                LEFT JOIN car_brand AS cb ON cb.id_car_brand = c.car_brand_id
-                LEFT JOIN user AS u ON u.id_user = cu.user_id
-                WHERE cu.id_car_user = ? LIMIT 1`, [id], (err, rows) => {
-            let row = rows[0];
-
-            let carUserModel = new CarUserModel({
-                id_car_user: row.id_car_user,
-                color: row.color,
-                numimmat: row.numimmat,
-                carRef: {
-                    id: row.id_car,
-                    model_name: row.model_name,
-                    brandRef: {
-                        brand_name: row.brand_name
-                    }
-                }
-            });
-
-            cb(err, carUserModel);
-        });
-    }
 }
-
 module.exports = AddressesUserDAO;

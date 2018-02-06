@@ -28,7 +28,7 @@ module.exports.auth = function(req, res) {
       res.status(500).json({'errors': [{msg: 'Connection failed !'}]});
     }
     else {
-      req.session.user = user;
+      req.session.user = user; //## Récupération des valeurs de la table "user"
       res.json({ 'success': [{msg: 'User connected !'}], 'user': user });
     }
   });

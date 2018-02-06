@@ -10,6 +10,7 @@ let CarUserModel = require('../models/car-user.model');
 
 class CarsUserDAO {
     static create(carUser, cb) {
+        console.log(carUser.car);
         db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
         [carUser.color, carUser.numimmat, carUser.car.id, carUser.user.id], (err, result) => {
             return (err) ? cb(err) : CarsUserDAO.find(result.insertId, cb);
@@ -115,7 +116,7 @@ class CarsUserDAO {
                 LEFT JOIN car AS c ON c.id_car = cu.car_id
                 LEFT JOIN car_brand AS cb ON cb.id_car_brand = c.car_brand_id
                 LEFT JOIN user AS u ON u.id_user = cu.user_id
-                WHERE u.id_user = ` + idUser + `;`, (err, rows) => {
+                WHERE u.id_user = ?;`, [idUser], (err, rows) => {
             rows = rows || [];
 
             cb(err, rows.map((row) => {

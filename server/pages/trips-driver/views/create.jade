@@ -2,34 +2,43 @@ extends /core/views/layout
 
 block added_scripts
   script(async, defer, src='/public/js/pages/trips-driver/create-trip-driver.client.js')
+  script(async, defer, src='/public/js/pages/trips-driver/list-car-user.client.js')
+  script(async, defer, src='/public/js/pages/trips-driver/list-address-user.client.js')
+
+  script(async, defer, src="/public/js/common/afpa-car-bundle.js")
+
+
+block full_map
+  #map(style="position: absolute; top:55px; min-height:95%;  z-index: 0;")
+
 
 block content
-  h1 Créer trajet conducteur
-
-  .ui.grid
-    .two.column.row
-      .column
-        .ui.form
-          .field
-            label Nom
-            input#name_trip(type='text', name='name' placeholder='Mon trajet')
-          .field
-            label Voiture
-              input#car_user(class='car_auto' type='text', name='car_user' placeholder='Ma voiture')
-          .field
-            label Nombre de places disponibles
-            input#nb_seats(type='number' name='nb_seats')
-          ul#parentVia(style="list-style:none; padding-left:0")
-            li.field
-              label Adresse départ
-              input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="Départ")
-            li#viaEnd.field
-              label Adresse arrivée
-              input(class='address_auto' id='address_arrival' type='text' name='address_arrival' placeholder="Arrivée")
-          .button.ui.button(onclick="createTripDriver.sendCoords()") Rechercher
-          .button.ui.button#viaMore(onclick="createTripDriver.viaMore()") Via +
-          br
-          br
-          button#createTrip.button.fluid.ui.button(onclick="createTripDriver.createTrip()") Créer  
-      .column
-        #map
+  .ui.container.attached.segment(style="display:inline-block; width: 40%; margin:0px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; background:rgba(0, 200, 83, 0.7)")
+    h3(style="text-align:center; color: #ffffff") Trajet
+    hr(style="align:center; color: #ffffff")
+    .ui.form
+      .two.fields
+        .field
+          label Nom
+          input#name_trip(type='text', name='name' placeholder='Mon trajet')
+        .field
+          label Conducteur
+          .ui.toggle.checkbox(style="margin-top: 10px")
+            input(type="checkbox" name="driver" onchange="createTripDriver.driver(this)")
+            label Non/Oui
+      .two.fields
+        .field#cars_user_first
+        .field#cars_user_second
+      .field
+        label Adresse de départ
+        select#address_user(name="address_user")
+      ul#parentVia(style="list-style:none; padding-left:0")
+        li.field
+          label Adresse de départ
+          input(class='address_auto' id='address_departure' type='text' name='address_departure' placeholder="Départ")
+        li#viaEnd.field
+          label Adresse de arrivée
+          input(class='address_auto' id='address_arrival' type='text' name='address_arrival' placeholder="Arrivée")
+      .ui.button(onclick="createTripDriver.sendCoords()") Calcule d'itinéraire
+      .ui.button#viaMore(onclick="createTripDriver.viaMore()") Ajouter un via
+  .ui.bottom.attached.button#createTrip(style="width: 40%", onclick="createTripDriver.createTrip()") Créer  

@@ -38,10 +38,10 @@ var editCarsUserController = {};
                 numimmat : $('#form-edit-car input[name="numimmat"]').val(),
                 carId    : $('#form-edit-car input[name="car"]').data('id')
             };
-
+console.log('test');
             $.ajax({
                 method: 'PUT',
-                url: '/api/cars-user/me/' + $('#form-edit-car').data('id'),
+                url: '/api/cars-user/' + $('#form-edit-car').data('id'),
                 data: {
                     carId: form.carId,
                     color: form.color,

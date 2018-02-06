@@ -22,12 +22,11 @@ var createAddressUserController = {};
                         
                         
                         response($.map(data, function (item) {
-                            
+                            item.numero += (item.rep == null)? '' : ' ' + item.rep;
 
                             
                             return {
-                                'value': item.numero + ' ' +  item.street + ' ' + item.zip_code + ' ' + item.city,
-                                // item.name + ' ' + item.address,
+                                'value': item.numero +  ' ' +  item.street + ' ' + item.zip_code + ' ' + item.city,
                                 'id': item.id
                             };
                         }));
@@ -48,7 +47,7 @@ var createAddressUserController = {};
             
             var form = {
                 
-                name : $('#form-create-address input[name="address_name"]').val(),
+                libelle : $('#form-create-address input[name="libelle"]').val(),
                 address    : $('#form-create-address input[name="address"]').val()//data("id")
             };
             
@@ -57,7 +56,7 @@ var createAddressUserController = {};
                 url: '/api/addresses-user/create',
                 data: {
                     addressId: my_id,
-                    address_name: form.name,
+                    libelle: form.libelle,
                     address: form.address
                 },
                 success : function(data) {
