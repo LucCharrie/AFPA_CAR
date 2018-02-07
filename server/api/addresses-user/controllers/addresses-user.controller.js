@@ -47,28 +47,15 @@ module.exports.create = function ( req, res )
   } );
 }
 
-<<<<<<< HEAD
 module.exports.createGPS = function(req, res) {
-  req.checkBody('name', 'Intitulé vide').notEmpty();
-  req.checkBody('number', 'Numero incorrect').isInt();
+  req.checkBody('libelle', 'Intitulé vide').notEmpty();
+  req.checkBody('numero', 'Numero incorrect').isInt();
   
   req.checkBody('street', 'Rue vide').notEmpty();
   req.checkBody('city', 'Ville vide').notEmpty();
-  req.checkBody('zip', 'Code Postal vide').notEmpty();
+  req.checkBody('zip_code', 'Code Postal vide').notEmpty();
   req.checkBody('latitude', 'Latitude vide').isFloat();
   req.checkBody('longitude', 'Longitude vide').isFloat();
-=======
-module.exports.createGPS = function ( req, res )
-{
-  req.checkBody( 'libelle', 'Intitulé vide' ).notEmpty();
-  req.checkBody( 'numero', 'Numero incorrect' ).isInt();
-
-  req.checkBody( 'street', 'Rue vide' ).notEmpty();
-  req.checkBody( 'city', 'Rue vide' ).notEmpty();
-  req.checkBody( 'zip', 'Rue vide' ).notEmpty();
-  req.checkBody( 'latitude', 'vide' ).isFloat();
-  req.checkBody( 'longitude', 'vide' ).isFloat();
->>>>>>> 7e8cef9bcea792cd52d415b3c638476292e1f8eb
 
   let errorsFields = req.validationErrors();
 
@@ -98,13 +85,27 @@ module.exports.createGPS = function ( req, res )
   {
     if ( err )
     {
-      res.status( 500 ).json( { 'errors': [ { msg: 'Failed to create car !' }] } );
+      res.status( 500 ).json( { 'errors': [ { msg: 'Failed to create address !' }] } );
     } else
     {
       res.json( { 'success': [ { msg: 'addressUser Updated !' }], 'addressUser': addressUser } );
     }
   } );
 }
+
+// module.exports.update = function(req, res) {
+//   req.addressUser.libelle = req.body.libelle;
+//   req.addressUser.idAddresses = req.
+
+//   AddressesUserService.update(req.addressUser, (err, addressUser) => {
+//     if (err) {
+//       res.status(500).json({ 'errors': [{msg: 'Failed to update addressUser !'}] });
+//     }
+//     else {
+//       res.json({ 'success': [{msg: 'addressUser Updated !'}], 'addressUser': addressUser });
+//     }
+//   });
+// }
 
 /**
  * Read an address

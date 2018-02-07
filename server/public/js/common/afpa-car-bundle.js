@@ -9,7 +9,7 @@ var Kovoit = {};
   // PRIVATE VARS
   //
   var MEDIA_SRC = '/public/img';
-  var userSession = session.user;
+  // var userSession = session.user;
 
   //
   // PRIVATE FUNCS

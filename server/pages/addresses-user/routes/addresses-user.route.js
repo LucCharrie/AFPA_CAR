@@ -12,8 +12,7 @@ router.route('/createGPS')
 router.route('/')
     .get(addresses.list);
     
-
-// router.route('/')
-//     .post()
+// router.route('/createGPS')
+//     .get(addresses.update)
 
 module.exports = router;

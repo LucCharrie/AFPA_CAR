@@ -65,7 +65,7 @@ module.exports.parseData = function ( req, res, next, data )
   }
   else
   {
-
+ 
     return res.status( 500 ).json( { 'errors': [ { msg: 'Error request delete' }] } );
   }
   // console.log(my_data[0]);
@@ -74,6 +74,40 @@ module.exports.parseData = function ( req, res, next, data )
 }
 
 
+/**
+ * Update an address of current user
+ */
+// module.exports.update = function ( req, res )
+// {
+
+//   let addressUser = new AddressUserModel( {
+
+//     libelle: req.libelle,
+//     userRef: {
+//       id_user: req.session.user.id
+//     },
+//     addressRef: {
+//       id: req.idAddress
+//     }
+    
+//   } );
+
+//   AddressesUserService.update( addressUser, ( err ) =>
+//   {
+//     console.log(addressUser);
+//     if ( err )
+//     {
+//       console.log(45);
+//       res.status( 500 ).json( { 'errors': [ { msg: 'L\'addresse n\'a pas pu être modifiée !' }] } );
+//     }
+//     else
+//     {
+//       console.log(46);
+//       res.json( { 'success': [ { msg: 'Adresse modifiée !' }] } );
+//     }
+//     console.log(47);
+//   } );
+// }
 
 
 /**
@@ -96,17 +130,13 @@ module.exports.delete = function ( req, res )
 
   AddressesUserService.delete( addressUser, ( err ) =>
   {
-    console.log(44);
     if ( err )
     {
-      console.log(45);
-      res.status( 500 ).json( { 'errors': [ { msg: 'L\'addresse n\'a pas pu être supprimée !' }] } );
+      res.status( 500 ).json( { 'errors': [ { msg: 'L\'adresse n\'a pas pu être supprimée !' }] } );
     }
     else
     {
-      console.log(46);
-      res.json( { 'success': [ { msg: 'Addresse supprimée !' }] } );
+      res.json( { 'success': [ { msg: 'Adresse supprimée !' }] } );
     }
-    console.log(44);
   } );
 }

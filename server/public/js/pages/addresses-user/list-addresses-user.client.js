@@ -43,6 +43,12 @@ var listAddressUserController = {};
         });
     }
 
+    self.addressUserEditCard = function(my_id, my_libelle) {
+        self.addressUserDeleteCard(my_id, my_libelle);
+
+        location.replace('/addresses-user/createGPS');
+    }
+
     self.addressUserBuildCard = function(addressUser) {
         var myAddress =  (addressUser.address.numero == null)? '' : ' ' + addressUser.address.numero;
         myAddress += (addressUser.address.rep == null)? '' : ' ' + addressUser.address.rep;
@@ -63,12 +69,13 @@ var listAddressUserController = {};
                  "</table>" +
             "</div>" +
             "<div class='extra content'>" +
-                "<div class='ui basic blue button'> Editer</div>" +
+                "<div class='ui basic blue button' onclick='listAddressUserController.addressUserEditCard(" +
+                addressUser.address.id + ",\"" + addressUser.libelle + "\")'> Editer</div>" +
                 "<div class='ui basic red button' onclick='listAddressUserController.addressUserDeleteCard(" +
                  addressUser.address.id + ",\"" + addressUser.libelle + "\")'> Supprimer</div>" +
                 // "<div class='ui basic red button' onclick=''> Supprimer</div>" +
             "</div>" +
-        "</div>" + "<br>";;
+        "</div>" + "<br>";
 
         
         return card;

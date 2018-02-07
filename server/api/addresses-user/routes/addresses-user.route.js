@@ -10,13 +10,15 @@ router.route('/create')
 
 router.route('/me')
     .get(addressesUserMeCtrl.list)
+    // .put(addressesUserMeCtrl.update)
     .post(addressesUserMeCtrl.delete);
-
-router.route('/:data')
-    .delete(addressesUserMeCtrl.delete);
 
 router.route('/createGPS')
     .post(addressesUserCtrl.createGPS);
+
+router.route('/:data')
+    // .post(addressesUserMeCtrl.update)
+    .delete(addressesUserMeCtrl.delete);
 
 router.param('data', addressesUserMeCtrl.parseData);
 

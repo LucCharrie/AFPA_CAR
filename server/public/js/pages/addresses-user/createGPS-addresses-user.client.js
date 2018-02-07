@@ -15,7 +15,7 @@ var createAddressUserController = {};
                 rep       : $('#form-create-address input[name="rep"]').val(),
                 street    : $('#form-create-address input[name="street"]').val(),
                 city      : $('#form-create-address input[name="city"]').val(),
-                zip       : $('#form-create-address input[name="zip"]').val(),
+                zip_code  : $('#form-create-address input[name="zip_code"]').val(),
 
                 latitude  : $('#form-create-address input[name="latitude"]').val(),
                 longitude : $('#form-create-address input[name="longitude"]').val()
@@ -30,7 +30,7 @@ var createAddressUserController = {};
                     rep: form.rep,
                     street: form.street,
                     city: form.city,
-                    zip: form.zip,
+                    zip_code: form.zip_code,
 
                     latitude: form.latitude,
                     longitude: form.longitude
