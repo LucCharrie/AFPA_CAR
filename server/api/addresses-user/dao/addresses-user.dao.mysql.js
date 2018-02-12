@@ -23,12 +23,18 @@ class AddressesUserDAO
 
     static createGPS( addressUser, cb )
     {
-        console.log( addressUser );
+        console.log("createGPS");
         console.log( addressUser.libelle );
-        // db.query('Call _PS_... (?,?,?)',
-        // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
-        //     cb(err);
-        // });
+        console.log( addressUser );
+
+        db.query('Call _PS_update_user_address_v2(?,?,?,?,?,?,?,?,?)',
+        [addressUser.user.id, addressUser.libelle, addressUser.address.numero, addressUser.address.street, addressUser.address.zip_code, addressUser.address.rep, addressUser.address.city, addressUser.address.latitude, addressUser.address.longitude], (err) => {
+            cb(err);
+        });
+        ( err ) =>
+            {
+                cb( err );
+            };
     }
 
     static listByUserID( idUser, cb )
@@ -79,22 +85,19 @@ class AddressesUserDAO
     }
 
 
-    static createGPS( addressUser, cb )
-    {
-        console.log( addressUser );
-        console.log( addressUser.libelle );
-        // db.query('Call _PS_... (?,?,?)',
-        // [ addressUser.user.id, addressUser.libelle, addressUser.street], (err) => {
-        //     cb(err);
-        // });
-    }
+    // static update( addressUser, cb )
+    // {
+    //     console.log( addressUser.user.id );
+    //     console.log( addressUser.libelle );
+    //     db.query('Call _PS_update_user_address (?,?,?)',
+    //     [ addressUser.user.id, addressUser.address_id, addressUser.libelle], (err) => {
+    //         cb(err);
+    //     });
+    // }
 
     static delete( addressUser, cb )
     {
-        console.log(66);
-        console.log(addressUser);
-        console.log(addressUser.address.id );
-        console.log( addressUser.libelle);
+        console.log("DELETE");
         db.query(`UPDATE afpa_car_test.user_address
         SET date_suppression = DATE(NOW())
         WHERE 	user_id = ?

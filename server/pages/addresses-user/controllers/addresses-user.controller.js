@@ -29,3 +29,15 @@ module.exports.show = function(req, res) {
 module.exports.createGPS = function(req, res) {
     res.render('addresses-user/views/createGPS');
 }
+
+
+// module.exports.update = function(req, res) {
+//     AddressesUserService.update(req.params.idAddress, (err, addressUser) => {
+//         if (addressUser && addressUser.user.id == req.session.user.id) {
+//             res.render('addresses-user/views/createGPS', { addressUser: addressUser });
+//         }
+//         else {
+//             res.render('core/views/forbidden');
+//         }
+//     });
+// }

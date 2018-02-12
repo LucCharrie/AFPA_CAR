@@ -18,14 +18,11 @@ class AddressesUserService
     }
 
     static delete(addressUser, cb) {
-        console.log(9999);
         return AddressesUserDAO.delete(addressUser, (err) => {
             // console.log(699);
             if (err) {
-                console.log(9998);
                 console.error(err);
             }
-            console.log(9999);
             cb(err);
         });
     }    
@@ -42,8 +39,19 @@ class AddressesUserService
         });
     }
 
+    // static update(addressUser, idAuto, cb) {
+        
+    //     return AddressesUserDAO.update(addressUser, idAuto, (err, addressUserReturned) => {
+    //         if (err) {
+    //             console.error(err);
+    //         }
+
+    //         cb(err, addressUserReturned);
+    //     });
+    // }
+
     static createGPS(addressUser, cb) {
-        return AddressesUserDAO.create(addressUser, (err, addressUserReturned) => {//createGPS dans DAO
+        return AddressesUserDAO.createGPS(addressUser, (err, addressUserReturned) => {//createGPS dans DAO
             if (err) {
                 console.error(err);
             }

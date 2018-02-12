@@ -37,10 +37,16 @@ var listAddressUserController = {};
            
             success: function (data) {
                 console.log(1);
-                $('.card[data-id=' + my_id + "' lib='" + my_libelle + "]").remove();
+                $(".card[data-id='" + my_id + "~~" + my_libelle + "']").remove();
                 Kovoit.pushNotification('success', data.success);
             }
         });
+    }
+
+    self.addressUserEditCard = function(my_id, my_libelle) {
+        self.addressUserDeleteCard(my_id, my_libelle);
+
+        location.replace('/addresses-user/createGPS');
     }
 
     self.addressUserBuildCard = function(addressUser) {
@@ -49,7 +55,7 @@ var listAddressUserController = {};
         myAddress += (addressUser.address.street == null)? '' : ' ' + addressUser.address.street;
         myAddress = (myAddress.length > 34)? myAddress.slice(0,34) + "..." : myAddress;
         var card =
-        "<div class='card card-trip-driver' data-id='" + addressUser.address.id + "' lib='" + addressUser.libelle + "'>" +
+        "<div class='card card-trip-driver' data-id='" + addressUser.address.id + "~~" + addressUser.libelle + "'>" +
             "<div class='content'>" +
                 "<div class='header'>" + addressUser.libelle + "</div>" +
             "</div>" +
@@ -63,12 +69,13 @@ var listAddressUserController = {};
                  "</table>" +
             "</div>" +
             "<div class='extra content'>" +
-                "<div class='ui basic blue button'> Editer</div>" +
+                "<div class='ui basic blue button' onclick='listAddressUserController.addressUserEditCard(" +
+                addressUser.address.id + ",\"" + addressUser.libelle + "\")'> Editer</div>" +
                 "<div class='ui basic red button' onclick='listAddressUserController.addressUserDeleteCard(" +
                  addressUser.address.id + ",\"" + addressUser.libelle + "\")'> Supprimer</div>" +
                 // "<div class='ui basic red button' onclick=''> Supprimer</div>" +
             "</div>" +
-        "</div>" + "<br>";;
+        "</div>" + "<br>";
 
         
         return card;
