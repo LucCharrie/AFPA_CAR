@@ -2,17 +2,17 @@
 
 let express = require('express');
 let tripsDriverCtrl = require('../controllers/trips-driver.controller');
-let tripsDriverPolicies = require('../policies/trips-driver.policies');
+let tripsDriverPolicy = require('../policies/trips-driver.policies');
 let router = express.Router();
 
 
 /**
  * Trips driver routes
  */
-router.route('/')
+router.route('/')//.all(tripsDriverPolicy.isAllowed)
   .get(tripsDriverCtrl.index);
 
-  router.route('/edit/:idTripFavorite')
+router.route('/edit/:idTripFavorite')
   .get(tripsDriverCtrl.edit);
 
 router.route('/create')

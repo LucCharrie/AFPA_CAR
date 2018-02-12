@@ -3,74 +3,7 @@ let TripFavoriteModel = require('../models/trip_favorite.model');
 
 class TripFavoriteDAO {
 
-    static list(id, cb) {
-
-        console.log("id:", id)
-
-        db.query(`SELECT 
-                id_trip_favorite, 
-                name,
-                nb_seats,
-                driver,
-                user_id,
-                car_user_id,
-                address_departure_id,
-                address_arrival_id
-                FROM trip_favorite
-                WHERE user_id != 1`, [id], (err, rows) => {
-
-                rows = rows || [];
-
-                rows = rows.map((row) => {
-                    console.log(row)
-                    return row;
-                });
-
-                cb(err, rows);
-            });
-    }
-
-
-    static create(trip, cb) {
-        
-
-        db.query(`CALL _PS_create_trip_favorite(?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-            [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id,
-            trip.address_departure_id, trip.address_arrival_id,
-            trip.lun, trip.mar, trip.mer, trip.jeu, trip.ven, trip.sam, trip.dim],
-            (err, rows) => {
-                cb(err);
-            });
-
-        db.query(`
-            SELECT id_trip_favorite 
-            FROM trip_favorite
-            ORDER BY id_trip_favorite DESC 
-            LIMIT 1;`,
-            (err, rows) => {
-                let idTripFav = rows;
-                cb(err);
-
-                db.query('CALL _PS_tripFromFavorite (?, 2)', [idTripFav[0].id_trip_favorite], (err) => {
-                    cb(err);
-                });
-            });
-            
-    }
-
-
-
-    static delete(trip, cb) {
-        db.query('DELETE FROM trip_favorite WHERE id_trip_favorite = ?', [trip.id_trip_favorite],
-            (err) => {
-                cb(err);
-            });
-
-    }
-
-
     static findByID(id, cb) {
-
         db.query('SELECT * FROM trip_favorite WHERE id_trip_favorite = ? LIMIT 1', [id], (err, rows) => {
             if (rows[0]) {
                 cb(err, new TripFavoriteModel(rows[0]))
@@ -81,7 +14,10 @@ class TripFavoriteDAO {
         });
     }
 
-    static findByUserID(id, cb) {
+
+
+
+    static list(id, cb) {
 
         db.query(`
         ######################################
@@ -126,8 +62,6 @@ class TripFavoriteDAO {
 
                 if (rows) {
                     rows = rows.map((row) => {
-
-
                         return new TripFavoriteModel({
                             id_trip_favorite: row.id_trip_favorite,
                             name: row.name,
@@ -174,9 +108,7 @@ class TripFavoriteDAO {
                                     }
                                 }
                             }
-
                         });
-
                     });
                     cb(err, rows);
                 }
@@ -185,6 +117,45 @@ class TripFavoriteDAO {
                 }
 
             });
+    }
+
+    static create(trip, cb) {
+
+        db.query(`CALL _PS_create_trip_favorite(?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            [trip.name, trip.nb_seats, trip.driver, trip.user_id, trip.car_user_id,
+            trip.address_departure_id, trip.address_arrival_id,
+            trip.lun, trip.mar, trip.mer, trip.jeu, trip.ven, trip.sam, trip.dim],
+            (err, rows) => {
+                cb(err);
+            });
+
+        db.query(`
+            SELECT id_trip_favorite 
+            FROM trip_favorite
+            ORDER BY id_trip_favorite DESC 
+            LIMIT 1;`,
+            (err, rows) => {
+                let idTripFav = rows;
+                cb(err);
+
+                db.query('CALL _PS_tripFromFavorite (?, 2)', [idTripFav[0].id_trip_favorite], (err) => {
+                    cb(err);
+                });
+            });
+    }
+
+
+    static update(trip, cb) {
+        db.query('', [trip], (err) => {
+            cb(err);
+        });
+    }
+
+
+    static delete(idTrip, cb) {
+        db.query('CALL _PS_delete_trip_favorite(?)', [idTrip], (err) => {
+            cb(err);
+        });
     }
 }
 

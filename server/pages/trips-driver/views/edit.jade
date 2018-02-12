@@ -5,6 +5,50 @@ block added_scripts
 
 
 block content
-  h1 Editer mon trajet
+  h3(style="text-align:center; color: #ffffff") Editer mon trajet
+  
+  .ui.form    
+    .two.fields
+      .field
+        label Nom
+        input.tripForm#name_trip(type='text', name='name' value='#{trip.name}')
+//-       .field
+//-         label Conducteur
+//-         .ui.toggle.checkbox(style="margin-top: 10px")
+//-           input.tripForm(type="checkbox" name="driver" onchange="uiTrip.driver(this)")
+//-           label Non/Oui
+    
+//-     .two.fields
+//-       .field#cars_user_first
+//-       .field#cars_user_second
 
-  .ui.card-edit
+//-     hr(style="align:center; color: #ffffff")     
+//-     .seven.fields(style="margin-top: 17px")
+//-       .field
+//-         .ui.circular.large.label(name="days", data-id="false", onclick="uiTrip.days(this)") L
+//-       .field
+//-         .ui.circular.large.label(name="days", data-id="false", onclick="uiTrip.days(this)") M
+//-       .field
+//-         .ui.circular.large.label(name="days", data-id="false", onclick="uiTrip.days(this)") M
+//-       .field
+//-         .ui.circular.large.label(name="days", data-id="false", onclick="uiTrip.days(this)") J
+//-       .field
+//-         .ui.circular.large.label(name="days", data-id="false", onclick="uiTrip.days(this)") V
+//-       .field 
+//-         .ui.circular.large.label(name="days", data-id="false", onclick="uiTrip.days(this)") S
+//-       .field
+//-         .ui.circular.large.label(name="days", data-id="false", onclick="uiTrip.days(this)") D        
+
+//-     hr(style="align:center; color: #ffffff")
+//-     ul#parentVia(style="list-style:none; padding-left:0")
+//-       li.field
+//-         label Départ
+//-         select.tripForm.ui.dropdown#address_departure(name='address_departure_id')
+//-       li#viaEnd.field
+//-         label Arrivée
+//-         select.tripForm.ui.dropdown#address_arrival(name='address_arrival_id')
+    
+//-     .ui.button(onclick="createTripFavorite.sendCoords()") Calcul d'itinéraire
+//-     .ui.button#viaMore(onclick="uiTrip.viaMore()") +
+
+//- .ui.bottom.attached.button#createTrip(style="width: 40%; border-radius: 0px 0px 10px 10px;", onclick="createTripFavorite.createTrip()") Créer  

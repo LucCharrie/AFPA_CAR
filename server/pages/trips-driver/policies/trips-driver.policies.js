@@ -3,13 +3,27 @@
 let acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
-acl.allow([{
+acl.allow([
+  {
     roles: ['user'],
-    allows: [{
-        resources: '/trips-driver',
-        permissions: ['get']
-    }]
-}]);
+    allows:
+      [
+        {
+          resources: '/trips-driver',
+          permissions: ['get']
+        },
+        {
+          resources: '/trips-driver/create',
+          permissions: ['get']
+        },
+        {
+          resources: '/edit/:idTripFavorite',
+          permissions: ['get']
+        }       
+      ]
+  }
+]);
+
 
 exports.isAllowed = function (req, res, next) {
   var roles = (req.session.user) ? req.session.user.roles.split(',') : ['guest'];
@@ -21,9 +35,7 @@ exports.isAllowed = function (req, res, next) {
       if (isAllowed) {
         return next();
       } else {
-        return res.status(403).json({
-          message: 'You need subscribe'
-        });
+        return res.status(403).json({ message: 'You need subscribe'});
       }
     }
   });

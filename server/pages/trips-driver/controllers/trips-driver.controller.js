@@ -2,33 +2,23 @@ let TripFavoriteService = require(__base + 'api/trip_favorite/services/trip_favo
 
 
 
-/**
- * Index
- */
-module.exports.index = function(req, res) {
-  res.render('trips-driver/views/index');
-
+module.exports.index = function (req, res) {
+    res.render('trips-driver/views/index');
 };
 
-/**
- * Edit
- */
-module.exports.edit = function(req, res){
-  TripFavoriteService.findByID(req.params.idTripFavorite, (err, tripFavorite) => {
-    // if (tripFavorite && tripFavorite.user.id == req.session.user.id) {
-    //     res.render('cars-user/views/edit', { tripFavorite: tripFavorite });
-    // }
-    // else {
-    //     res.render('core/views/forbidden');
-    // }
-    res.render('trips-driver/views/edit', { tripFavorite: tripFavorite });
 
-});
+module.exports.edit = function (req, res) {
+  TripFavoriteService.findByID(req.params.idTripFavorite, (err, tripFavorite) => {
+    if (tripFavorite && tripFavorite.user_id == req.session.user.id) {
+      res.render('trips-driver/views/edit', { trip: tripFavorite });
+    }
+    else {
+      res.render('core/views/forbidden');
+    }
+  });
 }
 
-/**
- * Create
- */
-module.exports.create = function(req, res) {
+
+module.exports.create = function (req, res) {
   res.render('trips-driver/views/create');
 };

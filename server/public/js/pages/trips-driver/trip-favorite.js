@@ -30,12 +30,12 @@ var listTripFavCtrl = {};
 
   self.tripFavDeleteCard = function(id) {
       $.ajax({
-          url: '' + id,
+          url: '/api/trip_favorite/' + id,
           type: 'DELETE',
           dataType: 'json',
           success: function (data) {
               $('.card[data-id=' + id + ']').remove();
-              Kovoit.pushNotification('success', data.success);
+              // Kovoit.pushNotification('success', data.success);
           }
       });
   }
@@ -65,7 +65,7 @@ var listTripFavCtrl = {};
       "</table>" +
       "</div>" +
       "<div class='extra content'>" +
-      "<a href='/trips-driver/edit/'" + trip.id_trip_favorite + "' class='ui basic blue button'> Editer</a>" +
+      "<a href='/trips-driver/edit/"+ trip.id_trip_favorite +"' class='ui basic blue button'> Editer</a>" +
       "<a class='ui basic red button' onclick='listTripFavCtrl.tripFavDeleteCard(" + trip.id_trip_favorite + ")'> Supprimer</a>" +
       "</div>" +
       "</div>";

@@ -56,7 +56,7 @@ var createTripFavorite = {};
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(self.map);
 
         self.router = new L.Routing.osrmv1({
-            serviceUrl: 'http://10.111.61.255:5000/route/v1'
+            serviceUrl: 'http://10.111.61.84:5000/route/v1'
         });
 
     };
