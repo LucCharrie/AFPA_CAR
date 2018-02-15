@@ -11,7 +11,7 @@ let TripService = require('../services/trip.service');
  * List of Address
  */
 module.exports.list = function(req, res) {
-    TripService.list((err, tripList) => {
+    TripService.list(req.session.user.id, (err, tripList) => {
         res.json(tripList);
     });
 }

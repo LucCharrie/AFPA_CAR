@@ -1,24 +1,65 @@
 let moment = require(__base + 'config/moment')
+let TripFav = require(__base + 'api/trip_favorite/models/trip_favorite.model');
 
 
 class Trip {
     constructor(row) {
-        this.row = row || {
-            id: null,
-            canceled: '',
-            nb_seats: '',
-            hours_departure: '',
-            hours_arrival: '',
-            pathOSRM: '',
-            trip_favorite_id: ''
+
+        this.row = {
+            id_trip: row.id_trip,
+            canceled: row.canceled,
+            nb_seats: row.nb_seats,
+            hours_departure: row.hours_departure,
+            hours_arrival: row.hours_arrival,
+
+            tripFavRef: new TripFav({
+                id_trip_favorite: row.id_trip_favorite,
+                name: row.name,
+                driver: row.driver,
+
+                addressDepRef: {
+                    street: row.depStr,
+                    city: row.depCity,
+                    zip_code: row.depZip,
+                    numero: row.depNum,
+                    latitude: row.depLat,
+                    longitude: row.depLng,
+                    rep: row.depRep
+                },
+
+                addressArrRef: {
+                    street: row.arrStr,
+                    city: row.arrCity,
+                    zip_code: row.arrZip,
+                    numero: row.arrNum,
+                    latitude: row.arrLat,
+                    longitude: row.arrLng,
+                    rep: row.arrRep
+                },
+
+                carUserRef: {
+                    color: row.color,
+                    numimmat: row.numimmat,
+                    carRef: {
+                        model_name: row.model_name,
+                        brandRef: {
+                            brand_name: row.brand_name
+                        }
+                    }
+                },
+
+                userRef: {
+                    login: row.login
+                }
+            })
         };
     }
 
-    get id() {
-        return this.row.id;
+    get id_trip() {
+        return this.row.id_trip;
     }
-    set id(val) {
-        this.row.id = val;
+    set id_trip(val) {
+        this.row.id_trip = val;
     }
 
     get canceled() {
@@ -56,22 +97,22 @@ class Trip {
         this.row.pathOSRM = val;
     }
 
-    get trip_favorite_id() {
-        return this.row.trip_favorite_id;
+    get tripFavRef() {
+        return this.row.tripFavRef;
     }
-    set trip_favorite_id(val) {
-        this.row.trip_favorite_id = val;
+    set tripFavRef(val) {
+        this.row.tripFavRef = val;
     }
 
     toJSON() {
         return {
-            id: this.id,
+            id_trip: this.id_trip,
             canceled: this.canceled,
             nb_seats: this.nb_seats,
             hours_departure: this.hours_departure,
             hours_arrival: this.hours_arrival,
             pathOSRM: this.pathOSRM,
-            trip_favorite_id: this.trip_favorite_id
+            tripFavRef: this.tripFavRef
         };
     }
 

@@ -1,5 +1,7 @@
 let Address = require(__base + 'api/address/models/address.model');
 let CarUser = require(__base + 'api/cars-user/models/car-user.model');
+let User = require(__base + 'api/users/models/user.model');
+
 let AddressUser = require(__base + 'api/addresses-user/models/addresses-user.model');
 let TripFavDay = require('./trip_favorite_has_day_week.model')
 
@@ -20,14 +22,15 @@ class TripFavoriteModel
             tripFavDayRef:'',
             addressDepRef: '',
             addressArrRef:'',
-            carUserRef:'', 
+            carUserRef:'',
+            userRef: '',
             vias:''   
         };
         this.row.tripFavDayRef = new TripFavDay(this.row.tripFavDayRef);
         this.row.addressDepRef = new Address(this.row.addressDepRef);
         this.row.addressArrRef = new Address(this.row.addressArrRef);
         this.row.carUserRef = new CarUser(this.row.carUserRef);
-        
+        this.row.userRef = new User(this.row.userRef);
     }
 
     get id_trip_favorite() {
@@ -142,6 +145,13 @@ class TripFavoriteModel
         this.row.vias = val;
     }
 
+    get userRef() {
+        return this.row.userRef;
+    }
+
+    set userRef(val) {
+        this.row.userRef = val;
+    }
 
     toJSON() {
         return {
@@ -158,7 +168,8 @@ class TripFavoriteModel
             addressDepRef: this.addressDepRef,
             addressArrRef: this.addressArrRef,
             carUserRef: this.carUserRef,
-            vias: this.vias
+            vias: this.vias,
+            userRef: this.userRef
         };
     }
 

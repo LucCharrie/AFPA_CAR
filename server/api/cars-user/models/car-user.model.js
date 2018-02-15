@@ -12,8 +12,13 @@ class CarUserModel
             numimmat: ''
         };
 
-        this.row.carRef = new CarModel(this.row.carRef);
-        this.row.userRef = new UserModel(this.row.userRef);
+        if (this.row.carRef) {
+            this.row.carRef = new CarModel(this.row.carRef);
+        }
+
+        if (this.row.userRef) {
+            this.row.userRef = new UserModel(this.row.userRef);
+        }
     }
 
     get id() {
