@@ -26,13 +26,13 @@ var listTripCtrl = {};
     $('.ui.table tbody').append(self.tripBuildRow(trip));
   }
 
-  self.tripDeleteCard = function(id) {
+  self.tripDeleteRow = function(id) {
       $.ajax({
           url: '/api/trip/' + id,
           type: 'DELETE',
           dataType: 'json',
           success: function (data) {
-              $('.card[data-id=' + id + ']').remove();
+              $('tr[data-id=' + id + ']').remove();
           }
       });
   }
@@ -42,14 +42,14 @@ var listTripCtrl = {};
     var dep = moment.parseZone(trip.hours_departure).local().format('Do MMMM YYYY, h:mm:ss a');
     var arr = moment.parseZone(trip.hours_arrival).local().format('Do MMMM YYYY, h:mm:ss a');
     var row =
-      "<tr>" +
+      "<tr data-id=" + trip.id_trip  +">" +
       "<td>" + trip.tripFavRef.addressDepRef.numero + " / " + trip.tripFavRef.addressDepRef.longitude + "</td>" +
       "<td>" + trip.tripFavRef.addressArrRef.latitude + " / " + trip.tripFavRef.addressArrRef.longitude + "</td>" +
       "<td>" + dep + "</td>" +
       "<td>" + arr + "</td>" +
       "<td>" +
       "<a href='/trips/edit/"+ trip.id_trip +"' class='ui basic blue button'> Editer</a>" +
-      "<a class='ui basic red button' onclick='listTripCtrl.tripDeleteCard(" + trip.id_trip + ")'> Supprimer</a>" +
+      "<a class='ui basic red button' onclick='listTripCtrl.tripDeleteRow(" + trip.id_trip + ")'> Supprimer</a>" +
       "</td>" +
       "</tr>";
 

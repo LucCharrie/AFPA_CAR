@@ -10,7 +10,6 @@ let CarUserModel = require('../models/car-user.model');
 
 class CarsUserDAO {
     static create(carUser, cb) {
-        console.log(carUser.car);
         db.query('INSERT INTO car_user SET color = ?, numimmat = ?, car_id = ?, user_id = ?', 
         [carUser.color, carUser.numimmat, carUser.car.id, carUser.user.id], (err, result) => {
             return (err) ? cb(err) : CarsUserDAO.find(result.insertId, cb);

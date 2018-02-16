@@ -1,0 +1,24 @@
+extends /core/views/layout
+
+block added_scripts
+  //- script(async, defer, src="/public/js/pages/trips/trips-edit.js")
+
+block content
+
+  h1 Editer mon trajet
+  .ui.form(id='form-edit-trip' data-id='#{trip.id_trip}')
+    .field
+      label Nombre de sièges disponibles
+      input( name='nb_seats' value='#{trip.nb_seats}' type='number')
+
+    .field
+      label Date de départ
+      input( name='hours_departure' value='#{trip.hours_departure}' type='datetime-local')
+    .field
+      label Date d'arrivée
+      input( name='hours_arrival' value='#{trip.hours_arrival}' type='datetime-local')
+
+
+    br
+    br
+    button.ui.button(type='submit') Mettre à jour les informations

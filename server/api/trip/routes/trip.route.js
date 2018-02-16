@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 var tripCtrl = require('../controllers/trip.controller');
 
+router.param('idTrip', tripCtrl.tripByID);
+
 router.route('/')
     .get(tripCtrl.list)
 
 router.route('/:idTrip')
     .get(tripCtrl.read)
+    .put(tripCtrl.update)
     .delete(tripCtrl.delete);
-
-router.param('idTrip', tripCtrl.tripByID);
 
 
 module.exports = router;

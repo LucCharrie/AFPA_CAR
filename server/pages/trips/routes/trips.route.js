@@ -12,7 +12,7 @@ let router = express.Router();
 router.route('/')
   .get(tripsCtrl.index);
 
-router.route('/edit')
- // .get(tripsCtrl.create);
+router.route('/edit/:idTrip')
+   .get(tripsCtrl.edit);
 
 module.exports = router;

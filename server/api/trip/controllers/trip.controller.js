@@ -23,13 +23,23 @@ module.exports.create = function(req, res) {
 }
 
 module.exports.delete = function(req, res) {
-    TripService.delete((err, trip) => {
+    TripService.delete(req.trip.id_trip, (err, trip) => {
         if (err) {
             res.status(500).json({ 'error': 'Failed to delete Trip !' });
         } else {
             res.json({ 'success': ' Trip !', ' Trip': trip });
         }
     });
+}
+
+module.exports.update = function(req, res) {
+    TripService.update(req.trip, (err, trip)=> {
+        if (err) {
+            res.status(500).json({ 'error': 'Failed to update Trip !' });
+        } else {
+            res.json(trip);
+        } 
+    })
 }
 
 module.exports.read = function(req, res) {

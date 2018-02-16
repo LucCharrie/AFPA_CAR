@@ -15,6 +15,10 @@ class TripService {
         return TripDAO.delete(args, cb);
     }
 
+    static update(args, cb) {
+        return TripDAO.update(args, cb);
+    }
+
     static findByID(id, cb) {
         return TripDAO.findByID(id, cb);
     }
