@@ -48,7 +48,8 @@ class TripDAO {
         LEFT JOIN car_brand
         ON car.car_brand_id = car_brand.id_car_brand
         
-        WHERE tf.user_id = ?`;
+        WHERE tf.user_id = ?
+        ORDER BY trip.hours_departure`;
 
         db.query(query, [idUser], (err, rows) => {
             rows = rows || [];

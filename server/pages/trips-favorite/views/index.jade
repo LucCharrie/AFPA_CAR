@@ -1,0 +1,25 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, defer, src="/public/js/pages/trips-favorite/trip-favorite.js")
+
+
+block content
+  h1 Configurer un trajet
+
+  .ui.container(style="margin-top: 30px")
+    a.ui.circular.large.label(href='/trips-favorite/create') + Créer un trajet
+
+    a.ui.circular.large.label(href='/cars-user/create') +  Ajouter une voiture
+
+    a.ui.circular.large.label(href='/addresses-user/create') + Ajouter une adresse 
+
+    br
+
+  h1 Mes trajets favoris
+  .ui.cards
+  
+
+
+
+ 

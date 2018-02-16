@@ -3,10 +3,13 @@
     .item.brand
       img(src='/public/img/logo-app.png')
     a.item(href='/home') Accueil
-    a.item(href='/trips-driver') Mes Trajets 
-    //- a.item(href='/trips-passager') Trajets passager
-    //- faire un onglet "administrateur" si le sus-dit administrateur est connecté
-    //- a.item(href='') Administrateur
+    .dropdown-container.item
+      a(href='/trips-favorite') Trajets
+      i(class='dropdown icon')
+      ul.dropdown-content
+        li: a.item(href='/trips') Mes Trajets
+        li: a.item(href='/trips-favorite') Créer un Trajet
+
 
     .ui.menu.right
       .dropdown-container.item
@@ -18,6 +21,4 @@
 
 
       a.item(href='/users') Mon profil
-      //- a.item(href='/cars-user') Mes voitures
-      //- a.item(href='/addresses-user') Mes Adresses
       a.item(href='/signin') Deconnexion

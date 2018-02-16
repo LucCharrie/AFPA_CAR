@@ -1,0 +1,19 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, defer, src="/public/js/pages/trips/trips.js")
+
+block content
+
+  h1 Mes trajets
+  
+  table.ui.celled.table.table-info
+    thead
+      tr
+        th Depart
+        th Arrivé
+        th Date depart
+        th Date arrivé
+        th
+      tr
+    tbody

@@ -48,8 +48,8 @@ app.use('/api/addresses-autocomplete', require('./api/addresses-autocomplete/rou
 // pages routes
 app.use('/', require('./pages/core/routes/core.route'));
 app.use('/cars-user', require('./pages/cars-user/routes/cars-user.route'));
-app.use('/trips-driver', require('./pages/trips-driver/routes/trips-driver.route'));
-app.use('/trips-passager', require('./pages/trips-passager/routes/trips-passager.route'));
+app.use('/trips-favorite', require('./pages/trips-favorite/routes/trips-favorite.route'));
+app.use('/trips', require('./pages/trips/routes/trips.route'));
 app.use('/users', require('./pages/users/routes/users.route'));
 app.use('/addresses-user', require('./pages/addresses-user/routes/addresses-user.route'));
 
