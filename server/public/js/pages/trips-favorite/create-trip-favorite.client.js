@@ -236,7 +236,7 @@ var createTripFavorite = {};
         });
 
 
-        window.open('/trips-driver', '_self');
+        window.open('/trips-favorite', '_self');
 
         // TripOBJ.days = [];
         // TripOBJ.vias = [];

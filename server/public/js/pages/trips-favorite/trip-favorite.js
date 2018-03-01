@@ -65,7 +65,7 @@ var listTripFavCtrl = {};
       "</table>" +
       "</div>" +
       "<div class='extra content'>" +
-      "<a href='/trips-driver/edit/"+ trip.id_trip_favorite +"' class='ui basic blue button'> Editer</a>" +
+      "<a href='/trips-favorite/edit/"+ trip.id_trip_favorite +"' class='ui basic blue button'> Editer</a>" +
       "<a class='ui basic red button' onclick='listTripFavCtrl.tripFavDeleteCard(" + trip.id_trip_favorite + ")'> Supprimer</a>" +
       "</div>" +
       "</div>";
