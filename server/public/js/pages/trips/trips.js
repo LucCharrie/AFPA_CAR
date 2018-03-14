@@ -43,13 +43,15 @@ var listTripCtrl = {};
     var arr = moment.parseZone(trip.hours_arrival).local().format('Do MMMM YYYY, h:mm:ss a');
     var row =
       "<tr data-id=" + trip.id_trip  +">" +
+      "<td>" + trip.tripFavRef.name + "</td>" +
+      "<td>" + trip.nb_seats + "</td>" +
       "<td>" + trip.tripFavRef.addressDepRef.numero + " / " + trip.tripFavRef.addressDepRef.longitude + "</td>" +
       "<td>" + trip.tripFavRef.addressArrRef.latitude + " / " + trip.tripFavRef.addressArrRef.longitude + "</td>" +
       "<td>" + dep + "</td>" +
       "<td>" + arr + "</td>" +
       "<td>" +
-      "<a href='/trips/edit/"+ trip.id_trip +"' class='ui basic blue button'> Editer</a>" +
-      "<a class='ui basic red button' onclick='listTripCtrl.tripDeleteRow(" + trip.id_trip + ")'> Supprimer</a>" +
+      "<a href='/trips/edit/"+ trip.id_trip +"' class='ui basic blue button'>   Editer   </a>" + "<br><br>" +
+      "<a class='ui basic red button' onclick='listTripCtrl.tripDeleteRow(" + trip.id_trip + ")'>Suppr.</a>" +
       "</td>" +
       "</tr>";
 

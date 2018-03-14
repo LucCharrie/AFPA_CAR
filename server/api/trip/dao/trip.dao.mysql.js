@@ -59,20 +59,18 @@ class TripDAO {
     }
 
     static delete(id, cb) {
-        console.log(id);
         db.query('DELETE FROM trip WHERE trip.id_trip = ?', [id], (err) => {
             cb(err);
         });
     }
 
     static update(trip, cb){
-        console.log(trip);
 
         let query = `UPDATE trip 
                     SET nb_seats = ?, hours_departure = ?, hours_arrival = ?  
                     WHERE id_trip = ? `;
 
-        db.query(query, [], (err)=>{
+        db.query(query, [trip.nb_seats, trip.hours_departure, trip.hours_arrival, trip.id_trip], (err)=>{
             
         });
     }

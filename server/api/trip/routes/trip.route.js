@@ -9,7 +9,7 @@ router.route('/')
 
 router.route('/:idTrip')
     .get(tripCtrl.read)
-    .put(tripCtrl.update)
+    .post(tripCtrl.update)
     .delete(tripCtrl.delete);
 
 

@@ -33,7 +33,7 @@ module.exports.delete = function(req, res) {
 }
 
 module.exports.update = function(req, res) {
-    TripService.update(req.trip, (err, trip)=> {
+    TripService.update(req.body, (err, trip)=> {
         if (err) {
             res.status(500).json({ 'error': 'Failed to update Trip !' });
         } else {
