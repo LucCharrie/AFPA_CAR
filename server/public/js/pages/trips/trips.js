@@ -11,7 +11,7 @@ var listTripCtrl = {};
       type: 'GET',
       dataType: 'json',
       success: function (data) {
-        self.tripListSuccess(data);
+        self.tripListSuccess(data) ;
       }
     });
   }
@@ -38,17 +38,29 @@ var listTripCtrl = {};
   }
 
   self.tripBuildRow = function (trip) {
+    var hoursDep = moment.parseZone(trip.hours_departure).local('fr').format('llll');
+    var hoursArr = moment.parseZone(trip.hours_arrival).local().format('llll');
+    var dep = trip.tripFavRef.addressDepRef;
+    var arr = trip.tripFavRef.addressArrRef;
+    
+    var depAddress = dep.numero + " " + ((dep.rep == null )? "": dep.rep + " ");
+    depAddress += dep.street + "<br>" + dep.city + " " + dep.zip_code;
+  
 
-    var dep = moment.parseZone(trip.hours_departure).local().format('Do MMMM YYYY, h:mm:ss a');
-    var arr = moment.parseZone(trip.hours_arrival).local().format('Do MMMM YYYY, h:mm:ss a');
+    var arrAddress = arr.numero + " " + ((arr.rep == "" )? "": arr.rep + " ");
+    arrAddress += arr.street + "<br>" +  arr.city + " " + arr.zip_code;
+
+    if ( depAddress === " <br> " ) arrAddress = arr.latitude + " / " + arr.longitude;
+    if ( arrAddress === " <br> " ) arrAddress = arr.latitude + " / " + arr.longitude;
+
     var row =
       "<tr data-id=" + trip.id_trip  +">" +
       "<td>" + trip.tripFavRef.name + "</td>" +
-      "<td>" + trip.nb_seats + "</td>" +
-      "<td>" + trip.tripFavRef.addressDepRef.numero + " / " + trip.tripFavRef.addressDepRef.longitude + "</td>" +
-      "<td>" + trip.tripFavRef.addressArrRef.latitude + " / " + trip.tripFavRef.addressArrRef.longitude + "</td>" +
-      "<td>" + dep + "</td>" +
-      "<td>" + arr + "</td>" +
+      "<td>" + ((trip.nb_seats)? trip.nb_seats : "Passager") + "</td>" +
+      "<td>" + depAddress + "</td>" +
+      "<td>" + arrAddress + "</td>" +
+      "<td>" + hoursDep + "</td>" +
+      "<td>" + hoursArr + "</td>" +
       "<td>" +
       "<a href='/trips/edit/"+ trip.id_trip +"' class='ui basic blue button'>   Editer   </a>" + "<br><br>" +
       "<a class='ui basic red button' onclick='listTripCtrl.tripDeleteRow(" + trip.id_trip + ")'>Suppr.</a>" +
@@ -66,4 +78,3 @@ var listTripCtrl = {};
 
 
 })(listTripCtrl);
-
