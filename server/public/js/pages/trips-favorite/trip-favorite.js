@@ -42,6 +42,19 @@ var listTripFavCtrl = {};
 
   self.tripFavBuildCard = function (trip) {
     console.log(trip);
+
+    var dep = trip.tripFavRef.addressDepRef;
+    var arr = trip.tripFavRef.addressArrRef;
+    
+    var depAddress = dep.numero + " " + ((dep.rep == null )? "": dep.rep + " ");
+    depAddress += dep.street + "<br>" + dep.city + " " + dep.zip_code;
+
+    var arrAddress = arr.numero + " " + ((arr.rep == "" )? "": arr.rep + " ");
+    arrAddress += arr.street + "<br>" +  arr.city + " " + arr.zip_code;
+
+    if ( depAddress === " <br> " ) arrAddress = arr.latitude + " / " + arr.longitude;
+    if ( arrAddress === " <br> " ) arrAddress = arr.latitude + " / " + arr.longitude;
+
     var card =
       "<div class='card card-trip-driver' data-id='" + trip.id_trip_favorite + "'>" +
       "<div class='content'>" +
@@ -52,11 +65,11 @@ var listTripFavCtrl = {};
       "<tbody>" +
       "<tr>" +
       "<td> Départ </td>" +
-      "<td>" + trip.addressDepRef.latitude + " / " + trip.addressDepRef.longitude + "</td>" +
+      "<td>" + depAddress + "</td>" +
       "</tr>" +
       "<tr>" +
       "<td> Arrivée </td>" +
-      "<td>" + trip.addressArrRef.latitude + " / " + trip.addressArrRef.longitude + "</td>" +
+      "<td>" + arrAddress + "</td>" +
       "</tr>" +
       "<tr>" +
       "<td> Jours </td>" +
@@ -81,4 +94,3 @@ var listTripFavCtrl = {};
 
 
 })(listTripFavCtrl);
-
