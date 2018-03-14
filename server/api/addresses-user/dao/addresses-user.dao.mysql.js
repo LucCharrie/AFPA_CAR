@@ -28,7 +28,17 @@ class AddressesUserDAO
         console.log( addressUser );
 
         db.query('Call _PS_update_user_address_v2(?,?,?,?,?,?,?,?,?)',
-        [addressUser.user.id, addressUser.libelle, addressUser.address.numero, addressUser.address.street, addressUser.address.zip_code, addressUser.address.rep, addressUser.address.city, addressUser.address.latitude, addressUser.address.longitude], (err) => {
+        [
+            addressUser.user.id,
+            addressUser.libelle,
+            addressUser.address.street,
+            addressUser.address.city,
+            addressUser.address.latitude,
+            addressUser.address.longitude,
+            addressUser.address.zip_code,
+            addressUser.address.numero,
+            addressUser.address.rep,
+        ], (err) => {
             cb(err);
         });
         ( err ) =>
@@ -53,7 +63,8 @@ class AddressesUserDAO
                 FROM user_address AS ua
                 LEFT JOIN address AS a ON a.id_address = ua.address_id
                 WHERE ua.date_suppression IS NULL AND 
-                ua.user_id =  ? ;`, [ idUser ], ( err, rows ) =>
+                ua.user_id =  ? ;`, 
+                [ idUser ], ( err, rows ) =>
             {
                 rows = rows || [];
 
@@ -85,19 +96,43 @@ class AddressesUserDAO
     }
 
 
-    // static update( addressUser, cb )
-    // {
-    //     console.log( addressUser.user.id );
-    //     console.log( addressUser.libelle );
-    //     db.query('Call _PS_update_user_address (?,?,?)',
-    //     [ addressUser.user.id, addressUser.address_id, addressUser.libelle], (err) => {
-    //         cb(err);
-    //     });
-    // }
+    static edit( addressUser, cb )
+    {
+        console.log(addressUser.address.id);
+        console.log(10);
+        db.query(`SELECT * FROM afpa_car_test.address
+        WHERE id_address = ?
+        
+        LIMIT 1;`,
+        [ addressUser.address.id], (err, rows) => {
+
+            rows = rows || [];
+            console.log(30);
+            cb( err, rows.map( ( row ) =>
+            {
+
+                return new AddressesUserModel( {
+                    addressRef: {
+                        id: row.id_address,
+                        street: row.street,
+                        city: row.city,
+                        latitude: row.latitude,
+                        longitude: row.longitude,
+                        zip_code: row.zip_code,
+                        numero: row.numero,
+                        rep: row.rep
+                    },
+
+                    libelle: row.libelle
+
+                } );
+
+            } ) );
+        });
+    }
 
     static delete( addressUser, cb )
     {
-        console.log("DELETE");
         db.query(`UPDATE afpa_car_test.user_address
         SET date_suppression = DATE(NOW())
         WHERE 	user_id = ?

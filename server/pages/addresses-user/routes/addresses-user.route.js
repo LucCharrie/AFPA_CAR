@@ -7,7 +7,11 @@ router.route('/create')
     .get(addresses.create);
 
 router.route('/createGPS')
-    .get(addresses.createGPS);    
+    .get(addresses.createGPS);  
+    
+router.route('/edit')
+    .get(addresses.edit);  
+
 
 router.route('/')
     .get(addresses.list);

@@ -16,10 +16,13 @@ router.route('/me')
 router.route('/createGPS')
     .post(addressesUserCtrl.createGPS);
 
-router.route('/:data')
+router.route('/edit')
+    .get(addressesUserMeCtrl.edit);
+
+router.route('/delete')
     // .post(addressesUserMeCtrl.update)
     .delete(addressesUserMeCtrl.delete);
 
-router.param('data', addressesUserMeCtrl.parseData);
+// router.param('data', addressesUserMeCtrl.parseData);
 
 module.exports = router;

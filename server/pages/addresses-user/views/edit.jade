@@ -1,0 +1,50 @@
+extends /core/views/layout
+
+block added_scripts
+  script(async, src='/public/js/pages/addresses-user/edit-addresses-user.client.js')
+
+block content
+  h1 Editer l'adresse
+  
+  .ui.form(id="form-create-address")
+    .field
+      label Intitulé
+      input(name='libelle' type='text' placeholder="Maison", value = 'tesr')
+      br
+    .fields
+      .four.wide.field
+        label Numero
+        .two.fields
+          .field
+            input(type='text', name='numero', maxlength='5', placeholder='22')
+          .field
+            input(type='text', name='rep', maxlength='9', placeholder='bis')
+      .nine.wide.field
+        label Rue
+        input(type='text', name='street', maxlength='255', placeholder='Rue du test')
+      .three.wide.field
+        label Ville
+        input(type='text', name='city', maxlength='150', placeholder='Montpellier')
+      .field
+        label Code postal
+        input(type='text', name='zip', maxlength='5', placeholder='34000')
+      br
+    br
+    .field
+        label Coordonnés GPS
+        
+    .fields
+      .sixteen.wide.field
+        .two.fields
+          .field
+            label Latitude
+            input(type='text', name='latitude', maxlength='20', placeholder='43.565361')
+            
+          .field
+            label Longitude
+            input(type='text', name='longitude', maxlength='20', placeholder='3.845116')
+        
+        a(href='https://www.coordonnees-gps.fr/') Trouver vos coordonnées GPS.
+    br
+    br
+    button.ui.button(type='submit') Ajouter l'adresse

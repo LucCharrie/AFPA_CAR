@@ -93,6 +93,51 @@ module.exports.createGPS = function(req, res) {
   } );
 }
 
+// module.exports.edit = function(req, res) {
+//   req.checkBody('libelle', 'Intitulé vide').notEmpty();
+//   req.checkBody('numero', 'Numero incorrect').isInt();
+  
+//   req.checkBody('street', 'Rue vide').notEmpty();
+//   req.checkBody('city', 'Ville vide').notEmpty();
+//   req.checkBody('zip_code', 'Code Postal vide').notEmpty();
+//   req.checkBody('latitude', 'Latitude vide').isFloat();
+//   req.checkBody('longitude', 'Longitude vide').isFloat();
+
+//   let errorsFields = req.validationErrors();
+
+//   if ( errorsFields )
+//   {
+//     return res.status( 500 ).json( { 'errors': errorsFields } );
+//   }
+
+//   let addressUser = new AddressUserModel( {
+
+//     libelle: req.body.libelle,
+//     addressRef: {
+//       street: req.body.street,
+//       city: req.body.city,
+//       latitude: req.body.latitude,
+//       longitude: req.body.longitude,
+//       numero: req.body.numero,
+//       zip_code: req.body.zip_code,
+//       rep: req.body.rep,
+//     },
+//     userRef: {
+//       id_user: req.session.user.id
+//     },
+//   } );
+
+//   AddressesUsersService.createGPS( addressUser, ( err ) =>
+//   {
+//     if ( err )
+//     {
+//       res.status( 500 ).json( { 'errors': [ { msg: 'Failed to create address !' }] } );
+//     } else
+//     {
+//       res.json( { 'success': [ { msg: 'addressUser Updated !' }], 'addressUser': addressUser } );
+//     }
+//   } );
+// }
 // module.exports.update = function(req, res) {
 //   req.addressUser.libelle = req.body.libelle;
 //   req.addressUser.idAddresses = req.

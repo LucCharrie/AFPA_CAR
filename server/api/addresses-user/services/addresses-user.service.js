@@ -19,7 +19,7 @@ class AddressesUserService
 
     static delete(addressUser, cb) {
         return AddressesUserDAO.delete(addressUser, (err) => {
-            // console.log(699);
+            console.log(699);
             if (err) {
                 console.error(err);
             }
@@ -39,16 +39,17 @@ class AddressesUserService
         });
     }
 
-    // static update(addressUser, idAuto, cb) {
+    static edit(addressUser, cb) {
         
-    //     return AddressesUserDAO.update(addressUser, idAuto, (err, addressUserReturned) => {
-    //         if (err) {
-    //             console.error(err);
-    //         }
+        return AddressesUserDAO.edit(addressUser, (err, addressUserReturned) => {
+            console.log("service");
+            if (err) {
+                console.error(err);
+            }
 
-    //         cb(err, addressUserReturned);
-    //     });
-    // }
+            cb(err, addressUserReturned);
+        });
+    }
 
     static createGPS(addressUser, cb) {
         return AddressesUserDAO.createGPS(addressUser, (err, addressUserReturned) => {//createGPS dans DAO

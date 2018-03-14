@@ -28,7 +28,7 @@ var listAddressUserController = {};
     }
 
     self.addressUserDeleteCard = function(my_id, my_libelle) {
-        var my_data = my_id + "~~" + my_libelle;
+        var my_data =  "delete?id=" + my_id + "&" + "lib=" + my_libelle;
         $.ajax({
             url: "/api/addresses-user/" + my_data,
             type: 'DELETE',
@@ -36,17 +36,17 @@ var listAddressUserController = {};
                        
            
             success: function (data) {
-                console.log(1);
-                $(".card[data-id='" + my_id + "~~" + my_libelle + "']").remove();
+                
+                $( ".card[data-id='" + my_id + "~~" + my_libelle + "']" ).remove();
                 Kovoit.pushNotification('success', data.success);
             }
         });
     }
 
     self.addressUserEditCard = function(my_id, my_libelle) {
-        self.addressUserDeleteCard(my_id, my_libelle);
+        // self.addressUserDeleteCard(my_id, my_libelle);
 
-        location.replace('/addresses-user/createGPS');
+        location.replace('/addresses-user/edit?id=' + my_id + "&lib=" + my_libelle );
     }
 
     self.addressUserBuildCard = function(addressUser) {

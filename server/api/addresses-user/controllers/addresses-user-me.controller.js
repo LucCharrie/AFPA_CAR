@@ -11,8 +11,8 @@ module.exports.createGPS = function ( req, res )
 {
   req.checkBody( 'address_name', 'Intitulé vide' ).notEmpty();
   req.checkBody( 'number', 'Adresse vide' ).isEmail();
-  req.checkBody( 'latitude', 'Latitude incorrect' ).islatLong(lat);
-  req.checkBody( 'longitude', 'Longitude incorrect' ).islatLong(long);
+  req.checkBody( 'latitude', 'Latitude incorrect' ).islatLong( lat );
+  req.checkBody( 'longitude', 'Longitude incorrect' ).islatLong( long );
 
   let errorsFields = req.validationErrors();
 
@@ -54,24 +54,6 @@ module.exports.list = function ( req, res )
   } );
 }
 
-module.exports.parseData = function ( req, res, next, data )
-{
-  //?ID&lib --- query(...)
-  var my_data = data.split( "~~" );
-  if ( my_data[ 0 ].match( /[0-9]/ ) && my_data.length == 2 )
-  {
-    req.idAddress = my_data[ 0 ];
-    req.libelle = my_data[ 1 ];
-  }
-  else
-  {
- 
-    return res.status( 500 ).json( { 'errors': [ { msg: 'Error request delete' }] } );
-  }
-  // console.log(my_data[0]);
-  // console.log(req.libelle);
-  next();
-}
 
 
 /**
@@ -89,7 +71,7 @@ module.exports.parseData = function ( req, res, next, data )
 //     addressRef: {
 //       id: req.idAddress
 //     }
-    
+
 //   } );
 
 //   AddressesUserService.update( addressUser, ( err ) =>
@@ -118,14 +100,14 @@ module.exports.delete = function ( req, res )
 
   let addressUser = new AddressUserModel( {
 
-    libelle: req.libelle,
+    libelle: req.query.lib,
     userRef: {
       id_user: req.session.user.id
     },
     addressRef: {
-      id: req.idAddress
+      id: req.query.id
     }
-    
+
   } );
 
   AddressesUserService.delete( addressUser, ( err ) =>
@@ -138,5 +120,26 @@ module.exports.delete = function ( req, res )
     {
       res.json( { 'success': [ { msg: 'Adresse supprimée !' }] } );
     }
+  } );
+}
+
+module.exports.edit = function ( req, res )
+{
+console.log(req.query.id);
+  let addressUser = new AddressUserModel( {
+
+    // libelle: req.query.lib,
+    // userRef: {
+    //   id_user: req.session.user.id
+    // },
+    addressRef: {
+      id: req.query.id
+    }
+
+  } );
+
+  AddressesUserService.edit( addressUser, ( err, addressUserReturned ) =>
+  {
+    res.json( addressUserReturned );
   } );
 }

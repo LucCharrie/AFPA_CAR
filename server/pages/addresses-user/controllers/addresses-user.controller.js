@@ -30,6 +30,10 @@ module.exports.createGPS = function(req, res) {
     res.render('addresses-user/views/createGPS');
 }
 
+module.exports.edit = function(req, res) {
+    res.render('addresses-user/views/edit');
+}
+
 
 // module.exports.update = function(req, res) {
 //     AddressesUserService.update(req.params.idAddress, (err, addressUser) => {
